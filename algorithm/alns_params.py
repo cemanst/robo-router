@@ -1,0 +1,10 @@
+M = 30
+delta = 400
+p0 = 0.95
+pf = 0.00001
+Tf = 100
+sa_iter_num = 1000
+reward_base = 0.001
+min_select_poss = 0.05
+f2_eps = 0.8
+f3_eps = 0.2
