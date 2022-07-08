@@ -165,10 +165,16 @@ def generate_graph(init_point, collection_points):
     return all_points, D, P
 
 
+def calculate_row_params(rows):
+    for r in rows:
+        r.k = (r.a.y-r.b.y) / (r.a.x-r.a.y)
+        r.n = r.a.y-r.k*r.a.x
+
+
 def prepare_data(init_point, collection_points, rows):
+    calculate_row_params(rows)
     determine_rows_for_collection(collection_points, rows)
     model.find_point_projections(collection_points)
-    return generate_graph(init_point, collection_points)
 
 
 

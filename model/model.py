@@ -21,15 +21,16 @@ class Row:
     n = 0
 
 
+#https://cs.nyu.edu/~yap/classes/visual/03s/hw/h2/math.pdf
 def get_projection(point, line_a, line_b):
-    x = np.array(point.x, point.y)
-    u = np.array(line_a.x, line_a.y)
-    v = np.array(line_b.x, line_b.y)
-    n = v - u
-    n /= np.linalg.norm(n, 2)
-    P = u + n * np.dot(x - u, n)
+    A = np.array([[line_b.x-line_a.x, line_b.y-line_a.y], [line_a.y-line_b.y, line_b.x-line_a.x]])
+    b = np.array([[-point.x*(line_b.x-line_a.x) - point.y*(line_b.y-line_a.y)]
+                     ,[-line_a.x*(line_b.x-line_a.x) - line_a.y*(line_b.y-line_a.y)]])
+
+    p = np.matmul(np.linalg.inv(A), b)
     ret = Point()
-    ret.x = P[0], ret.y = P[1]
+    ret.x = p[0][0]
+    ret.y = p[1][0]
     return ret
 
 

@@ -1,6 +1,7 @@
 import pandas as pd
 
 from algorithm.greedy import run_greedy
+from algorithm.prepare_data import prepare_data
 from data_reader import read_data
 
 
@@ -14,12 +15,13 @@ def print_sol(sol, D, P):
             res.append([p.x, p.y])
     res.append([sol[len(sol)-1].x, sol[len(sol)-1].y])
 
-    res.to_csv('/data/out.csv')
+    res.to_csv('./data/out.csv')
 
 
 def main():
     rows, sample_points, init_point = read_data()
-    sol, D, P = run_greedy(init_point, sample_points, rows)
+    prepare_data(init_point, sample_points, rows)
+    sol, D, P = run_greedy(init_point, sample_points)
     print_sol(sol, D, P)
 
 

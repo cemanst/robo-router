@@ -1,9 +1,9 @@
 import numpy as np
-from algorithm.prepare_data import prepare_data
+from algorithm.prepare_data import prepare_data, generate_graph
 
 
-def run_greedy(init_point, collection_points, rows):
-    graph, D, P = prepare_data(init_point, collection_points, rows)
+def run_greedy(init_point, collection_points):
+    graph, D, P = generate_graph(init_point, collection_points)
 
     curr_point = init_point
     order = [init_point]
