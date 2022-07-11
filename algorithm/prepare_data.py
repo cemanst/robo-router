@@ -2,7 +2,7 @@ import sys
 
 import model.model
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 def determine_rows_for_collection(collection_points, rows):
     for cp in collection_points:
@@ -167,7 +167,7 @@ def generate_graph(init_point, collection_points):
 
 def calculate_row_params(rows):
     for r in rows:
-        r.k = (r.a.y-r.b.y) / (r.a.x-r.a.y)
+        r.k = (r.a.y-r.b.y) / (r.a.x-r.b.x)
         r.n = r.a.y-r.k*r.a.x
 
 
@@ -175,7 +175,25 @@ def prepare_data(init_point, collection_points, rows):
     calculate_row_params(rows)
     determine_rows_for_collection(collection_points, rows)
     model.find_point_projections(collection_points)
+    check_data(rows, collection_points)
+    pass
 
 
+def check_data(rows, collection_points):
+    for r in rows:
+        plt.plot([r.a.x, r.b.x], [r.a.y, r.b.y], 'ro-')
 
+    # for r in rows:
+    #     plt.plot([r.a.x, r.b.x], [r.k*r.a.x+r.n, r.k*r.b.x+r.n], 'bo-')
 
+    for cp in collection_points:
+        plt.plot(cp.x, cp.y, 'bo')
+        if cp.upperProj is not None:
+            plt.plot(cp.upperProj.x, cp.upperProj.y, 'go')
+        if cp.lowerProj is not None:
+            plt.plot(cp.lowerProj.x, cp.lowerProj.y, 'yo')
+
+        plt.plot([cp.upperRow.a.x, cp.upperRow.b.x], [cp.upperRow.a.y, cp.upperRow.b.y], 'bo-')
+        plt.plot([cp.lowerRow.a.x, cp.lowerRow.b.x], [cp.lowerRow.a.y, cp.lowerRow.b.y], 'bo-')
+
+    plt.show()
