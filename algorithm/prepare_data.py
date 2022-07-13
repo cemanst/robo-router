@@ -20,39 +20,48 @@ def determine_rows_for_collection(collection_points, rows):
 def eucledean_dist(a, b):
     return np.math.sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2))
 
+def create_inv_arc(a):
+    a2 = model.Arc()
+    a2.dist = a.dist
+    a2.path = a.path.copy()
+    a2.path.reverse()
+    return a2
+
 
 def find_shortest_path_from_init(init_point, point, D, P):
     a = model.Arc()
-    a.dist = eucledean_dist(init_point, point.upperRow.a) + eucledean_dist(point.upperRow.a, point.upperProj)
-    a.path = [point.upperRow.a]
-
-    tmp = eucledean_dist(init_point, point.upperRow.b) + eucledean_dist(point.upperRow.b, point.upperProj)
-    if tmp < a.dist:
-        a.dist = tmp
+    if eucledean_dist(init_point, point.upperRow.a) < eucledean_dist(init_point, point.upperRow.b):
+        a.dist = eucledean_dist(init_point, point.upperRow.a) + eucledean_dist(point.upperRow.a, point.upperProj)
+        a.path = [point.upperRow.a]
+    else:
+        a.dist = eucledean_dist(init_point, point.upperRow.b) + eucledean_dist(point.upperRow.b, point.upperProj)
         a.path = [point.upperRow.b]
 
     init_point.connected.append(a)
-    point.upperProj.connected.append(a)
     D[0, point.upperProj.id] = a.dist
-    D[point.upperProj.id, 0] = a.dist
     P[0, point.upperProj.id] = a.path
-    P[point.upperProj.id, 0] = a.path
+
+    a2 = create_inv_arc(a)
+    point.upperProj.connected.append(a2)
+    D[point.upperProj.id, 0] = a2.dist
+    P[point.upperProj.id, 0] = a2.path
 
     a = model.Arc()
-    a.dist = eucledean_dist(init_point, point.lowerRow.a) + eucledean_dist(point.lowerRow.a, point.lowerProj)
-    a.path = [point.lowerRow.a]
-
-    tmp = eucledean_dist(init_point, point.lowerRow.b) + eucledean_dist(point.lowerRow.b, point.lowerProj)
-    if tmp < a.dist:
-        a.dist = tmp
+    if eucledean_dist(init_point, point.lowerRow.a) < eucledean_dist(init_point, point.lowerRow.b):
+        a.dist = eucledean_dist(init_point, point.lowerRow.a) + eucledean_dist(point.lowerRow.a, point.lowerProj)
+        a.path = [point.lowerRow.a]
+    else:
+        a.dist = eucledean_dist(init_point, point.lowerRow.b) + eucledean_dist(point.lowerRow.b, point.lowerProj)
         a.path = [point.lowerRow.b]
 
     init_point.connected.append(a)
-    point.lowerProj.connected.append(a)
     D[0, point.lowerProj.id] = a.dist
-    D[point.lowerProj.id, 0] = a.dist
     P[0, point.lowerProj.id] = a.path
-    P[point.lowerProj.id, 0] = a.path
+
+    a2 = create_inv_arc(a)
+    point.lowerProj.connected.append(a2)
+    D[point.lowerProj.id, 0] = a2.dist
+    P[point.lowerProj.id, 0] = a2.path
 
 
 def find_shortest_path(point1, point2, D, P):
@@ -71,11 +80,13 @@ def find_shortest_path(point1, point2, D, P):
         a.path = [point1.upperRow.b, point2.upperRow.b]
 
     point1.upperProj.connected.append(a)
-    point2.upperProj.connected.append(a)
     D[point1.upperProj.id, point2.upperProj.id] = a.dist
-    D[point2.upperProj.id, point1.upperProj.id] = a.dist
     P[point1.upperProj.id, point2.upperProj.id] = a.path
-    P[point2.upperProj.id, point1.upperProj.id] = a.path
+
+    a2 = create_inv_arc(a)
+    point2.upperProj.connected.append(a2)
+    D[point2.upperProj.id, point1.upperProj.id] = a2.dist
+    P[point2.upperProj.id, point1.upperProj.id] = a2.path
 
     # connect upperProj-lowerProj
     a = model.Arc()
@@ -92,11 +103,13 @@ def find_shortest_path(point1, point2, D, P):
         a.path = [point1.upperRow.b, point2.lowerRow.b]
 
     point1.upperProj.connected.append(a)
-    point2.lowerProj.connected.append(a)
     D[point1.upperProj.id, point2.lowerProj.id] = a.dist
-    D[point2.lowerProj.id, point1.upperProj.id] = a.dist
     P[point1.upperProj.id, point2.lowerProj.id] = a.path
-    P[point2.lowerProj.id, point1.upperProj.id] = a.path
+
+    a2 = create_inv_arc(a)
+    point2.lowerProj.connected.append(a2)
+    D[point2.lowerProj.id, point1.upperProj.id] = a2.dist
+    P[point2.lowerProj.id, point1.upperProj.id] = a2.path
 
     # connect lowerProj-upperProj
     a = model.Arc()
@@ -113,11 +126,13 @@ def find_shortest_path(point1, point2, D, P):
         a.path = [point1.lowerRow.b, point2.upperRow.b]
 
     point1.lowerProj.connected.append(a)
-    point2.upperProj.connected.append(a)
     D[point1.lowerProj.id, point2.upperProj.id] = a.dist
-    D[point2.upperProj.id, point1.lowerProj.id] = a.dist
     P[point1.lowerProj.id, point2.upperProj.id] = a.path
-    P[point2.upperProj.id, point1.lowerProj.id] = a.path
+
+    a2 = create_inv_arc(a)
+    point2.upperProj.connected.append(a2)
+    D[point2.upperProj.id, point1.lowerProj.id] = a2.dist
+    P[point2.upperProj.id, point1.lowerProj.id] = a2.path
 
     # connect lowerProj-lowerProj
     a = model.Arc()
@@ -134,16 +149,18 @@ def find_shortest_path(point1, point2, D, P):
         a.path = [point1.lowerRow.b, point2.lowerRow.b]
 
     point1.lowerProj.connected.append(a)
-    point2.lowerProj.connected.append(a)
     D[point1.lowerProj.id, point2.lowerProj.id] = a.dist
-    D[point2.lowerProj.id, point1.lowerProj.id] = a.dist
     P[point1.lowerProj.id, point2.lowerProj.id] = a.path
-    P[point2.lowerProj.id, point1.lowerProj.id] = a.path
+
+    a2 = create_inv_arc(a)
+    point2.lowerProj.connected.append(a2)
+    D[point2.lowerProj.id, point1.lowerProj.id] = a2.dist
+    P[point2.lowerProj.id, point1.lowerProj.id] = a2.path
 
 
 def generate_graph(init_point, collection_points):
     D = np.zeros([2*len(collection_points)+1, 2*len(collection_points)+1])
-    P = np.empty([2*len(collection_points)+1, 2*len(collection_points)+1], dtype=[])
+    P = np.empty([2*len(collection_points)+1, 2*len(collection_points)+1], dtype=object)
 
     init_point.id = 0
     for i in range(len(collection_points)):
