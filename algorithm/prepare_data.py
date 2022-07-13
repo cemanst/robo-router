@@ -18,7 +18,7 @@ def determine_rows_for_collection(collection_points, rows):
 
 
 def eucledean_dist(a, b):
-    return np.math.sqrt((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2)
+    return np.math.sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2))
 
 
 def find_shortest_path_from_init(init_point, point, D, P):
@@ -142,20 +142,21 @@ def find_shortest_path(point1, point2, D, P):
 
 
 def generate_graph(init_point, collection_points):
-    D = np.zeros(2*len(collection_points)+1, 2*len(collection_points)+1)
-    P = np.empty(2*len(collection_points)+1, 2*len(collection_points)+1, dtype=[])
+    D = np.zeros([2*len(collection_points)+1, 2*len(collection_points)+1])
+    P = np.empty([2*len(collection_points)+1, 2*len(collection_points)+1], dtype=[])
 
     init_point.id = 0
     for i in range(len(collection_points)):
         collection_points[i].id = i+1
-        collection_points[i].upperProj = 2*i + 1
-        collection_points[i].lowerProj = 2*i + 2
+        collection_points[i].upperProj.id = 2*i + 1
+        collection_points[i].lowerProj.id = 2*i + 2
 
     for i in range(len(collection_points)):
         find_shortest_path_from_init(init_point, collection_points[i], D, P)
 
-        for j in i+1..len(collection_points)-1:
-            find_shortest_path(collection_points[i], collection_points[j], D, P)
+        if i < len(collection_points)-1:
+            for j in range(i+1, len(collection_points)):
+                find_shortest_path(collection_points[i], collection_points[j], D, P)
 
     all_points = [init_point]
     for cp in collection_points:
@@ -175,7 +176,7 @@ def prepare_data(init_point, collection_points, rows):
     calculate_row_params(rows)
     determine_rows_for_collection(collection_points, rows)
     model.find_point_projections(collection_points)
-    check_data(rows, collection_points)
+    #check_data(rows, collection_points)
     pass
 
 
