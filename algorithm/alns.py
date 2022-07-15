@@ -4,7 +4,7 @@ import random
 import sys
 
 from algorithm.alns_params import *
-from algorithm.greedy import run_greedy, create_complete_sol
+from algorithm.greedy import run_greedy, create_complete_sol, create_best
 from algorithm.operators import *
 
 
@@ -17,7 +17,8 @@ def create_temperatures(M, p0, pf, delta):
 
 def alns(init_point, collection_points, graph, D, P):
 
-    init_sol = run_greedy(init_point, graph, D)
+    # init_sol = run_greedy(init_point, graph, D)
+    init_sol = create_best(init_point, collection_points)
     operators = [one_opt, two_opt, three_opt, reverse_proj_point]
     oper_weights = [1 / len(operators)] * len(operators)
     best_sol = init_sol
