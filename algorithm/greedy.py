@@ -1,11 +1,26 @@
 import numpy as np
-from algorithm.prepare_data import prepare_data, generate_graph
+from algorithm.prepare_data import generate_graph
 
 def eucledean_dist(a, b):
     return np.math.sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2))
 
-def run_greedy(init_point, collection_points):
-    graph, D, P = generate_graph(init_point, collection_points)
+def create_complete_sol(sol, D, P):
+    full = []
+    cost = 0
+    for i in range(len(sol)):
+        full.append(sol[i])
+        if i < len(sol)-1 and P[sol[i].id, sol[i+1].id] is not None:
+            full = full + P[sol[i].id, sol[i+1].id]
+            cost = cost + D[sol[i].id, sol[i+1].id]
+        elif P[sol[i].id, 0] is not None:
+            full = full + P[sol[i].id, 0]
+            cost = cost + D[sol[i].id, 0]
+
+    full.append(sol[0])
+
+    return full, cost
+
+def run_greedy(init_point, graph, D):
 
     curr_point = init_point
     order = [init_point]
@@ -30,10 +45,10 @@ def run_greedy(init_point, collection_points):
         order.append(closest)
         curr_point = closest
 
-    return order, D, P
+    return order
+
 
 def create_best(init_point, collection_points):
-    graph, D, P = generate_graph(init_point, collection_points)
 
     if collection_points[0].upperRow.a.x < collection_points[1].upperRow.a.x:
         sorted = [collection_points[0], collection_points[1]]
@@ -66,7 +81,7 @@ def create_best(init_point, collection_points):
             order.append(cp.lowerProj)
             curr_point = cp.lowerProj
 
-    return order, D, P
+    return order
 
 
 

@@ -1,33 +1,27 @@
-import copy
 import math
 
 import random
 import sys
 
 from algorithm.alns_params import *
-from algorithm.greedy import run_greedy
+from algorithm.greedy import run_greedy, create_complete_sol
+from algorithm.operators import *
 
 
-def add_new_solution(non_dominated_sols, new_sol):
-    for sol in non_dominated_sols:
-        the_same = True
-        for i in range(len(sol.harvest_week)):
-            if sol.harvest_week[i] != new_sol.harvest_week[i]:
-                the_same = False
-                break
-            if new_sol.scenario == 2 and sol.silo_capacity != new_sol.silo_capacity:
-                the_same = False
-        if the_same:
-            return
-    non_dominated_sols.append(new_sol)
+def create_temperatures(M, p0, pf, delta):
+    temperatures = []
+    for i in range(M):
+        temperatures.append(-delta / (math.log(p0 + (pf - p0) * (i + 1) / M)))
+    return temperatures
 
 
-def alns(init_point, collection_points, rows):
+def alns(init_point, collection_points, graph, D, P):
 
-    init_sol = run_greedy(init_point, collection_points, rows)
-    operators = []
+    init_sol = run_greedy(init_point, graph, D)
+    operators = [one_opt, two_opt, three_opt, reverse_proj_point]
     oper_weights = [1 / len(operators)] * len(operators)
-    non_dominated_sols = [init_sol]
+    best_sol = init_sol
+    fs, best_cost = create_complete_sol(init_sol, D, P)
 
     # create temperatures for simulated annealing
     temperatures = create_temperatures(M, p0, pf, delta)
@@ -35,6 +29,7 @@ def alns(init_point, collection_points, rows):
     selected_oper = random.randint(0, len(operators))
 
     curr_sol = init_sol
+    curr_cost = best_cost
 
     a = 1
     for i in range(len(temperatures)):
@@ -57,34 +52,23 @@ def alns(init_point, collection_points, rows):
                     selected_oper = j
                     break
 
-            new_sol = copy.deepcopy(curr_sol)
-            operators[selected_oper](new_sol)
+            new_sol = operators[selected_oper](curr_sol, collection_points)
             if new_sol is None:
                 # Inapplicable operator for this network state, repeat iteration
                 continue
 
-            non_dominated = True
-            for sol in non_dominated_sols:
-                if sol.dominates(new_sol):
-                    non_dominated = False
-                    break
+            fs, new_cost = create_complete_sol(new_sol, D, P)
 
-            reward = reward_base
-            if non_dominated:
-                non_dominated_sols = [old_sol for old_sol in non_dominated_sols if not new_sol.dominates(old_sol)]
-                add_new_solution(non_dominated_sols, new_sol)
+            if new_cost < curr_cost:
                 curr_sol = new_sol
+                curr_cost = new_cost
+                reward = reward_base
             else:
-                r = random.random()
                 reward = -reward_base
-                if selected_oper == len(operators)-1:   #Operator changing capacity
-                    if r < 0.1:
-                        #print('   Accept capacity change')
-                        curr_sol = new_sol
-                else:                                   #All other operators
-                    #print('   Accept probability ' + str(round(math.exp(-Solution.calc_increase(new_sol, curr_sol) / temperatures[i]), 3)))
-                    if r < math.exp(-Solution.calc_increase(new_sol, curr_sol) / temperatures[i]):
-                        curr_sol = new_sol
+                r = random.random()
+                if r < math.exp((curr_cost - new_cost) / temperatures[i]):
+                    curr_sol = new_sol
+                    curr_cost = new_cost
 
             for j in range(len(operators)):
                 if j == selected_oper:
@@ -93,14 +77,12 @@ def alns(init_point, collection_points, rows):
                         oper_weights[j] = min_select_poss
                     break
 
+            if new_cost < best_cost:
+                best_sol = new_sol
+                best_cost = new_cost
+
             print('Iteration no. done: ' + str(iter_cnt+1))
             sys.stdout.flush()
 
-    return init_sol, non_dominated_sols, oper_weights
+    return best_sol, oper_weights
 
-
-def create_temperatures(M, p0, pf, delta):
-    temperatures = []
-    for i in range(M):
-        temperatures.append(-delta / (math.log(p0 + (pf - p0) * (i + 1) / M)))
-    return temperatures

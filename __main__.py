@@ -1,7 +1,9 @@
 import pandas as pd
 import time
-from algorithm.greedy import run_greedy, create_best
-from algorithm.prepare_data import prepare_data
+
+from algorithm.alns import alns
+from algorithm.greedy import run_greedy, create_best, create_complete_sol
+from algorithm.prepare_data import prepare_data, generate_graph
 from data_reader import read_data
 
 import matplotlib.pyplot as plt
@@ -48,23 +50,6 @@ def check_solution(rows, collection_points, sol):
     plt.show()
 
 
-def create_complete_sol(sol, P, D):
-    full = []
-    cost = 0
-    for i in range(len(sol)):
-        full.append(sol[i])
-        if i < len(sol)-1 and P[sol[i].id, sol[i+1].id] is not None:
-            full = full + P[sol[i].id, sol[i+1].id]
-            cost = cost + D[sol[i].id, sol[i+1].id]
-        elif P[sol[i].id, 0] is not None:
-            full = full + P[sol[i].id, 0]
-            cost = cost + D[sol[i].id, 0]
-
-    full.append(sol[0])
-
-    return full, cost
-
-
 def check_P(rows, collection_points, sol, P):
 
     for i in range(len(sol)):
@@ -106,23 +91,39 @@ def check_P(rows, collection_points, sol, P):
 def main():
     rows, sample_points, init_point = read_data()
     prepare_data(init_point, sample_points, rows)
+    graph, D, P = generate_graph(init_point, sample_points)
+
+    # Greedy
     start = time.process_time_ns()
-    sol, D, P = run_greedy(init_point, sample_points)
+    sol = run_greedy(init_point, graph, D)
     #check_P(rows, sample_points, sol, P)
-    comp_sol, cost = create_complete_sol(sol, P, D)
+    comp_sol, cost = create_complete_sol(sol, D, P)
     end = time.process_time_ns()
     print('Greedy solution found in ' + str((end-start)/1000000000.0) + ' secs.')
     print('Greedy solution cost: ' + str(cost))
-    check_solution(rows, sample_points, comp_sol)
+    # check_solution(rows, sample_points, comp_sol)
 
+    # Nikolino pametovanje
     start = time.process_time_ns()
-    sol, D, P = create_best(init_point, sample_points)
+    sol = create_best(init_point, sample_points)
     # check_P(rows, sample_points, sol, P)
-    comp_sol, cost = create_complete_sol(sol, P, D)
+    comp_sol, cost = create_complete_sol(sol, D, P)
     end = time.process_time_ns()
     print('Good solution found in ' + str((end - start) / 1000000000.0) + ' secs.')
     print('Good solution cost: ' + str(cost))
+    # check_solution(rows, sample_points, comp_sol)
+
+    # ALNS
+    start = time.process_time_ns()
+    sol, weights = alns(init_point, sample_points, graph, D, P)
+    # check_P(rows, sample_points, sol, P)
+    comp_sol, cost = create_complete_sol(sol, D, P)
+    end = time.process_time_ns()
+    print('ALNS solution found in ' + str((end - start) / 1000000000.0) + ' secs.')
+    print('ALNS solution cost: ' + str(cost))
     check_solution(rows, sample_points, comp_sol)
+
+    # for debugging
     pass
 
 
