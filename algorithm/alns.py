@@ -37,7 +37,6 @@ def alns(init_point, collection_points, graph, D, P):
             print('Temperature ' + str(temperatures[i]) + ' is below threshold.')
             break
 
-        print('Processed temperature: ' + str(temperatures[i]))
         for iter_cnt in range(sa_iter_num):
             prob_sum = 0
             summed_probs = []
@@ -81,8 +80,10 @@ def alns(init_point, collection_points, graph, D, P):
                 best_sol = new_sol
                 best_cost = new_cost
 
-            print('Iteration no. done: ' + str(iter_cnt+1))
+            # print('Iteration no. done: ' + str(iter_cnt+1))
             sys.stdout.flush()
+
+        print('Processed temperature: ' + str(temperatures[i]))
 
     return best_sol, oper_weights
 

@@ -15,7 +15,7 @@ def k_opt(k, sol, collection_points):
     new_sol = sol[lb:ub+1]
     new_sol.reverse()
     new_sol = sol[:lb] + new_sol
-    if ub+1 < len(sol)-1:
+    if ub+1 < len(sol):
         new_sol = new_sol + sol[ub+1:]
 
     return new_sol
@@ -36,9 +36,16 @@ def three_opt(sol, collection_points):
 def reverse_proj_point(sol, collection_points):
     idx = random.randint(1, len(sol)-1)
     new_sol = copy.deepcopy(sol)
-    if sol[idx].id%2:
-        new_sol[idx] = collection_points[idx-1].lowerProj
+
+    cpind = 0
+    if sol[idx].id % 2:
+        cpind = int((sol[idx].id - 1) / 2)
     else:
-        new_sol[idx] = collection_points[idx-1].upperProj
+        cpind = int((sol[idx].id - 2) / 2)
+
+    if sol[idx].id%2:
+        new_sol[idx] = collection_points[cpind].lowerProj
+    else:
+        new_sol[idx] = collection_points[cpind].upperProj
 
     return new_sol
