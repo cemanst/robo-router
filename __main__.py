@@ -33,8 +33,8 @@ def check_solution(rows, collection_points, sol):
         if cp.lowerProj is not None:
             plt.plot(cp.lowerProj.x, cp.lowerProj.y, 'yo')
 
-        plt.plot([cp.upperRow.a.x, cp.upperRow.b.x], [cp.upperRow.a.y, cp.upperRow.b.y], 'bo-')
-        plt.plot([cp.lowerRow.a.x, cp.lowerRow.b.x], [cp.lowerRow.a.y, cp.lowerRow.b.y], 'bo-')
+        # plt.plot([cp.upperRow.a.x, cp.upperRow.b.x], [cp.upperRow.a.y, cp.upperRow.b.y], 'bo-')
+        # plt.plot([cp.lowerRow.a.x, cp.lowerRow.b.x], [cp.lowerRow.a.y, cp.lowerRow.b.y], 'bo-')
 
     x = []
     y = []
@@ -115,13 +115,18 @@ def main():
 
     # ALNS
     start = time.process_time_ns()
-    sol, weights = alns(init_point, sample_points, graph, D, P)
+    sol, weights, trend = alns(init_point, sample_points, graph, D, P)
     # check_P(rows, sample_points, sol, P)
     comp_sol, cost = create_complete_sol(sol, D, P)
     end = time.process_time_ns()
     print('ALNS solution found in ' + str((end - start) / 1000000000.0) + ' secs.')
     print('ALNS solution cost: ' + str(cost))
     check_solution(rows, sample_points, comp_sol)
+
+    # x = range(len(trend[1]))
+    # plt.plot(x, trend[1], 'g-')
+    # plt.plot(x, trend[2], 'b-')
+    # plt.show()
 
     # for debugging
     pass

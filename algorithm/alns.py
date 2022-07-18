@@ -32,6 +32,11 @@ def alns(init_point, collection_points, graph, D, P):
     curr_sol = init_sol
     curr_cost = best_cost
 
+    trend = ([],[],[])
+    trend[0].append(temperatures[0])
+    trend[1].append(curr_cost)
+    trend[2].append(best_cost)
+
     a = 1
     for i in range(len(temperatures)):
         if temperatures[i] < Tf:
@@ -83,8 +88,11 @@ def alns(init_point, collection_points, graph, D, P):
 
             # print('Iteration no. done: ' + str(iter_cnt+1))
             sys.stdout.flush()
+            trend[0].append(temperatures[i])
+            trend[1].append(curr_cost)
+            trend[2].append(best_cost)
 
         print('Processed temperature: ' + str(temperatures[i]))
 
-    return best_sol, oper_weights
+    return best_sol, oper_weights, trend
 
