@@ -2,6 +2,7 @@ M = 100
 delta = 400
 p0 = 0.95
 pf = 0.00001
+Ts = 10000
 Tf = 100
 sa_iter_num = 1000
 reward_base = 0.001

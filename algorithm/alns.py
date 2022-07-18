@@ -14,6 +14,12 @@ def create_temperatures(M, p0, pf, delta):
         temperatures.append(-delta / (math.log(p0 + (pf - p0) * (i + 1) / M)))
     return temperatures
 
+def create_temperatures_2(M, Ts, Tf):
+    temperatures = []
+    for i in range(M):
+        temperatures.append(Ts - i*(Ts-Tf)/M)
+    return temperatures
+
 
 def alns(init_point, collection_points, graph, D, P):
 
@@ -26,6 +32,7 @@ def alns(init_point, collection_points, graph, D, P):
 
     # create temperatures for simulated annealing
     temperatures = create_temperatures(M, p0, pf, delta)
+    # temperatures = create_temperatures_2(M, Ts, Tf)
 
     selected_oper = random.randint(0, len(operators))
 
