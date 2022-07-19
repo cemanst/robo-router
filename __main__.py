@@ -123,10 +123,10 @@ def main():
     print('ALNS solution cost: ' + str(cost))
     check_solution(rows, sample_points, comp_sol)
 
-    # x = range(len(trend[1]))
-    # plt.plot(x, trend[1], 'g-')
-    # plt.plot(x, trend[2], 'b-')
-    # plt.show()
+    x = range(len(trend[1]))
+    plt.plot(x, trend[1], 'g-')
+    plt.plot(x, trend[2], 'b-')
+    plt.show()
 
     # for debugging
     pass
