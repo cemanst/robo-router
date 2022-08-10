@@ -67,17 +67,21 @@ def find_shortest_path_from_init(init_point, point, D, P):
 def find_shortest_path(point1, point2, D, P):
     #connect upperProj-upperProj
     a = model.Arc()
-    a.dist = eucledean_dist(point1.upperProj, point1.upperRow.a) \
-             + eucledean_dist(point1.upperRow.a, point2.upperRow.a) \
-             + eucledean_dist(point2.upperRow.a, point2.upperProj)
-    a.path = [point1.upperRow.a, point2.upperRow.a]
+    if point1.upperRow.a == point2.upperRow.a:
+        a.dist = eucledean_dist(point1.upperProj, point2.upperProj)
+        a.path = []
+    else:
+        a.dist = eucledean_dist(point1.upperProj, point1.upperRow.a) \
+                 + eucledean_dist(point1.upperRow.a, point2.upperRow.a) \
+                 + eucledean_dist(point2.upperRow.a, point2.upperProj)
+        a.path = [point1.upperRow.a, point2.upperRow.a]
 
-    tmp = eucledean_dist(point1.upperProj, point1.upperRow.b) \
-             + eucledean_dist(point1.upperRow.b, point2.upperRow.b) \
-             + eucledean_dist(point2.upperRow.b, point2.upperProj)
-    if tmp < a.dist:
-        a.dist = tmp
-        a.path = [point1.upperRow.b, point2.upperRow.b]
+        tmp = eucledean_dist(point1.upperProj, point1.upperRow.b) \
+                 + eucledean_dist(point1.upperRow.b, point2.upperRow.b) \
+                 + eucledean_dist(point2.upperRow.b, point2.upperProj)
+        if tmp < a.dist:
+            a.dist = tmp
+            a.path = [point1.upperRow.b, point2.upperRow.b]
 
     point1.upperProj.connected.append(a)
     D[point1.upperProj.id, point2.upperProj.id] = a.dist
@@ -90,17 +94,21 @@ def find_shortest_path(point1, point2, D, P):
 
     # connect upperProj-lowerProj
     a = model.Arc()
-    a.dist = eucledean_dist(point1.upperProj, point1.upperRow.a) \
-             + eucledean_dist(point1.upperRow.a, point2.lowerRow.a) \
-             + eucledean_dist(point2.lowerRow.a, point2.lowerProj)
-    a.path = [point1.upperRow.a, point2.lowerRow.a]
+    if point1.upperRow.a == point2.lowerRow.a:
+        a.dist = eucledean_dist(point1.upperProj, point2.lowerProj)
+        a.path = []
+    else:
+        a.dist = eucledean_dist(point1.upperProj, point1.upperRow.a) \
+                 + eucledean_dist(point1.upperRow.a, point2.lowerRow.a) \
+                 + eucledean_dist(point2.lowerRow.a, point2.lowerProj)
+        a.path = [point1.upperRow.a, point2.lowerRow.a]
 
-    tmp = eucledean_dist(point1.upperProj, point1.upperRow.b) \
-          + eucledean_dist(point1.upperRow.b, point2.lowerRow.b) \
-          + eucledean_dist(point2.lowerRow.b, point2.lowerProj)
-    if tmp < a.dist:
-        a.dist = tmp
-        a.path = [point1.upperRow.b, point2.lowerRow.b]
+        tmp = eucledean_dist(point1.upperProj, point1.upperRow.b) \
+              + eucledean_dist(point1.upperRow.b, point2.lowerRow.b) \
+              + eucledean_dist(point2.lowerRow.b, point2.lowerProj)
+        if tmp < a.dist:
+            a.dist = tmp
+            a.path = [point1.upperRow.b, point2.lowerRow.b]
 
     point1.upperProj.connected.append(a)
     D[point1.upperProj.id, point2.lowerProj.id] = a.dist
@@ -113,17 +121,21 @@ def find_shortest_path(point1, point2, D, P):
 
     # connect lowerProj-upperProj
     a = model.Arc()
-    a.dist = eucledean_dist(point1.lowerProj, point1.lowerRow.a) \
-             + eucledean_dist(point1.lowerRow.a, point2.upperRow.a) \
-             + eucledean_dist(point2.upperRow.a, point2.upperProj)
-    a.path = [point1.lowerRow.a, point2.upperRow.a]
+    if point1.lowerRow.a == point2.upperRow.a:
+        a.dist = eucledean_dist(point1.lowerProj, point2.upperProj)
+        a.path = []
+    else:
+        a.dist = eucledean_dist(point1.lowerProj, point1.lowerRow.a) \
+                 + eucledean_dist(point1.lowerRow.a, point2.upperRow.a) \
+                 + eucledean_dist(point2.upperRow.a, point2.upperProj)
+        a.path = [point1.lowerRow.a, point2.upperRow.a]
 
-    tmp = eucledean_dist(point1.lowerProj, point1.lowerRow.b) \
-          + eucledean_dist(point1.lowerRow.b, point2.upperRow.b) \
-          + eucledean_dist(point2.upperRow.b, point2.upperProj)
-    if tmp < a.dist:
-        a.dist = tmp
-        a.path = [point1.lowerRow.b, point2.upperRow.b]
+        tmp = eucledean_dist(point1.lowerProj, point1.lowerRow.b) \
+              + eucledean_dist(point1.lowerRow.b, point2.upperRow.b) \
+              + eucledean_dist(point2.upperRow.b, point2.upperProj)
+        if tmp < a.dist:
+            a.dist = tmp
+            a.path = [point1.lowerRow.b, point2.upperRow.b]
 
     point1.lowerProj.connected.append(a)
     D[point1.lowerProj.id, point2.upperProj.id] = a.dist
@@ -136,17 +148,21 @@ def find_shortest_path(point1, point2, D, P):
 
     # connect lowerProj-lowerProj
     a = model.Arc()
-    a.dist = eucledean_dist(point1.lowerProj, point1.lowerRow.a) \
-             + eucledean_dist(point1.lowerRow.a, point2.lowerRow.a) \
-             + eucledean_dist(point2.lowerRow.a, point2.lowerProj)
-    a.path = [point1.lowerRow.a, point2.lowerRow.a]
+    if point1.lowerRow.a == point2.lowerRow.a:
+        a.dist = eucledean_dist(point1.lowerProj, point2.lowerProj)
+        a.path = []
+    else:
+        a.dist = eucledean_dist(point1.lowerProj, point1.lowerRow.a) \
+                 + eucledean_dist(point1.lowerRow.a, point2.lowerRow.a) \
+                 + eucledean_dist(point2.lowerRow.a, point2.lowerProj)
+        a.path = [point1.lowerRow.a, point2.lowerRow.a]
 
-    tmp = eucledean_dist(point1.lowerProj, point1.lowerRow.b) \
-          + eucledean_dist(point1.lowerRow.b, point2.lowerRow.b) \
-          + eucledean_dist(point2.lowerRow.b, point2.lowerProj)
-    if tmp < a.dist:
-        a.dist = tmp
-        a.path = [point1.lowerRow.b, point2.lowerRow.b]
+        tmp = eucledean_dist(point1.lowerProj, point1.lowerRow.b) \
+              + eucledean_dist(point1.lowerRow.b, point2.lowerRow.b) \
+              + eucledean_dist(point2.lowerRow.b, point2.lowerProj)
+        if tmp < a.dist:
+            a.dist = tmp
+            a.path = [point1.lowerRow.b, point2.lowerRow.b]
 
     point1.lowerProj.connected.append(a)
     D[point1.lowerProj.id, point2.lowerProj.id] = a.dist
