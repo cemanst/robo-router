@@ -16,13 +16,15 @@ def print_sol(sol, D, P):
     res = pd.DataFrame(columns = ['x', 'y'])
 
     for i in range(len(sol)-1):
-        res.append([sol[i].x, sol[i].y])
+        res.loc[len(res)] = [sol[i].x, sol[i].y]
         path = P[sol[i].id, sol[i+1].id]
-        for p in path:
-            res.append([p.x, p.y])
-    res.append([sol[len(sol)-1].x, sol[len(sol)-1].y])
+        if path is not None:
+            for p in path:
+                res.append([p.x, p.y])
 
-    res.to_csv('./data/out.csv')
+    res.loc[len(res)] = [sol[len(sol)-1].x, sol[len(sol)-1].y]
+
+    res.to_csv('./data/result.csv')
 
 
 def check_solution(rows, collection_points, sol, fig_name):
@@ -52,6 +54,7 @@ def check_solution(rows, collection_points, sol, fig_name):
 
     # plt.show()
     plt.savefig('./data/' + fig_name + '.svg', format="svg")
+    plt.clf()
 
 
 def check_P(rows, collection_points, sol, P):
@@ -76,8 +79,8 @@ def check_P(rows, collection_points, sol, P):
         x.append(sol[i].x)
         y.append(sol[i].y)
 
-        path = P[sol[i].id, sol[i+1].id]
-        if path is not None:
+        if i < len(sol)-1:
+            path = P[sol[i].id, sol[i+1].id]
             for p in path:
                 x.append(p.x)
                 y.append(p.y)
@@ -110,6 +113,7 @@ def main():
     print('Greedy solution found in ' + str((end-start)/1000000000.0) + ' secs.')
     print('Greedy solution cost: ' + str(cost))
     check_solution(rows, sample_points, comp_sol, 'greedy_sol')
+    print_sol(comp_sol, D, P)
 
     # Nikolino pametovanje
     # start = time.process_time_ns()
@@ -130,7 +134,7 @@ def main():
     print('ALNS solution found in ' + str((end - start) / 1000000000.0) + ' secs.')
     print('ALNS solution cost: ' + str(cost))
     check_solution(rows, sample_points, comp_sol, 'alns_sol')
-    print_sol(comp_sol,D,P)
+    print_sol(comp_sol, D, P)
 
     x = range(len(trend[1]))
     plt.plot(x, trend[1], 'g-')
