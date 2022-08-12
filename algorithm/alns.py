@@ -23,8 +23,8 @@ def create_temperatures_2(M, Ts, Tf):
 
 def alns(init_point, collection_points, graph, D, P):
 
-    # init_sol = run_greedy(init_point, graph, D)
-    init_sol = create_best(init_point, collection_points)
+    init_sol = run_greedy(init_point, graph, D)
+    # init_sol = create_best(init_point, collection_points)
     operators = [one_opt, two_opt, three_opt, reverse_proj_point]
     oper_weights = [1 / len(operators)] * len(operators)
     best_sol = init_sol

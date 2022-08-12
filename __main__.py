@@ -1,3 +1,6 @@
+import math
+import random
+
 import pandas as pd
 import time
 
@@ -22,7 +25,7 @@ def print_sol(sol, D, P):
     res.to_csv('./data/out.csv')
 
 
-def check_solution(rows, collection_points, sol):
+def check_solution(rows, collection_points, sol, fig_name):
     for r in rows:
         plt.plot([r.a.x, r.b.x], [r.a.y, r.b.y], 'ro-')
 
@@ -47,7 +50,8 @@ def check_solution(rows, collection_points, sol):
     for i in range(len(x)):
         plt.annotate(str(i+1), (x[i], y[i]))
 
-    plt.show()
+    # plt.show()
+    plt.savefig('./data/' + fig_name + '.svg', format="svg")
 
 
 def check_P(rows, collection_points, sol, P):
@@ -89,7 +93,11 @@ def check_P(rows, collection_points, sol, P):
 
 
 def main():
-    rows, sample_points, init_point = read_data()
+    rows, sample_points, init_points = read_data()
+
+    random.seed()
+    init_point = init_points[random.randrange(len(init_points))]
+
     prepare_data(init_point, sample_points, rows)
     graph, D, P = generate_graph(init_point, sample_points)
 
@@ -101,16 +109,16 @@ def main():
     end = time.process_time_ns()
     print('Greedy solution found in ' + str((end-start)/1000000000.0) + ' secs.')
     print('Greedy solution cost: ' + str(cost))
-    # check_solution(rows, sample_points, comp_sol)
+    check_solution(rows, sample_points, comp_sol, 'greedy_sol')
 
     # Nikolino pametovanje
-    start = time.process_time_ns()
-    sol = create_best(init_point, sample_points)
-    # check_P(rows, sample_points, sol, P)
-    comp_sol, cost = create_complete_sol(sol, D, P)
-    end = time.process_time_ns()
-    print('Good solution found in ' + str((end - start) / 1000000000.0) + ' secs.')
-    print('Good solution cost: ' + str(cost))
+    # start = time.process_time_ns()
+    # sol = create_best(init_point, sample_points)
+    # # check_P(rows, sample_points, sol, P)
+    # comp_sol, cost = create_complete_sol(sol, D, P)
+    # end = time.process_time_ns()
+    # print('Good solution found in ' + str((end - start) / 1000000000.0) + ' secs.')
+    # print('Good solution cost: ' + str(cost))
     # check_solution(rows, sample_points, comp_sol)
 
     # ALNS
@@ -121,12 +129,14 @@ def main():
     end = time.process_time_ns()
     print('ALNS solution found in ' + str((end - start) / 1000000000.0) + ' secs.')
     print('ALNS solution cost: ' + str(cost))
-    check_solution(rows, sample_points, comp_sol)
+    check_solution(rows, sample_points, comp_sol, 'alns_sol')
+    print_sol(comp_sol,D,P)
 
     x = range(len(trend[1]))
     plt.plot(x, trend[1], 'g-')
     plt.plot(x, trend[2], 'b-')
-    plt.show()
+    # plt.show()
+    plt.savefig('./data/trend.svg', format="svg")
 
     # for debugging
     pass
