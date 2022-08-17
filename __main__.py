@@ -96,11 +96,53 @@ def check_P(rows, collection_points, sol, P):
     plt.show()
 
 
+# main for run
 def main():
     rows, sample_points, init_points = read_data()
 
-    # random.seed()
-    # init_point = init_points[random.randrange(len(init_points))]
+    random.seed()
+    init_point = init_points[random.randrange(len(init_points))]
+
+    prepare_data(init_point, sample_points, rows)
+    graph, D, P = generate_graph(init_point, sample_points)
+
+    # Greedy
+    start = time.process_time_ns()
+    sol = run_greedy(init_point, graph, D)
+    init_sol, init_cost = create_complete_sol(sol, D, P)
+    end = time.process_time_ns()
+    init_time = (end-start)/1000000000.0
+    check_solution(rows, sample_points, init_sol, 'init_sol')
+    print('Initial solution found in ' + str(init_time) + ' seconds.')
+    print('Initial solution cost: ' + str(init_cost))
+
+    # ALNS
+    start = time.process_time_ns()
+    sol, weights, trend = alns(init_point, sample_points, graph, D, P)
+    # check_P(rows, sample_points, sol, P)
+    alns_sol, alns_cost = create_complete_sol(sol, D, P)
+    end = time.process_time_ns()
+    alns_time = (end - start) / 1000000000.0
+    print('Final solution found in ' + str(alns_time) + ' seconds.')
+    print('Final solution cost: ' + str(alns_cost))
+
+    check_solution(rows, sample_points, alns_sol, 'best_sol')
+    print_sol(alns_sol, D, P)
+
+
+    x = range(len(trend[1]))
+    plt.plot(x, trend[1], 'g-')
+    plt.plot(x, trend[2], 'b-')
+    # plt.show()
+    plt.savefig('./data/trend.svg', format="svg")
+
+    # for debugging
+    pass
+
+
+# main for tuning and testing
+def main_for_tuning():
+    rows, sample_points, init_points = read_data()
 
     res = pd.DataFrame(columns = ['init_cost', 'init_elapsed', 'final_cost', 'final_elapsed', 'improvement'])
     best_sol = None
