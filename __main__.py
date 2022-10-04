@@ -5,9 +5,9 @@ import sys
 import pandas as pd
 import time
 
-from algorithm.alns import alns
-from algorithm.greedy import run_greedy, create_best, create_complete_sol
-from algorithm.prepare_data import prepare_data, generate_graph
+from algorithm2.alns import alns
+from algorithm2.greedy import run_greedy, create_best, create_complete_sol
+from algorithm2.prepare_reduced_graph import prepare_data, generate_graph
 from data_reader import read_data
 
 import matplotlib.pyplot as plt
