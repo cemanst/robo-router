@@ -1,7 +1,7 @@
-import model.reduced_model
 import numpy as np
 import matplotlib.pyplot as plt
 from algorithm2.distance import euclidean_dist_with_elev
+import model.model
 
 def determine_rows_for_collection(collection_points, rows):
     for cp in collection_points:
