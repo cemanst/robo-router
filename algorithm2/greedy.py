@@ -1,7 +1,4 @@
-import numpy as np
-
-def eucledean_dist(a, b):
-    return np.math.sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2))
+from algorithm2.distance import euclidean_dist_with_elev
 
 def create_complete_sol(sol, D, P):
     full = []
@@ -60,7 +57,7 @@ def create_best(init_point, collection_points):
                     sorted.insert(j+1, cp)
                     break
 
-    if eucledean_dist(init_point, sorted[0].upperRow.a) > eucledean_dist(init_point, sorted[len(sorted)-1].upperRow.a):
+    if euclidean_dist_with_elev(init_point, sorted[0].upperRow.a) > euclidean_dist_with_elev(init_point, sorted[len(sorted)-1].upperRow.a):
         sorted.reverse()
 
     order = [init_point]

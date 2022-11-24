@@ -8,9 +8,13 @@ from model import Row, Point
 # sample_points = './data/small_inst/sample_points.csv'
 # init_points = './data/small_inst/init_point.csv'
 
-traj_points = './data/large_inst/traj_points.csv'
-sample_points = './data/large_inst/sample_points.csv'
-init_points = './data/large_inst/init_point.csv'
+# traj_points = './data/large_inst/traj_points.csv'
+# sample_points = './data/large_inst/sample_points.csv'
+# init_points = './data/large_inst/init_point.csv'
+
+traj_points = './data/with_elev/points_allowed.csv'
+sample_points = './data/with_elev/random_samping_points.csv'
+init_points = './data/with_elev/random_starting_points.csv'
 
 def read_data():
 
@@ -21,9 +25,11 @@ def read_data():
         r.a = Point()
         r.a.x = row['x_coord_point_1']
         r.a.y = row['y_coord_point_1']
+        r.a.elev = row['altitude_point_1']
         r.b = Point()
         r.b.x = row['x_coord_point_2']
         r.b.y = row['y_coord_point_2']
+        r.b.elev = row['altitude_point_2']
         rows.append(r)
 
     samples = []
@@ -32,6 +38,7 @@ def read_data():
         p = Point()
         p.x = row['x_coord']
         p.y = row['y_coord']
+        p.elev = row['altitudes']
         samples.append(p)
 
     inits = []
@@ -40,6 +47,8 @@ def read_data():
         init = Point()
         init.x = row['x_coord']
         init.y = row['y_coord']
+        init.elev = -1
+        # init.elev = row['altitudes']
         inits.append(init)
 
     return rows, samples, inits

@@ -1,8 +1,7 @@
-import sys
-
 import model.reduced_model
 import numpy as np
 import matplotlib.pyplot as plt
+from algorithm2.distance import euclidean_dist_with_elev
 
 def determine_rows_for_collection(collection_points, rows):
     for cp in collection_points:
@@ -17,9 +16,6 @@ def determine_rows_for_collection(collection_points, rows):
                 cp.lowerRow = rowA
 
 
-def euclidean_dist(a, b):
-    return np.math.sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2))
-
 def create_inv_arc(a):
     a2 = model.Arc()
     a2.dist = a.dist
@@ -30,11 +26,11 @@ def create_inv_arc(a):
 
 def find_shortest_path_from_init(init_point, point, D, P):
     a = model.Arc()
-    if euclidean_dist(init_point, point.upperRow.a) < euclidean_dist(init_point, point.upperRow.b):
-        a.dist = euclidean_dist(init_point, point.upperRow.a) + euclidean_dist(point.upperRow.a, point.upperProj)
+    if euclidean_dist_with_elev(init_point, point.upperRow.a) < euclidean_dist_with_elev(init_point, point.upperRow.b):
+        a.dist = euclidean_dist_with_elev(init_point, point.upperRow.a) + euclidean_dist_with_elev(point.upperRow.a, point.upperProj)
         a.path = [point.upperRow.a]
     else:
-        a.dist = euclidean_dist(init_point, point.upperRow.b) + euclidean_dist(point.upperRow.b, point.upperProj)
+        a.dist = euclidean_dist_with_elev(init_point, point.upperRow.b) + euclidean_dist_with_elev(point.upperRow.b, point.upperProj)
         a.path = [point.upperRow.b]
 
     init_point.connected.append(a)
@@ -51,17 +47,17 @@ def find_shortest_path(point1, point2, D, P):
     #connect upperProj-upperProj
     a = model.Arc()
     if point1.upperRow.a == point2.upperRow.a:
-        a.dist = euclidean_dist(point1.upperProj, point2.upperProj)
+        a.dist = euclidean_dist_with_elev(point1.upperProj, point2.upperProj)
         a.path = []
     else:
-        a.dist = euclidean_dist(point1.upperProj, point1.upperRow.a) \
-                 + euclidean_dist(point1.upperRow.a, point2.upperRow.a) \
-                 + euclidean_dist(point2.upperRow.a, point2.upperProj)
+        a.dist = euclidean_dist_with_elev(point1.upperProj, point1.upperRow.a) \
+                 + euclidean_dist_with_elev(point1.upperRow.a, point2.upperRow.a) \
+                 + euclidean_dist_with_elev(point2.upperRow.a, point2.upperProj)
         a.path = [point1.upperRow.a, point2.upperRow.a]
 
-        tmp = euclidean_dist(point1.upperProj, point1.upperRow.b) \
-              + euclidean_dist(point1.upperRow.b, point2.upperRow.b) \
-              + euclidean_dist(point2.upperRow.b, point2.upperProj)
+        tmp = euclidean_dist_with_elev(point1.upperProj, point1.upperRow.b) \
+              + euclidean_dist_with_elev(point1.upperRow.b, point2.upperRow.b) \
+              + euclidean_dist_with_elev(point2.upperRow.b, point2.upperProj)
         if tmp < a.dist:
             a.dist = tmp
             a.path = [point1.upperRow.b, point2.upperRow.b]
