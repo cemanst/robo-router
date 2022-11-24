@@ -17,7 +17,7 @@ def determine_rows_for_collection(collection_points, rows):
                 cp.lowerRow = rowA
 
 
-def eucledean_dist(a, b):
+def euclidean_dist(a, b):
     return np.math.sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2))
 
 def create_inv_arc(a):
@@ -30,11 +30,11 @@ def create_inv_arc(a):
 
 def find_shortest_path_from_init(init_point, point, D, P):
     a = model.Arc()
-    if eucledean_dist(init_point, point.upperRow.a) < eucledean_dist(init_point, point.upperRow.b):
-        a.dist = eucledean_dist(init_point, point.upperRow.a) + eucledean_dist(point.upperRow.a, point.upperProj)
+    if euclidean_dist(init_point, point.upperRow.a) < euclidean_dist(init_point, point.upperRow.b):
+        a.dist = euclidean_dist(init_point, point.upperRow.a) + euclidean_dist(point.upperRow.a, point.upperProj)
         a.path = [point.upperRow.a]
     else:
-        a.dist = eucledean_dist(init_point, point.upperRow.b) + eucledean_dist(point.upperRow.b, point.upperProj)
+        a.dist = euclidean_dist(init_point, point.upperRow.b) + euclidean_dist(point.upperRow.b, point.upperProj)
         a.path = [point.upperRow.b]
 
     init_point.connected.append(a)
@@ -47,11 +47,11 @@ def find_shortest_path_from_init(init_point, point, D, P):
     P[point.upperProj.id, 0] = a2.path
 
     a = model.Arc()
-    if eucledean_dist(init_point, point.lowerRow.a) < eucledean_dist(init_point, point.lowerRow.b):
-        a.dist = eucledean_dist(init_point, point.lowerRow.a) + eucledean_dist(point.lowerRow.a, point.lowerProj)
+    if euclidean_dist(init_point, point.lowerRow.a) < euclidean_dist(init_point, point.lowerRow.b):
+        a.dist = euclidean_dist(init_point, point.lowerRow.a) + euclidean_dist(point.lowerRow.a, point.lowerProj)
         a.path = [point.lowerRow.a]
     else:
-        a.dist = eucledean_dist(init_point, point.lowerRow.b) + eucledean_dist(point.lowerRow.b, point.lowerProj)
+        a.dist = euclidean_dist(init_point, point.lowerRow.b) + euclidean_dist(point.lowerRow.b, point.lowerProj)
         a.path = [point.lowerRow.b]
 
     init_point.connected.append(a)
@@ -68,17 +68,17 @@ def find_shortest_path(point1, point2, D, P):
     #connect upperProj-upperProj
     a = model.Arc()
     if point1.upperRow.a == point2.upperRow.a:
-        a.dist = eucledean_dist(point1.upperProj, point2.upperProj)
+        a.dist = euclidean_dist(point1.upperProj, point2.upperProj)
         a.path = []
     else:
-        a.dist = eucledean_dist(point1.upperProj, point1.upperRow.a) \
-                 + eucledean_dist(point1.upperRow.a, point2.upperRow.a) \
-                 + eucledean_dist(point2.upperRow.a, point2.upperProj)
+        a.dist = euclidean_dist(point1.upperProj, point1.upperRow.a) \
+                 + euclidean_dist(point1.upperRow.a, point2.upperRow.a) \
+                 + euclidean_dist(point2.upperRow.a, point2.upperProj)
         a.path = [point1.upperRow.a, point2.upperRow.a]
 
-        tmp = eucledean_dist(point1.upperProj, point1.upperRow.b) \
-                 + eucledean_dist(point1.upperRow.b, point2.upperRow.b) \
-                 + eucledean_dist(point2.upperRow.b, point2.upperProj)
+        tmp = euclidean_dist(point1.upperProj, point1.upperRow.b) \
+              + euclidean_dist(point1.upperRow.b, point2.upperRow.b) \
+              + euclidean_dist(point2.upperRow.b, point2.upperProj)
         if tmp < a.dist:
             a.dist = tmp
             a.path = [point1.upperRow.b, point2.upperRow.b]
@@ -95,17 +95,17 @@ def find_shortest_path(point1, point2, D, P):
     # connect upperProj-lowerProj
     a = model.Arc()
     if point1.upperRow.a == point2.lowerRow.a:
-        a.dist = eucledean_dist(point1.upperProj, point2.lowerProj)
+        a.dist = euclidean_dist(point1.upperProj, point2.lowerProj)
         a.path = []
     else:
-        a.dist = eucledean_dist(point1.upperProj, point1.upperRow.a) \
-                 + eucledean_dist(point1.upperRow.a, point2.lowerRow.a) \
-                 + eucledean_dist(point2.lowerRow.a, point2.lowerProj)
+        a.dist = euclidean_dist(point1.upperProj, point1.upperRow.a) \
+                 + euclidean_dist(point1.upperRow.a, point2.lowerRow.a) \
+                 + euclidean_dist(point2.lowerRow.a, point2.lowerProj)
         a.path = [point1.upperRow.a, point2.lowerRow.a]
 
-        tmp = eucledean_dist(point1.upperProj, point1.upperRow.b) \
-              + eucledean_dist(point1.upperRow.b, point2.lowerRow.b) \
-              + eucledean_dist(point2.lowerRow.b, point2.lowerProj)
+        tmp = euclidean_dist(point1.upperProj, point1.upperRow.b) \
+              + euclidean_dist(point1.upperRow.b, point2.lowerRow.b) \
+              + euclidean_dist(point2.lowerRow.b, point2.lowerProj)
         if tmp < a.dist:
             a.dist = tmp
             a.path = [point1.upperRow.b, point2.lowerRow.b]
@@ -122,17 +122,17 @@ def find_shortest_path(point1, point2, D, P):
     # connect lowerProj-upperProj
     a = model.Arc()
     if point1.lowerRow.a == point2.upperRow.a:
-        a.dist = eucledean_dist(point1.lowerProj, point2.upperProj)
+        a.dist = euclidean_dist(point1.lowerProj, point2.upperProj)
         a.path = []
     else:
-        a.dist = eucledean_dist(point1.lowerProj, point1.lowerRow.a) \
-                 + eucledean_dist(point1.lowerRow.a, point2.upperRow.a) \
-                 + eucledean_dist(point2.upperRow.a, point2.upperProj)
+        a.dist = euclidean_dist(point1.lowerProj, point1.lowerRow.a) \
+                 + euclidean_dist(point1.lowerRow.a, point2.upperRow.a) \
+                 + euclidean_dist(point2.upperRow.a, point2.upperProj)
         a.path = [point1.lowerRow.a, point2.upperRow.a]
 
-        tmp = eucledean_dist(point1.lowerProj, point1.lowerRow.b) \
-              + eucledean_dist(point1.lowerRow.b, point2.upperRow.b) \
-              + eucledean_dist(point2.upperRow.b, point2.upperProj)
+        tmp = euclidean_dist(point1.lowerProj, point1.lowerRow.b) \
+              + euclidean_dist(point1.lowerRow.b, point2.upperRow.b) \
+              + euclidean_dist(point2.upperRow.b, point2.upperProj)
         if tmp < a.dist:
             a.dist = tmp
             a.path = [point1.lowerRow.b, point2.upperRow.b]
@@ -149,17 +149,17 @@ def find_shortest_path(point1, point2, D, P):
     # connect lowerProj-lowerProj
     a = model.Arc()
     if point1.lowerRow.a == point2.lowerRow.a:
-        a.dist = eucledean_dist(point1.lowerProj, point2.lowerProj)
+        a.dist = euclidean_dist(point1.lowerProj, point2.lowerProj)
         a.path = []
     else:
-        a.dist = eucledean_dist(point1.lowerProj, point1.lowerRow.a) \
-                 + eucledean_dist(point1.lowerRow.a, point2.lowerRow.a) \
-                 + eucledean_dist(point2.lowerRow.a, point2.lowerProj)
+        a.dist = euclidean_dist(point1.lowerProj, point1.lowerRow.a) \
+                 + euclidean_dist(point1.lowerRow.a, point2.lowerRow.a) \
+                 + euclidean_dist(point2.lowerRow.a, point2.lowerProj)
         a.path = [point1.lowerRow.a, point2.lowerRow.a]
 
-        tmp = eucledean_dist(point1.lowerProj, point1.lowerRow.b) \
-              + eucledean_dist(point1.lowerRow.b, point2.lowerRow.b) \
-              + eucledean_dist(point2.lowerRow.b, point2.lowerProj)
+        tmp = euclidean_dist(point1.lowerProj, point1.lowerRow.b) \
+              + euclidean_dist(point1.lowerRow.b, point2.lowerRow.b) \
+              + euclidean_dist(point2.lowerRow.b, point2.lowerProj)
         if tmp < a.dist:
             a.dist = tmp
             a.path = [point1.lowerRow.b, point2.lowerRow.b]

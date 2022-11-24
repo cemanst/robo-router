@@ -1,0 +1,75 @@
+from algorithm2.distance import euclidean_dist_with_elev
+
+def create_complete_sol(sol, D, P):
+    full = []
+    cost = 0
+    for i in range(len(sol)):
+        full.append(sol[i])
+        if i < len(sol)-1 and P[sol[i].id, sol[i+1].id] is not None:
+            full = full + P[sol[i].id, sol[i+1].id]
+            cost = cost + D[sol[i].id, sol[i+1].id]
+        elif P[sol[i].id, 0] is not None:
+            full = full + P[sol[i].id, 0]
+            cost = cost + D[sol[i].id, 0]
+
+    full.append(sol[0])
+
+    return full, cost
+
+def run_greedy(init_point, graph, D):
+
+    curr_point = init_point
+    order = [init_point]
+    remaining = graph.copy()
+    del remaining[0]
+
+    while len(remaining) > 0:
+        closest = remaining[0]
+        closest_idx = 0
+        for i in range(1, len(remaining)):
+            if D[curr_point.id, remaining[i].id] < D[curr_point.id, closest.id]:
+                closest = remaining[i]
+                closest_idx = i
+
+        del remaining[closest_idx]
+        order.append(closest)
+        curr_point = closest
+
+    return order
+
+
+def create_best(init_point, collection_points):
+
+    if collection_points[0].upperRow.a.x < collection_points[1].upperRow.a.x:
+        sorted = [collection_points[0], collection_points[1]]
+    else:
+        sorted = [collection_points[1], collection_points[0]]
+
+    for i in range (2, len(collection_points)):
+        cp = collection_points[i]
+        if cp.upperRow.a.x < sorted[0].upperRow.a.x:
+            sorted.insert(0, cp)
+        elif cp.upperRow.a.x > sorted[len(sorted)-1].upperRow.a.x:
+            sorted.append(cp)
+        else:
+            for j in range(len(sorted)-1):
+                if sorted[j].upperRow.a.x < cp.upperRow.a.x < sorted[j + 1].upperRow.a.x:
+                    sorted.insert(j+1, cp)
+                    break
+
+    if euclidean_dist_with_elev(init_point, sorted[0].upperRow.a) > euclidean_dist_with_elev(init_point, sorted[len(sorted)-1].upperRow.a):
+        sorted.reverse()
+
+    order = [init_point]
+    for cp in sorted:
+        order.append(cp.upperProj)
+
+    return order
+
+
+
+
+
+
+
+
