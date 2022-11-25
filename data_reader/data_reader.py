@@ -14,7 +14,7 @@ from model import Row, Point
 
 traj_points = './data/with_elev/points_allowed.csv'
 sample_points = './data/with_elev/random_samping_points.csv'
-init_points = './data/with_elev/random_starting_points.csv'
+init_points = './data/with_elev/random_starting_points_with_altitudes.csv'
 
 def read_data():
 
@@ -48,7 +48,7 @@ def read_data():
         init.x = row['x_coord']
         init.y = row['y_coord']
         init.elev = -1
-        # init.elev = row['altitudes']
+        init.elev = row['altitudes']
         inits.append(init)
 
     return rows, samples, inits
