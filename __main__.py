@@ -55,7 +55,7 @@ def check_solution(rows, collection_points, sol, fig_name):
         plt.annotate(str(i+1), (x[i], y[i]))
 
     for sp in sol:
-        if sp.turning:
+        if sp.turning and not sp.end_point:
             plt.plot(sp.x, sp.y, 'mo')
 
     # plt.show()

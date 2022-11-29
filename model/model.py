@@ -9,6 +9,7 @@ class Point:
     y = 0
     elev = 0
     turning = False
+    end_point = False
     connected = []
     upperRow = None
     lowerRow = None

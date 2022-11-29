@@ -26,10 +26,12 @@ def read_data():
         r.a.x = row['x_coord_point_1']
         r.a.y = row['y_coord_point_1']
         r.a.elev = row['altitude_point_1']
+        r.a.end_point = True
         r.b = Point()
         r.b.x = row['x_coord_point_2']
         r.b.y = row['y_coord_point_2']
         r.b.elev = row['altitude_point_2']
+        r.b.end_point = True
         rows.append(r)
 
     samples = []
