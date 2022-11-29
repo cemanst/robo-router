@@ -1,21 +1,5 @@
 from algorithm2.distance import euclidean_dist_with_elev
 
-def create_complete_sol(sol, D, P):
-    full = []
-    cost = 0
-    for i in range(len(sol)):
-        full.append(sol[i])
-        if i < len(sol)-1 and P[sol[i].id, sol[i+1].id] is not None:
-            full = full + P[sol[i].id, sol[i+1].id]
-            cost = cost + D[sol[i].id, sol[i+1].id]
-        elif P[sol[i].id, 0] is not None:
-            full = full + P[sol[i].id, 0]
-            cost = cost + D[sol[i].id, 0]
-
-    full.append(sol[0])
-
-    return full, cost
-
 def run_greedy(init_point, graph, D):
 
     curr_point = init_point

@@ -6,8 +6,9 @@ import pandas as pd
 import time
 
 from algorithm2.alns import alns
-from algorithm2.greedy import run_greedy, create_best, create_complete_sol
+from algorithm2.greedy import run_greedy
 from algorithm2.prepare_reduced_graph import prepare_data, generate_graph
+from algorithm2.cost_func import create_complete_sol
 from data_reader import read_data
 
 import matplotlib.pyplot as plt
@@ -30,7 +31,7 @@ def print_sol(sol, D, P):
 
 def check_solution(rows, collection_points, sol, fig_name):
     for r in rows:
-        plt.plot([r.a.x, r.b.x], [r.a.y, r.b.y], 'ro-')
+        plt.plot([r.a.x, r.b.x], [r.a.y, r.b.y], 'ro--')
 
     for cp in collection_points:
         plt.plot(cp.x, cp.y, 'bo')
@@ -53,47 +54,13 @@ def check_solution(rows, collection_points, sol, fig_name):
     for i in range(len(x)):
         plt.annotate(str(i+1), (x[i], y[i]))
 
+    for sp in sol:
+        if sp.turning:
+            plt.plot(sp.x, sp.y, 'mo')
+
     # plt.show()
     plt.savefig('./data/' + fig_name + '.svg', format="svg")
     plt.clf()
-
-
-def check_P(rows, collection_points, sol, P):
-
-    for i in range(len(sol)):
-
-        for r in rows:
-            plt.plot([r.a.x, r.b.x], [r.a.y, r.b.y], 'ro-')
-
-        for cp in collection_points:
-            plt.plot(cp.x, cp.y, 'bo')
-            if cp.upperProj is not None:
-                plt.plot(cp.upperProj.x, cp.upperProj.y, 'yo')
-            if cp.lowerProj is not None:
-                plt.plot(cp.lowerProj.x, cp.lowerProj.y, 'yo')
-
-            plt.plot([cp.upperRow.a.x, cp.upperRow.b.x], [cp.upperRow.a.y, cp.upperRow.b.y], 'bo-')
-            plt.plot([cp.lowerRow.a.x, cp.lowerRow.b.x], [cp.lowerRow.a.y, cp.lowerRow.b.y], 'bo-')
-
-        x = []
-        y = []
-        x.append(sol[i].x)
-        y.append(sol[i].y)
-
-        if i < len(sol)-1:
-            path = P[sol[i].id, sol[i+1].id]
-            for p in path:
-                x.append(p.x)
-                y.append(p.y)
-
-        x.append(sol[i+1].x)
-        y.append(sol[i+1].y)
-
-        plt.plot(x, y, 'go-')
-        plt.show()
-        pass
-
-    plt.show()
 
 
 # main for run
