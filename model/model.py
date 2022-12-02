@@ -1,6 +1,14 @@
+from enum import Enum
 import numpy as np
-
 import model
+
+
+class PointType(Enum):
+    NA = 0
+    UPPER = 1
+    LOWER = 2
+    SAMPLE = 3
+    INIT = 4
 
 
 class Point:
@@ -9,7 +17,7 @@ class Point:
     y = 0
     elev = 0
     turning = False
-    end_point = False
+    type = PointType.NA
     connected = []
     upperRow = None
     lowerRow = None
@@ -58,6 +66,7 @@ def get_projection(mypoint, line_a, line_b):
     ret = model.Point()
     ret.x = projection[0]
     ret.y = projection[1]
+    ret.type = PointType.SAMPLE
     return ret
 
 def find_point_projections(points):

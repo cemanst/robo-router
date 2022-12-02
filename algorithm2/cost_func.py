@@ -1,9 +1,10 @@
 from enum import Enum
-
+from model.model import PointType
 
 class Direction(Enum):
     DOWN = 0
     UP = 1
+    NA = 2
 
 
 TURNING_DIST = 3
@@ -24,22 +25,23 @@ def create_complete_sol(sol, D, P):
 
     full.append(sol[0])
 
-    if len(full) >= 1:
-        if full[0].y > full[1].y:
-            direction = Direction.DOWN
-        else:
-            direction = Direction.UP
+    direction = Direction.NA
+    for i in range(len(full)-1):
 
-        for i in range(len(full)-1):
-            if direction == Direction.DOWN and full[i + 1].y > full[i].y:
+        if full[i].type == PointType.SAMPLE and direction == Direction.UP:
+            cost += TURNING_DIST
+            full[i].turning = True
+        else:
+            full[i].turning = False
+
+        if full[i].type == PointType.LOWER and full[i+1].type == PointType.SAMPLE:
+            direction = Direction.UP
+        elif full[i].type == PointType.UPPER and full[i+1].type == PointType.SAMPLE:
+            direction = Direction.DOWN
+        elif full[i].type == PointType.SAMPLE and full[i+1].type == PointType.SAMPLE:
+            if full[i + 1].y > full[i].y:
                 direction = Direction.UP
-                cost += TURNING_DIST
-                full[i].turning = True
-            elif direction == Direction.UP and full[i + 1].y < full[i].y:
-                direction = Direction.DOWN
-                cost += TURNING_DIST
-                full[i].turning = True
             else:
-                full[i].turning = False
+                direction = Direction.DOWN
 
     return full, cost
