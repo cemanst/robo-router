@@ -7,7 +7,7 @@ class Direction(Enum):
     NA = 2
 
 
-TURNING_DIST = 3
+TURNING_DIST = 2500
 
 
 def create_complete_sol(sol, D, P):

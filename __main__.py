@@ -85,9 +85,7 @@ def main():
 
     # ALNS
     start = time.process_time_ns()
-    sol, weights, trend = alns(init_point, sample_points, graph, D, P)
-    # check_P(rows, sample_points, sol, P)
-    alns_sol, alns_cost = create_complete_sol(sol, D, P)
+    alns_sol, alns_cost, weights, trend = alns(init_point, sample_points, graph, D, P)
     end = time.process_time_ns()
     alns_time = (end - start) / 1000000000.0
     print('Final solution found in ' + str(alns_time) + ' seconds.')
@@ -95,7 +93,6 @@ def main():
 
     check_solution(rows, sample_points, alns_sol, 'best_sol')
     print_sol(alns_sol, D, P)
-
 
     x = range(len(trend[1]))
     plt.plot(x, trend[1], 'g-')

@@ -24,7 +24,8 @@ def alns(init_point, collection_points, graph, D, P):
 
     init_sol = run_greedy(init_point, graph, D)
     # init_sol = create_best(init_point, collection_points)
-    operators = [one_opt, two_opt, three_opt]
+    operators = [two_opt, three_opt, opt_7, opt_9, opt_13, opt_17, opt_23,
+                 shuffle_2, shuffle_3, shuffle_7, shuffle_9, shuffle_13, shuffle_17, shuffle_23]
     oper_weights = [1 / len(operators)] * len(operators)
     best_sol = init_sol
     fs, best_cost = create_complete_sol(init_sol, D, P)
@@ -64,6 +65,7 @@ def alns(init_point, collection_points, graph, D, P):
                     break
 
             new_sol = operators[selected_oper](curr_sol, collection_points)
+            # new_sol = fix_all_inverse(new_sol, collection_points)
             if new_sol is None:
                 # Inapplicable operator for this network state, repeat iteration
                 continue
@@ -100,5 +102,7 @@ def alns(init_point, collection_points, graph, D, P):
 
         print('Processed temperature: ' + str(temperatures[i]))
 
-    return best_sol, oper_weights, trend
+    full_sol, best_full_cost = create_complete_sol(best_sol, D, P)
+
+    return full_sol, best_full_cost, oper_weights, trend
 
