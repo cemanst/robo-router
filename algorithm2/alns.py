@@ -65,11 +65,15 @@ def alns(init_point, collection_points, graph, D, P):
                     break
 
             new_sol = operators[selected_oper](curr_sol, collection_points)
-            # new_sol = fix_all_inverse(new_sol, collection_points)
             if new_sol is None:
                 # Inapplicable operator for this network state, repeat iteration
                 continue
 
+            # this will determine what are the turning points
+            create_complete_sol(new_sol, D, P)
+            # now, manually manually reverse adjacent turning points... (Basically, a repair operator.)
+            new_sol = fix_all_inverse(new_sol, collection_points)
+            # ... and calculate the cost of the new solution
             fs, new_cost = create_complete_sol(new_sol, D, P)
 
             if new_cost < curr_cost:
