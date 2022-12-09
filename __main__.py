@@ -10,6 +10,7 @@ from algorithm2.greedy import run_greedy
 from algorithm2.prepare_reduced_graph import prepare_data, generate_graph
 from algorithm2.cost_func import create_complete_sol
 from data_reader import read_data
+from algorithm2.operators import fix_init_point_connection
 
 import matplotlib.pyplot as plt
 
@@ -90,6 +91,8 @@ def main():
     alns_time = (end - start) / 1000000000.0
     print('Final solution found in ' + str(alns_time) + ' seconds.')
     print('Final solution cost: ' + str(alns_cost))
+
+    fix_init_point_connection(alns_sol, rows)
 
     check_solution(rows, sample_points, alns_sol, 'best_sol')
     print_sol(alns_sol, D, P)
