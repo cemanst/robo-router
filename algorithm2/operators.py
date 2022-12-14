@@ -83,6 +83,8 @@ def fix_inverse_from_position(sol, init_pos):
     if lb > -1:
         new_sol = sol[lb:ub]
         new_sol.reverse()
+        for i in range(1, len(new_sol)):
+            new_sol[i].turning = False
         new_sol = sol[:lb] + new_sol
         if ub < len(sol):
             new_sol = new_sol + sol[ub:]
