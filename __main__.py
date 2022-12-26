@@ -6,9 +6,11 @@ import pandas as pd
 import time
 
 from algorithm2.alns import alns
-from algorithm2.greedy import run_greedy, create_best, create_complete_sol
+from algorithm2.greedy import run_greedy
 from algorithm2.prepare_reduced_graph import prepare_data, generate_graph
-from data_reader import read_data
+from algorithm2.cost_func import create_complete_sol
+from data_reader import read_data, PointType
+from algorithm2.operators import fix_init_point_connection, fix_all_inverse
 
 import matplotlib.pyplot as plt
 
@@ -30,7 +32,7 @@ def print_sol(sol, D, P):
 
 def check_solution(rows, collection_points, sol, fig_name):
     for r in rows:
-        plt.plot([r.a.x, r.b.x], [r.a.y, r.b.y], 'ro-')
+        plt.plot([r.a.x, r.b.x], [r.a.y, r.b.y], 'ro--')
 
     for cp in collection_points:
         plt.plot(cp.x, cp.y, 'bo')
@@ -50,50 +52,19 @@ def check_solution(rows, collection_points, sol, fig_name):
 
     plt.plot(x, y, 'go-')
 
+    ind = 1
     for i in range(len(x)):
-        plt.annotate(str(i+1), (x[i], y[i]))
+        if sol[i].type == PointType.SAMPLE or sol[i].type == PointType.UPPER:
+            plt.annotate(str(ind), (x[i], y[i]))
+            ind += 1
+
+    for sp in sol:
+        if sp.turning:
+            plt.plot(sp.x, sp.y, 'mo')
 
     # plt.show()
     plt.savefig('./data/' + fig_name + '.svg', format="svg")
     plt.clf()
-
-
-def check_P(rows, collection_points, sol, P):
-
-    for i in range(len(sol)):
-
-        for r in rows:
-            plt.plot([r.a.x, r.b.x], [r.a.y, r.b.y], 'ro-')
-
-        for cp in collection_points:
-            plt.plot(cp.x, cp.y, 'bo')
-            if cp.upperProj is not None:
-                plt.plot(cp.upperProj.x, cp.upperProj.y, 'yo')
-            if cp.lowerProj is not None:
-                plt.plot(cp.lowerProj.x, cp.lowerProj.y, 'yo')
-
-            plt.plot([cp.upperRow.a.x, cp.upperRow.b.x], [cp.upperRow.a.y, cp.upperRow.b.y], 'bo-')
-            plt.plot([cp.lowerRow.a.x, cp.lowerRow.b.x], [cp.lowerRow.a.y, cp.lowerRow.b.y], 'bo-')
-
-        x = []
-        y = []
-        x.append(sol[i].x)
-        y.append(sol[i].y)
-
-        if i < len(sol)-1:
-            path = P[sol[i].id, sol[i+1].id]
-            for p in path:
-                x.append(p.x)
-                y.append(p.y)
-
-        x.append(sol[i+1].x)
-        y.append(sol[i+1].y)
-
-        plt.plot(x, y, 'go-')
-        plt.show()
-        pass
-
-    plt.show()
 
 
 # main for run
@@ -108,27 +79,29 @@ def main():
 
     # Greedy
     start = time.process_time_ns()
-    sol = run_greedy(init_point, graph, D)
-    init_sol, init_cost = create_complete_sol(sol, D, P)
+    init_sol = run_greedy(init_point, graph, D)
+    create_complete_sol(init_sol, D, P)
+    fixed_sol = fix_all_inverse(init_sol, sample_points)
+    fs, init_cost = create_complete_sol(fixed_sol, D, P)
     end = time.process_time_ns()
     init_time = (end-start)/1000000000.0
-    check_solution(rows, sample_points, init_sol, 'init_sol')
+    fix_init_point_connection(fs, rows)
+    check_solution(rows, sample_points, fs, 'init_sol')
     print('Initial solution found in ' + str(init_time) + ' seconds.')
     print('Initial solution cost: ' + str(init_cost))
 
     # ALNS
     start = time.process_time_ns()
-    sol, weights, trend = alns(init_point, sample_points, graph, D, P)
-    # check_P(rows, sample_points, sol, P)
-    alns_sol, alns_cost = create_complete_sol(sol, D, P)
+    alns_sol, alns_cost, weights, trend = alns(init_point, sample_points, graph, D, P)
     end = time.process_time_ns()
     alns_time = (end - start) / 1000000000.0
     print('Final solution found in ' + str(alns_time) + ' seconds.')
     print('Final solution cost: ' + str(alns_cost))
 
+    fix_init_point_connection(alns_sol, rows)
+
     check_solution(rows, sample_points, alns_sol, 'best_sol')
     print_sol(alns_sol, D, P)
-
 
     x = range(len(trend[1]))
     plt.plot(x, trend[1], 'g-')

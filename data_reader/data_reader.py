@@ -2,7 +2,7 @@ from datetime import *
 
 import pandas as pd
 
-from model import Row, Point
+from model.model import *
 
 # traj_points = './data/small_inst/traj_points.csv'
 # sample_points = './data/small_inst/sample_points.csv'
@@ -26,10 +26,19 @@ def read_data():
         r.a.x = row['x_coord_point_1']
         r.a.y = row['y_coord_point_1']
         r.a.elev = row['altitude_point_1']
+
         r.b = Point()
         r.b.x = row['x_coord_point_2']
         r.b.y = row['y_coord_point_2']
         r.b.elev = row['altitude_point_2']
+
+        if r.a.y > r.b.y:
+            r.a.type = PointType.UPPER
+            r.b.type = PointType.LOWER
+        else:
+            r.a.type = PointType.LOWER
+            r.b.type = PointType.UPPER
+
         rows.append(r)
 
     samples = []
@@ -39,6 +48,7 @@ def read_data():
         p.x = row['x_coord']
         p.y = row['y_coord']
         p.elev = row['altitudes']
+        p.type = PointType.SAMPLE
         samples.append(p)
 
     inits = []
@@ -49,6 +59,7 @@ def read_data():
         init.y = row['y_coord']
         init.elev = -1
         init.elev = row['altitudes']
+        init.type = PointType.INIT
         inits.append(init)
 
     return rows, samples, inits

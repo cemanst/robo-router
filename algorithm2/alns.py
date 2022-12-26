@@ -3,9 +3,9 @@ import math
 import sys
 
 from algorithm2.alns_params import *
-from algorithm2.greedy import run_greedy, create_complete_sol, create_best
+from algorithm2.greedy import run_greedy
 from algorithm2.operators import *
-
+from algorithm2.cost_func import create_complete_sol
 
 def create_temperatures(M, p0, pf, delta):
     temperatures = []
@@ -24,10 +24,13 @@ def alns(init_point, collection_points, graph, D, P):
 
     init_sol = run_greedy(init_point, graph, D)
     # init_sol = create_best(init_point, collection_points)
-    operators = [one_opt, two_opt, three_opt]
+    # operators = [two_opt, three_opt, opt_7, opt_9, opt_13, opt_17, opt_23,
+                # shuffle_2, shuffle_3, shuffle_7, shuffle_9, shuffle_13, shuffle_17, shuffle_23]
+    operators = [two_opt, three_opt, opt_7]
     oper_weights = [1 / len(operators)] * len(operators)
-    best_sol = init_sol
-    fs, best_cost = create_complete_sol(init_sol, D, P)
+    create_complete_sol(init_sol, D, P)
+    fixed_sol = fix_all_inverse(init_sol, collection_points)
+    fs, best_cost = create_complete_sol(fixed_sol, D, P)
 
     # create temperatures for simulated annealing
     temperatures = create_temperatures(M, p0, pf, delta)
@@ -36,6 +39,7 @@ def alns(init_point, collection_points, graph, D, P):
     selected_oper = random.randint(0, len(operators))
 
     curr_sol = init_sol
+    best_sol = init_sol
     curr_cost = best_cost
 
     trend = ([],[],[])
@@ -68,7 +72,12 @@ def alns(init_point, collection_points, graph, D, P):
                 # Inapplicable operator for this network state, repeat iteration
                 continue
 
-            fs, new_cost = create_complete_sol(new_sol, D, P)
+            # this will determine what are the turning points
+            create_complete_sol(new_sol, D, P)
+            # now, manually manually reverse adjacent turning points... (Basically, a repair operator.)
+            fixed_sol = fix_all_inverse(new_sol, collection_points)
+            # ... and calculate the cost of the new solution
+            fs, new_cost = create_complete_sol(fixed_sol, D, P)
 
             if new_cost < curr_cost:
                 curr_sol = new_sol
@@ -100,5 +109,9 @@ def alns(init_point, collection_points, graph, D, P):
 
         print('Processed temperature: ' + str(temperatures[i]))
 
-    return best_sol, oper_weights, trend
+    create_complete_sol(best_sol, D, P)
+    fixed_sol = fix_all_inverse(best_sol, collection_points)
+    full_sol, best_full_cost = create_complete_sol(fixed_sol, D, P)
+
+    return full_sol, best_full_cost, oper_weights, trend
 
