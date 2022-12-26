@@ -28,7 +28,6 @@ def alns(init_point, collection_points, graph, D, P):
                 # shuffle_2, shuffle_3, shuffle_7, shuffle_9, shuffle_13, shuffle_17, shuffle_23]
     operators = [two_opt, three_opt, opt_7]
     oper_weights = [1 / len(operators)] * len(operators)
-    best_sol = init_sol
     create_complete_sol(init_sol, D, P)
     fixed_sol = fix_all_inverse(init_sol, collection_points)
     fs, best_cost = create_complete_sol(fixed_sol, D, P)
@@ -40,6 +39,7 @@ def alns(init_point, collection_points, graph, D, P):
     selected_oper = random.randint(0, len(operators))
 
     curr_sol = init_sol
+    best_sol = init_sol
     curr_cost = best_cost
 
     trend = ([],[],[])

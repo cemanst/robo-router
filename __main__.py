@@ -9,7 +9,7 @@ from algorithm2.alns import alns
 from algorithm2.greedy import run_greedy
 from algorithm2.prepare_reduced_graph import prepare_data, generate_graph
 from algorithm2.cost_func import create_complete_sol
-from data_reader import read_data
+from data_reader import read_data, PointType
 from algorithm2.operators import fix_init_point_connection, fix_all_inverse
 
 import matplotlib.pyplot as plt
@@ -52,8 +52,11 @@ def check_solution(rows, collection_points, sol, fig_name):
 
     plt.plot(x, y, 'go-')
 
+    ind = 1
     for i in range(len(x)):
-        plt.annotate(str(i+1), (x[i], y[i]))
+        if sol[i].type == PointType.SAMPLE or sol[i].type == PointType.UPPER:
+            plt.annotate(str(ind), (x[i], y[i]))
+            ind += 1
 
     for sp in sol:
         if sp.turning:
@@ -95,13 +98,10 @@ def main():
     print('Final solution found in ' + str(alns_time) + ' seconds.')
     print('Final solution cost: ' + str(alns_cost))
 
-    create_complete_sol(alns_sol, D, P)
-    fixed_sol = fix_all_inverse(alns_sol, sample_points)
-    final_sol, final_cost = create_complete_sol(fixed_sol, D, P)
-    fix_init_point_connection(final_sol, rows)
+    fix_init_point_connection(alns_sol, rows)
 
-    check_solution(rows, sample_points, final_sol, 'best_sol')
-    print_sol(final_sol, D, P)
+    check_solution(rows, sample_points, alns_sol, 'best_sol')
+    print_sol(alns_sol, D, P)
 
     x = range(len(trend[1]))
     plt.plot(x, trend[1], 'g-')

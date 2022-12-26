@@ -168,3 +168,37 @@ def fix_init_point_connection(alns_sol, rows):
             alns_sol.insert(len(alns_sol)-1, closer_row.a)
         else:
             alns_sol.insert(len(alns_sol)-1, closer_row.b)
+
+
+def remove_overheads(sol, P):
+    found_swap = True
+    while found_swap:
+        found_swap = False
+        for i in range(len(sol) - 1):
+            path = P[sol[i].id, sol[i + 1].id]
+            if path is not None and len(path) > 0:
+                path.insert(0, sol[i])
+                path.append(sol[i+1])
+                for j in range(i):
+                    if point_on_path(sol[j], path):
+                        found_swap = True
+                        break
+            if found_swap:
+                break
+        if found_swap:
+            swap_pt = sol[j]
+            sol.remove(j)
+            sol.insert(i+1, swap_pt)
+
+
+def point_on_path(pt, path):
+
+    if len(path) < 2:
+        eps = 0.2
+        for i in range(len(path)-1):
+            k = (path[i].y - path[i+1].y) / (path[i].x - path[i+1].x)
+            n = path[i].y - k * path[i].x
+            if abs(k*pt.x + n - pt.y) < eps:
+                return True
+
+    return False
