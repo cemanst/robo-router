@@ -80,21 +80,23 @@ def main():
     # Greedy
     start = time.process_time_ns()
     init_sol = run_greedy(init_point, graph, D)
-    create_complete_sol(init_sol, D, P)
-    fixed_sol = fix_all_inverse(init_sol, sample_points)
-    fs, init_cost = create_complete_sol(fixed_sol, D, P)
+    # create_complete_sol(init_sol, D, P)
+    # fixed_sol = fix_all_inverse(init_sol, sample_points)
+    fs, init_cost = create_complete_sol(init_sol, D, P)
     end = time.process_time_ns()
     init_time = (end-start)/1000000000.0
     fix_init_point_connection(fs, rows)
     check_solution(rows, sample_points, fs, 'init_sol')
-    print('Initial solution found in ' + str(init_time) + ' seconds.')
-    print('Initial solution cost: ' + str(init_cost))
+
 
     # ALNS
     start = time.process_time_ns()
-    alns_sol, alns_cost, weights, trend = alns(init_point, sample_points, graph, D, P)
+    alns_sol, alns_cost, weights, trend, init_cost = alns(init_point, sample_points, graph, D, P)
     end = time.process_time_ns()
     alns_time = (end - start) / 1000000000.0
+
+    print('Initial solution found in ' + str(init_time) + ' seconds.')
+    print('Initial solution cost: ' + str(init_cost))
     print('Final solution found in ' + str(alns_time) + ' seconds.')
     print('Final solution cost: ' + str(alns_cost))
 

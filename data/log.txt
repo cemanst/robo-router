@@ -1,6 +1,4 @@
 C:\Users\nikob\anaconda3\python.exe D:/gitHome/robo-router/__main__.py
-Initial solution found in 0.0 seconds.
-Initial solution cost: 148488.60846044405
 Processed temperature: 414.94696348205986
 Processed temperature: 414.6023820686288
 Processed temperature: 414.2580279029831
@@ -979,7 +977,9 @@ Processed temperature: 102.2170238166627
 Processed temperature: 101.37218164956191
 Processed temperature: 100.50617064700604
 Temperature 99.61737149753938 is below threshold.
-Final solution found in 746.1875 seconds.
-Final solution cost: 131510.60324946046
+Initial solution found in 0.0 seconds.
+Initial solution cost: 145164.77916792032
+Final solution found in 715.84375 seconds.
+Final solution cost: 126309.65421232065
 
 Process finished with exit code 0

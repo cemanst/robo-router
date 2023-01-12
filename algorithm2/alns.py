@@ -30,7 +30,7 @@ def alns(init_point, collection_points, graph, D, P):
     oper_weights = [1 / len(operators)] * len(operators)
     create_complete_sol(init_sol, D, P)
     fixed_sol = fix_all_inverse(init_sol, collection_points)
-    fs, best_cost = create_complete_sol(fixed_sol, D, P)
+    fs, init_cost = create_complete_sol(fixed_sol, D, P)
 
     # create temperatures for simulated annealing
     temperatures = create_temperatures(M, p0, pf, delta)
@@ -39,8 +39,9 @@ def alns(init_point, collection_points, graph, D, P):
     selected_oper = random.randint(0, len(operators))
 
     curr_sol = init_sol
+    curr_cost = init_cost
     best_sol = init_sol
-    curr_cost = best_cost
+    best_cost = init_cost
 
     trend = ([],[],[])
     trend[0].append(temperatures[0])
@@ -113,5 +114,5 @@ def alns(init_point, collection_points, graph, D, P):
     fixed_sol = fix_all_inverse(best_sol, collection_points)
     full_sol, best_full_cost = create_complete_sol(fixed_sol, D, P)
 
-    return full_sol, best_full_cost, oper_weights, trend
+    return full_sol, best_full_cost, oper_weights, trend, init_cost
 
