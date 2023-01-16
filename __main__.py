@@ -12,8 +12,12 @@ from algorithm2.cost_func import create_complete_sol
 from data_reader import read_data, PointType
 from algorithm2.operators import fix_init_point_connection, fix_all_inverse
 
+from algorithm2.complete_pass import pass_all_rows
+
 import matplotlib.pyplot as plt
 
+from datetime import datetime
+random.seed(datetime.now().timestamp())
 
 def print_sol(sol, D, P):
     res = pd.DataFrame(columns = ['x', 'y'])
@@ -69,6 +73,8 @@ def check_solution(rows, collection_points, sol, fig_name):
 
 # main for run
 def main():
+    usecase = "passall" # options: optimize, passall
+
     rows, sample_points, init_points = read_data()
 
     random.seed()
@@ -77,39 +83,44 @@ def main():
     prepare_data(init_point, sample_points, rows)
     graph, D, P = generate_graph(init_point, sample_points)
 
-    # Greedy
-    start = time.process_time_ns()
-    init_sol = run_greedy(init_point, graph, D)
-    # create_complete_sol(init_sol, D, P)
-    # fixed_sol = fix_all_inverse(init_sol, sample_points)
-    fs, init_cost = create_complete_sol(init_sol, D, P)
-    end = time.process_time_ns()
-    init_time = (end-start)/1000000000.0
-    fix_init_point_connection(fs, rows)
-    check_solution(rows, sample_points, fs, 'init_sol')
+    if usecase == "optimize":
+        # Greedy
+        start = time.process_time_ns()
+        init_sol = run_greedy(init_point, graph, D)
+        # create_complete_sol(init_sol, D, P)
+        # fixed_sol = fix_all_inverse(init_sol, sample_points)
+        fs, init_cost = create_complete_sol(init_sol, D, P)
+        end = time.process_time_ns()
+        init_time = (end-start)/1000000000.0
+        fix_init_point_connection(fs, rows)
+        check_solution(rows, sample_points, fs, 'init_sol')
 
+        # ALNS
+        start = time.process_time_ns()
+        alns_sol, alns_cost, weights, trend, init_cost = alns(init_point, sample_points, graph, D, P)
+        end = time.process_time_ns()
+        alns_time = (end - start) / 1000000000.0
 
-    # ALNS
-    start = time.process_time_ns()
-    alns_sol, alns_cost, weights, trend, init_cost = alns(init_point, sample_points, graph, D, P)
-    end = time.process_time_ns()
-    alns_time = (end - start) / 1000000000.0
+        print('Initial solution found in ' + str(init_time) + ' seconds.')
+        print('Initial solution cost: ' + str(init_cost))
+        print('Final solution found in ' + str(alns_time) + ' seconds.')
+        print('Final solution cost: ' + str(alns_cost))
 
-    print('Initial solution found in ' + str(init_time) + ' seconds.')
-    print('Initial solution cost: ' + str(init_cost))
-    print('Final solution found in ' + str(alns_time) + ' seconds.')
-    print('Final solution cost: ' + str(alns_cost))
+        fix_init_point_connection(alns_sol, rows)
 
-    fix_init_point_connection(alns_sol, rows)
+        check_solution(rows, sample_points, alns_sol, 'best_sol')
+        print_sol(alns_sol, D, P)
 
-    check_solution(rows, sample_points, alns_sol, 'best_sol')
-    print_sol(alns_sol, D, P)
+        x = range(len(trend[1]))
+        plt.plot(x, trend[1], 'g-')
+        plt.plot(x, trend[2], 'b-')
+        # plt.show()
+        plt.savefig('./data/trend.svg', format="svg")
 
-    x = range(len(trend[1]))
-    plt.plot(x, trend[1], 'g-')
-    plt.plot(x, trend[2], 'b-')
-    # plt.show()
-    plt.savefig('./data/trend.svg', format="svg")
+    elif usecase == "passall":
+        # pass all rows in zik-zak manner
+        all_pass_solution = pass_all_rows(init_point, rows)
+        check_solution(rows, sample_points, all_pass_solution, "all_pass_sol")
 
     # for debugging
     pass
