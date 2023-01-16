@@ -1,7 +1,7 @@
 import numpy as np
 
 from model.model import Point
-from algorithm2.distance import euclidean_dist_with_elev
+from algorithm2.distance import objective_energy_consumption
 
 def pass_all_rows(init_point, rows):
     """
@@ -40,7 +40,7 @@ def pass_all_rows(init_point, rows):
             if l[1] not in reachable_corners:
                 reachable_corners.append(l[1])
     
-    reachable_corners.sort(key = lambda x: euclidean_dist_with_elev(init_point, x)) # start from closes reachabe point
+    reachable_corners.sort(key = lambda x: objective_energy_consumption(init_point, x)) # start from closes reachabe point
     start_corner = reachable_corners[0]
 
     rows_ordered = None
@@ -69,17 +69,17 @@ def pass_all_rows(init_point, rows):
 
     if last_corner in reachable_corners: # if init point is directly reachable
         return_options.append(tuple([
-            euclidean_dist_with_elev(last_corner, init_point), 
+            objective_energy_consumption(last_corner, init_point), 
             []
         ]))
     if same_row_corner in reachable_corners: # if it is reachable from the same row, from its another end
         return_options.append(tuple([
-            euclidean_dist_with_elev(last_corner, same_row_corner) + euclidean_dist_with_elev(same_row_corner, init_point),
+            objective_energy_consumption(last_corner, same_row_corner) + objective_energy_consumption(same_row_corner, init_point),
             [same_row_corner]
         ]))
     if same_side_corner in reachable_corners: # if it is reachable from the same side of the furthest row
         return_options.append(tuple([
-            euclidean_dist_with_elev(last_corner, same_side_corner) + euclidean_dist_with_elev(same_side_corner, init_point),
+            objective_energy_consumption(last_corner, same_side_corner) + objective_energy_consumption(same_side_corner, init_point),
             [same_side_corner]
         ]))
     

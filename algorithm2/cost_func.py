@@ -1,6 +1,8 @@
 from enum import Enum
 from model.model import PointType
 
+from model.params import energy_rotation
+
 class Direction(Enum):
     DOWN = 0
     UP = 1
@@ -29,7 +31,8 @@ def create_complete_sol(sol, D, P):
     for i in range(len(full)-1):
 
         if full[i].type == PointType.SAMPLE and direction == Direction.UP:
-            cost += TURNING_DIST
+            cost += TURNING_DIST  * energy_rotation
+
             full[i].turning = True
         else:
             full[i].turning = False

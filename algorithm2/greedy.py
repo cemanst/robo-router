@@ -1,4 +1,4 @@
-from algorithm2.distance import euclidean_dist_with_elev
+from algorithm2.distance import objective_energy_consumption
 
 def run_greedy(init_point, graph, D):
 
@@ -41,7 +41,7 @@ def create_best(init_point, collection_points):
                     sorted.insert(j+1, cp)
                     break
 
-    if euclidean_dist_with_elev(init_point, sorted[0].upperRow.a) > euclidean_dist_with_elev(init_point, sorted[len(sorted)-1].upperRow.a):
+    if objective_energy_consumption(init_point, sorted[0].upperRow.a) > objective_energy_consumption(init_point, sorted[len(sorted)-1].upperRow.a):
         sorted.reverse()
 
     order = [init_point]

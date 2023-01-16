@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from algorithm2.distance import euclidean_dist_with_elev
+from algorithm2.distance import objective_energy_consumption
 import model.model
 
 def determine_rows_for_collection(collection_points, rows):
@@ -26,11 +26,11 @@ def create_inv_arc(a):
 
 def find_shortest_path_from_init(init_point, point, D, P):
     a = model.Arc()
-    if euclidean_dist_with_elev(init_point, point.upperRow.a) < euclidean_dist_with_elev(init_point, point.upperRow.b):
-        a.dist = euclidean_dist_with_elev(init_point, point.upperRow.a) + euclidean_dist_with_elev(point.upperRow.a, point.upperProj)
+    if objective_energy_consumption(init_point, point.upperRow.a) < objective_energy_consumption(init_point, point.upperRow.b):
+        a.dist = objective_energy_consumption(init_point, point.upperRow.a) + objective_energy_consumption(point.upperRow.a, point.upperProj)
         a.path = [point.upperRow.a]
     else:
-        a.dist = euclidean_dist_with_elev(init_point, point.upperRow.b) + euclidean_dist_with_elev(point.upperRow.b, point.upperProj)
+        a.dist = objective_energy_consumption(init_point, point.upperRow.b) + objective_energy_consumption(point.upperRow.b, point.upperProj)
         a.path = [point.upperRow.b]
 
     init_point.connected.append(a)
@@ -47,17 +47,17 @@ def find_shortest_path(point1, point2, D, P):
     #connect upperProj-upperProj
     a = model.Arc()
     if point1.upperRow.a == point2.upperRow.a:
-        a.dist = euclidean_dist_with_elev(point1.upperProj, point2.upperProj)
+        a.dist = objective_energy_consumption(point1.upperProj, point2.upperProj)
         a.path = []
     else:
-        a.dist = euclidean_dist_with_elev(point1.upperProj, point1.upperRow.a) \
-                 + euclidean_dist_with_elev(point1.upperRow.a, point2.upperRow.a) \
-                 + euclidean_dist_with_elev(point2.upperRow.a, point2.upperProj)
+        a.dist = objective_energy_consumption(point1.upperProj, point1.upperRow.a) \
+                 + objective_energy_consumption(point1.upperRow.a, point2.upperRow.a) \
+                 + objective_energy_consumption(point2.upperRow.a, point2.upperProj)
         a.path = [point1.upperRow.a, point2.upperRow.a]
 
-        tmp = euclidean_dist_with_elev(point1.upperProj, point1.upperRow.b) \
-              + euclidean_dist_with_elev(point1.upperRow.b, point2.upperRow.b) \
-              + euclidean_dist_with_elev(point2.upperRow.b, point2.upperProj)
+        tmp = objective_energy_consumption(point1.upperProj, point1.upperRow.b) \
+              + objective_energy_consumption(point1.upperRow.b, point2.upperRow.b) \
+              + objective_energy_consumption(point2.upperRow.b, point2.upperProj)
         if tmp < a.dist:
             a.dist = tmp
             a.path = [point1.upperRow.b, point2.upperRow.b]
