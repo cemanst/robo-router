@@ -1,6 +1,7 @@
 import math
 import random
 import sys
+import os
 
 import pandas as pd
 import time
@@ -12,14 +13,15 @@ from algorithm2.cost_func import create_complete_sol
 from data_reader import read_data, PointType
 from algorithm2.operators import fix_init_point_connection, fix_all_inverse
 
-from algorithm2.complete_pass import pass_all_rows
+from watering.single_pass_watering import single_pass_watering
+from watering.double_pass_watering import double_pass_watering
 
 import matplotlib.pyplot as plt
 
 from datetime import datetime
 random.seed(datetime.now().timestamp())
 
-def print_sol(sol, D, P):
+def print_sol(sol, D, P, filename="results"):
     res = pd.DataFrame(columns = ['x', 'y'])
 
     for i in range(len(sol)-1):
@@ -29,12 +31,13 @@ def print_sol(sol, D, P):
             for p in path:
                 res.append([p.x, p.y])
 
-    res.loc[len(res)] = [sol[len(sol)-1].x, sol[len(sol)-1].y]
+    res.loc[len(res)] = [sol[len(sol)-1].x, sol[len(sol)-1].y] # cycle back to last point
 
-    res.to_csv('./data/result.csv')
+    os.makedirs(f'./data/paths/{filename}', exist_ok = True)
+    res.to_csv(f'./data/paths/{filename}/{filename}.csv')
 
 
-def check_solution(rows, collection_points, sol, fig_name):
+def check_solution(rows, collection_points, sol, filename):
     for r in rows:
         plt.plot([r.a.x, r.b.x], [r.a.y, r.b.y], 'ro--')
 
@@ -67,13 +70,14 @@ def check_solution(rows, collection_points, sol, fig_name):
             plt.plot(sp.x, sp.y, 'mo')
 
     # plt.show()
-    plt.savefig('./data/' + fig_name + '.svg', format="svg")
+    os.makedirs(f'./data/paths/{filename}', exist_ok = True)
+    plt.savefig(f'./data/paths/{filename}/{filename}.svg', format="svg")
     plt.clf()
 
 
 # main for run
 def main():
-    usecase = "passall" # options: optimize, passall
+    usecase = "doublepass" # options: optimize, singlepass, doublepass
 
     rows, sample_points, init_points = read_data()
 
@@ -109,18 +113,24 @@ def main():
         fix_init_point_connection(alns_sol, rows)
 
         check_solution(rows, sample_points, alns_sol, 'best_sol')
-        print_sol(alns_sol, D, P)
+        print_sol(alns_sol, D, P, filename="best_sol")
 
         x = range(len(trend[1]))
         plt.plot(x, trend[1], 'g-')
         plt.plot(x, trend[2], 'b-')
         # plt.show()
-        plt.savefig('./data/trend.svg', format="svg")
+        plt.savefig('./data/paths/trend.svg', format="svg")
 
-    elif usecase == "passall":
-        # pass all rows in zik-zak manner
-        all_pass_solution = pass_all_rows(init_point, rows)
-        check_solution(rows, sample_points, all_pass_solution, "all_pass_sol")
+    elif usecase == "singlepass":
+        # pass all rows once in zik-zak manner
+        all_pass_solution = single_pass_watering(init_point, rows)
+        check_solution(rows, sample_points, all_pass_solution, "single_pass_sol")
+
+    elif usecase == "doublepass":
+        # pass all rows once in zik-zak manner
+        all_pass_solution = double_pass_watering(init_point, rows)
+        check_solution(rows, sample_points, all_pass_solution, "double_pass_sol")
+        print_sol(all_pass_solution, D, P, filename="double_pass_sol")
 
     # for debugging
     pass
