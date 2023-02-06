@@ -66,6 +66,7 @@ def get_projection(mypoint, line_a, line_b):
     ret = model.Point()
     ret.x = projection[0]
     ret.y = projection[1]
+    ret.elev = mypoint.elev # best possible estimation for projection elevation
     ret.type = PointType.SAMPLE
     return ret
 
