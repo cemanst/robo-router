@@ -5,6 +5,8 @@ import os
 
 import pandas as pd
 import time
+import json
+from pyproj import Transformer
 
 from algorithm2.alns import alns
 from algorithm2.greedy import run_greedy
@@ -21,7 +23,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 random.seed(datetime.now().timestamp())
 
-def print_sol(sol, D, P, filename="results"):
+def print_sol_csv(sol, D, P, filename="results"):
     res = pd.DataFrame(columns = ['x', 'y'])
 
     for i in range(len(sol)-1):
@@ -35,6 +37,49 @@ def print_sol(sol, D, P, filename="results"):
 
     os.makedirs(f'./data/paths/{filename}', exist_ok = True)
     res.to_csv(f'./data/paths/{filename}/{filename}.csv')
+
+
+def print_sol(sol, D, P, filename="results"):
+
+    transformer = Transformer.from_crs(32634, 4326)
+
+    res = []
+    id_cnt = 0
+    for i in range(len(sol)-1):
+        pfp = {}
+        pfp["id"] = id_cnt
+        tmp = transformer.transform(sol[i].x, sol[i].y)
+        pfp["long"] = tmp[0]
+        pfp["lat"] = tmp[1]
+        pfp["point_type"] = 'U' if sol[i].type == PointType.SAMPLE else 'P'
+        res.append(pfp)
+        id_cnt += 1
+
+        path = P[sol[i].id, sol[i+1].id]
+        if path is not None:
+            for p in path:
+                pfp2 = {}
+                pfp2["id"] = id_cnt
+                tmp = transformer.transform(p.x, p.y)
+                pfp2["long"] = tmp[0]
+                pfp2["lat"] = tmp[1]
+                pfp2["point_type"] = 'P'
+                res.append(pfp2)
+                id_cnt += 1
+
+    pfp3 = {}
+    pfp3["id"] = id_cnt
+    tmp = transformer.transform(sol[len(sol)-1].x, sol[len(sol)-1].y)
+    pfp3["long"] = tmp[0]
+    pfp3["lat"] = tmp[1]
+    pfp3["point_type"] = 'P'
+    res.append(pfp3)
+    id_cnt += 1
+
+    json_str = json.dumps(res)
+    os.makedirs(f'./data/paths/{filename}', exist_ok = True)
+    with open(f'./data/paths/{filename}/{filename}.json', "w") as outfile:
+        outfile.write(json_str)
 
 
 def check_solution(rows, collection_points, sol, filename):
@@ -77,7 +122,7 @@ def check_solution(rows, collection_points, sol, filename):
 
 # main for run
 def main():
-    usecase = "doublepass" # options: optimize, singlepass, doublepass
+    usecase = "optimize" # options: optimize, singlepass, doublepass
 
     rows, sample_points, init_points = read_data()
 
