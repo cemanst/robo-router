@@ -50,8 +50,8 @@ def print_sol(sol, D, P, filename="results"):
         pfp = {}
         pfp["idPoint"] = id_cnt
         tmp = transformer.transform(sol[i].x, sol[i].y)
-        pfp["longitude"] = tmp[0]
-        pfp["latitude"] = tmp[1]
+        pfp["longitude"] = round(tmp[0], 10)
+        pfp["latitude"] = round(tmp[1], 10)
         pfp["pointType"] = 'U' if sol[i].type == PointType.SAMPLE else 'P'
         res.append(pfp)
         id_cnt += 1
@@ -62,8 +62,8 @@ def print_sol(sol, D, P, filename="results"):
                 pfp2 = {}
                 pfp2["idPoint"] = id_cnt
                 tmp = transformer.transform(p.x, p.y)
-                pfp2["longitude"] = tmp[0]
-                pfp2["latitude"] = tmp[1]
+                pfp2["longitude"] = round(tmp[0], 10)
+                pfp2["latitude"] = round(tmp[1], 10)
                 pfp2["pointType"] = 'P'
                 res.append(pfp2)
                 id_cnt += 1
@@ -71,8 +71,8 @@ def print_sol(sol, D, P, filename="results"):
     pfp3 = {}
     pfp3["idPoint"] = id_cnt
     tmp = transformer.transform(sol[len(sol)-1].x, sol[len(sol)-1].y)
-    pfp3["longitude"] = tmp[0]
-    pfp3["latitude"] = tmp[1]
+    pfp3["longitude"] = round(tmp[0], 10)
+    pfp3["latitude"] = round(tmp[1], 10)
     pfp3["pointType"] = 'H'
     res.append(pfp3)
     id_cnt += 1
