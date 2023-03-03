@@ -47,11 +47,11 @@ def print_sol(sol, D, P, filename="results"):
     id_cnt = 0
     for i in range(len(sol)-1):
         pfp = {}
-        pfp["id"] = id_cnt
+        pfp["idPoint"] = id_cnt
         tmp = transformer.transform(sol[i].x, sol[i].y)
-        pfp["long"] = tmp[0]
-        pfp["lat"] = tmp[1]
-        pfp["point_type"] = 'U' if sol[i].type == PointType.SAMPLE else 'P'
+        pfp["longitude"] = tmp[0]
+        pfp["latitude"] = tmp[1]
+        pfp["pointType"] = 'U' if sol[i].type == PointType.SAMPLE else 'P'
         res.append(pfp)
         id_cnt += 1
 
@@ -59,20 +59,20 @@ def print_sol(sol, D, P, filename="results"):
         if path is not None:
             for p in path:
                 pfp2 = {}
-                pfp2["id"] = id_cnt
+                pfp2["idPoint"] = id_cnt
                 tmp = transformer.transform(p.x, p.y)
-                pfp2["long"] = tmp[0]
-                pfp2["lat"] = tmp[1]
-                pfp2["point_type"] = 'P'
+                pfp2["longitude"] = tmp[0]
+                pfp2["latitude"] = tmp[1]
+                pfp2["pointType"] = 'P'
                 res.append(pfp2)
                 id_cnt += 1
 
     pfp3 = {}
-    pfp3["id"] = id_cnt
+    pfp3["idPoint"] = id_cnt
     tmp = transformer.transform(sol[len(sol)-1].x, sol[len(sol)-1].y)
-    pfp3["long"] = tmp[0]
-    pfp3["lat"] = tmp[1]
-    pfp3["point_type"] = 'P'
+    pfp3["longitude"] = tmp[0]
+    pfp3["latitude"] = tmp[1]
+    pfp3["pointType"] = 'H'
     res.append(pfp3)
     id_cnt += 1
 
