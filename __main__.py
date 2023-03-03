@@ -15,6 +15,7 @@ from algorithm2.cost_func import create_complete_sol
 from data_reader import read_data, PointType
 from algorithm2.operators import fix_init_point_connection, fix_all_inverse
 
+from geometry.shifting import shift_corners, shift_out_init_point
 from watering.single_pass_watering import single_pass_watering
 from watering.double_pass_watering import double_pass_watering
 
@@ -124,10 +125,12 @@ def check_solution(rows, collection_points, sol, filename):
 def main():
     usecase = "optimize" # options: optimize, singlepass, doublepass
 
-    rows, sample_points, init_points = read_data()
-
     random.seed()
+    rows, sample_points, init_points = read_data()
     init_point = init_points[random.randrange(len(init_points))]
+
+    shift_corners(rows)
+    shift_out_init_point(rows, init_point)
 
     prepare_data(init_point, sample_points, rows)
     graph, D, P = generate_graph(init_point, sample_points)

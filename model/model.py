@@ -24,6 +24,12 @@ class Point:
     upperProj = None
     lowerProj = None
 
+    def __str__(self) -> str:
+        return f"{self.id}:({self.x},{self.y},{self.elev}), type:{self.type}, turning:{self.turning}"
+    
+    def __repr__(self) -> str:
+        return str(self)
+
 
 class Arc:
     dist = 0
