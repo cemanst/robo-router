@@ -32,7 +32,7 @@ def objective_energy_consumption(a, b):
     y_diff = a.y - b.y
     distance = np.math.sqrt(x_diff**2 + y_diff**2 + elev_diff**2)
 
-    return (energy_transition * distance) + uphill_work
+    return energy_transition * distance # + uphill_work
     
 
 

@@ -9,7 +9,7 @@ class Direction(Enum):
     NA = 2
 
 
-TURNING_DIST = 50
+TURNING_DIST = 20
 
 
 def create_complete_sol(sol, D, P):
@@ -31,7 +31,7 @@ def create_complete_sol(sol, D, P):
     for i in range(len(full)-1):
 
         if full[i].type == PointType.SAMPLE and direction == Direction.UP:
-            cost += TURNING_DIST  * energy_rotation
+            cost += TURNING_DIST * energy_rotation
 
             full[i].turning = True
         else:
