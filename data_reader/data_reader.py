@@ -1,4 +1,5 @@
 from datetime import *
+from pathlib import Path
 
 import pandas as pd
 
@@ -12,14 +13,21 @@ from model.model import *
 # sample_points = './data/large_inst/sample_points.csv'
 # init_points = './data/large_inst/init_point.csv'
 
-traj_points = './data/with_elev/points_allowed.csv'
-sample_points = './data/with_elev/random_samping_points.csv'
-init_points = './data/with_elev/random_starting_points_with_altitudes.csv'
 
-def read_data():
+# traj_points = './data/with_elev/points_allowed.csv'
+# sample_points = './data/with_elev/random_samping_points.csv'
+# init_points = './data/with_elev/random_starting_points_with_altitudes.csv'
+
+# traj_points = "./data/test2/points_allowed_use_case_test2.csv"
+# sample_points = "./data/test2/sampling_points_use_case_test2.csv"
+# init_points = "./data/test2/starting_points_use_case_test2.csv"
+
+
+def read_data(casename):
 
     rows = []
-    ds1 = pd.read_csv(traj_points, header=0)
+    points_allowed = Path("./data/src/") / casename / "points_allowed.csv"
+    ds1 = pd.read_csv(points_allowed, header=0)
     for idx, row in ds1.iterrows():
         r = Row()
         r.a = Point()
@@ -41,8 +49,9 @@ def read_data():
 
         rows.append(r)
 
+    sampling_points = Path("./data/src/") / casename / "sampling_points.csv"
     samples = []
-    ds2 = pd.read_csv(sample_points, header=0)
+    ds2 = pd.read_csv(sampling_points, header=0)
     for idx, row in ds2.iterrows():
         p = Point()
         p.x = row['x_coord']
@@ -51,6 +60,7 @@ def read_data():
         p.type = PointType.SAMPLE
         samples.append(p)
 
+    init_points = Path("./data/src/") / casename / "starting_points.csv"
     inits = []
     ds3 = pd.read_csv(init_points, header=0)
     for idx, row in ds3.iterrows():

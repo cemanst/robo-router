@@ -24,7 +24,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 random.seed(datetime.now().timestamp())
 
-def print_sol_csv(sol, D, P, filename="results"):
+def print_sol_csv(sol, D, P, casename, filename="results"):
     res = pd.DataFrame(columns = ['x', 'y'])
 
     for i in range(len(sol)-1):
@@ -36,11 +36,11 @@ def print_sol_csv(sol, D, P, filename="results"):
 
     res.loc[len(res)] = [sol[len(sol)-1].x, sol[len(sol)-1].y] # cycle back to last point
 
-    os.makedirs(f'./data/paths/{filename}', exist_ok = True)
-    res.to_csv(f'./data/paths/{filename}/{filename}.csv')
+    os.makedirs(f'./data/out/paths/{casename}', exist_ok = True)
+    res.to_csv(f'./data/out/paths/{casename}/{filename}.csv')
 
 
-def print_sol(sol, D, P, filename="results"):
+def print_sol(sol, D, P, casename, filename="results"):
 
     transformer = Transformer.from_crs(32634, 4326)
 
@@ -78,12 +78,12 @@ def print_sol(sol, D, P, filename="results"):
     id_cnt += 1
 
     json_str = json.dumps(res)
-    os.makedirs(f'./data/paths/{filename}', exist_ok = True)
-    with open(f'./data/paths/{filename}/{filename}.json', "w") as outfile:
+    os.makedirs(f'./data/out/paths/{casename}', exist_ok = True)
+    with open(f'./data/out/paths/{casename}/{filename}.json', "w") as outfile:
         outfile.write(json_str)
 
 
-def check_solution(rows, collection_points, sol, filename):
+def check_solution(rows, collection_points, sol, casename, filename):
     for r in rows:
         plt.plot([r.a.x, r.b.x], [r.a.y, r.b.y], 'ro--')
 
@@ -116,17 +116,18 @@ def check_solution(rows, collection_points, sol, filename):
             plt.plot(sp.x, sp.y, 'mo')
 
     # plt.show()
-    os.makedirs(f'./data/paths/{filename}', exist_ok = True)
-    plt.savefig(f'./data/paths/{filename}/{filename}.svg', format="svg")
+    os.makedirs(f'./data/out/paths/{casename}', exist_ok = True)
+    plt.savefig(f'./data/out/paths/{casename}/{filename}.svg', format="svg")
     plt.clf()
 
 
 # main for run
 def main():
     usecase = "optimize" # options: optimize, singlepass, doublepass
+    casename = "test2_6mart" # test2_6mart, with_elev
 
     random.seed()
-    rows, sample_points, init_points = read_data()
+    rows, sample_points, init_points = read_data(casename)
     init_point = init_points[random.randrange(len(init_points))]
 
     shift_corners(rows)
@@ -145,7 +146,7 @@ def main():
         end = time.process_time_ns()
         init_time = (end-start)/1000000000.0
         fix_init_point_connection(fs, rows)
-        check_solution(rows, sample_points, fs, 'init_sol')
+        check_solution(rows, sample_points, fs, casename, filename='init_sol')
 
         # ALNS
         start = time.process_time_ns()
@@ -160,25 +161,26 @@ def main():
 
         fix_init_point_connection(alns_sol, rows)
 
-        check_solution(rows, sample_points, alns_sol, 'best_sol')
-        print_sol(alns_sol, D, P, filename="best_sol")
+        check_solution(rows, sample_points, alns_sol, casename, filename='best_sol')
+        print_sol(alns_sol, D, P, casename, filename="best_sol")
 
         x = range(len(trend[1]))
         plt.plot(x, trend[1], 'g-')
         plt.plot(x, trend[2], 'b-')
         # plt.show()
-        plt.savefig('./data/paths/trend.svg', format="svg")
+        plt.savefig(f'./data/out/paths/{casename}/trend.svg', format="svg")
 
     elif usecase == "singlepass":
         # pass all rows once in zik-zak manner
         all_pass_solution = single_pass_watering(init_point, rows)
-        check_solution(rows, sample_points, all_pass_solution, "single_pass_sol")
+        check_solution(rows, sample_points, all_pass_solution, casename, filename="single_pass_sol")
+        print_sol(all_pass_solution, D, P, casename, filename="single_pass_sol")
 
     elif usecase == "doublepass":
         # pass all rows once in zik-zak manner
         all_pass_solution = double_pass_watering(init_point, rows)
-        check_solution(rows, sample_points, all_pass_solution, "double_pass_sol")
-        print_sol(all_pass_solution, D, P, filename="double_pass_sol")
+        check_solution(rows, sample_points, all_pass_solution, casename, filename="double_pass_sol")
+        print_sol(all_pass_solution, D, P, casename, filename="double_pass_sol")
 
     # for debugging
     pass
@@ -217,8 +219,9 @@ def main_for_tuning():
 
         res.loc[len(res)] = [init_cost, init_time, alns_cost, alns_time, (init_cost-alns_cost) / init_cost]
 
-    check_solution(rows, sample_points, best_sol, 'best_sol')
-    print_sol(best_sol, D, P)
+    casename = None
+    check_solution(rows, sample_points, best_sol, casename, filename='best_sol')
+    print_sol(best_sol, D, P, casename, filename="best_sol")
 
     res.to_csv('./data/best_solutions.csv')
 

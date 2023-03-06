@@ -1,0 +1,23 @@
+Koraci:
+1. Odredimo casename u main-u
+    - linija ispod navodjenja usecase (optimize, singlepass, dobulepass)
+    - naziv case-a (with_elev, test2_6mart...)
+2. Postavljamo ulazne podatke na odgovarajucu lokaicju
+    - po potrebi podesimo imena ulaznim fajlovima
+3. Pokrecemo optimizaciju
+
+Ulazni fajlovi:
+./data/src/<casename>/points_allowed.csv
+./data/src/<casename>/sampling_points.csv
+./data/src/<casename>/starting_points.csv
+
+Izlazni podaci:
+./data/out/paths/<casename>/init_sol.svg
+./data/out/paths/<casename>/best_sol.svg
+./data/out/paths/<casename>/best_sol.json
+./data/out/paths/<casename>/trend.svg
+&
+./data/out/paths/<casename>/single_pass_sol.svg
+./data/out/paths/<casename>/single_pass_sol.json
+./data/out/paths/<casename>/double_pass_sol.svg
+./data/out/paths/<casename>/double_pass_sol.json
