@@ -135,8 +135,8 @@ def main():
     rows, sample_points, init_points = read_data(casename)
     init_point = init_points[random.randrange(len(init_points))]
 
-    shift_corners(rows)
-    shift_out_init_point(rows, init_point)
+    # shift_corners(rows)
+    # shift_out_init_point(rows, init_point)
 
     prepare_data(init_point, sample_points, rows)
     graph, D, P = generate_graph(init_point, sample_points)
