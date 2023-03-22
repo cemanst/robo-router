@@ -1,5 +1,8 @@
 import numpy as np
 
+from geometry.crown import Crown
+from geometry.symmetry import symmetry
+from geometry.vector import Vector
 
 def is_same_side(init_point, centroid, point1, point2):
     """
@@ -24,3 +27,23 @@ def is_same_side(init_point, centroid, point1, point2):
     side_init = np.sign( init_point.y - k * init_point.x - n )
 
     return side_centroid == side_init # same or different sides of point1-point2 line
+
+
+def sinuosity(point_a, point_b, centroid, height):
+    sa, middle, sb = symmetry(point_a, point_b)
+    outer = None
+    if not is_same_side(sa, centroid, point_a, point_b):
+        outer = sa
+    else:
+        outer = sb
+    
+    xaxis  = Vector(point_b, middle)
+    yaxis = Vector(outer, middle)
+    yaxis.set_length(height)
+
+    crown = Crown(npoints = 9)
+    intersteps = crown.apply(xaxis, yaxis, middle)
+    return intersteps
+    
+
+
