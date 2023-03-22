@@ -2,7 +2,9 @@ import numpy as np
 
 from model.model import Point
 from algorithm2.distance import objective_energy_consumption
-from geometry.geometry import is_same_side
+
+from geometry.polygon import is_same_side
+from geometry.field_analysis import locate_centroid
 
 def double_pass_watering(init_point, rows):
     """
@@ -19,20 +21,15 @@ def double_pass_watering(init_point, rows):
     """
     first_row = rows[0]
     last_row = rows[-1]
+    centroid = locate_centroid(rows)
 
-    
-    corners = [first_row.a, first_row.b, last_row.a, last_row.b]
-    centroid = Point()
-    for c in corners:
-        centroid.x += c.x / 4
-        centroid.y += c.y / 4 # centroid of a field used to detect side of initial point
-    
     lines = [
         (first_row.a, first_row.b), # field border lines
         (last_row.a, last_row.b),
         (first_row.a, last_row.a),
         (first_row.b, last_row.b)
     ]
+
     reachable_corners = []
     for l in lines:
         if not is_same_side(init_point, centroid, l[0], l[1]): # detection which points are directly reachable without crossing the field
