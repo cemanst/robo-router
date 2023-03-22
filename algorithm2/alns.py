@@ -5,7 +5,9 @@ import sys
 from algorithm2.alns_params import *
 from algorithm2.greedy import run_greedy
 from algorithm2.operators import *
-from algorithm2.cost_func import create_complete_sol
+
+from postprocessing.complete_solution import create_complete_sol
+from postprocessing.fixing import fix_all_inverse
 
 def create_temperatures(M, p0, pf, delta):
     temperatures = []

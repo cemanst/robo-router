@@ -3,12 +3,19 @@ import numpy as np
 import model
 
 
+class Direction(Enum):
+    DOWN = 0
+    UP = 1
+    NA = 2
+    SINUOSITY = 3
+
 class PointType(Enum):
     NA = 0
     UPPER = 1
     LOWER = 2
     SAMPLE = 3
     INIT = 4
+    SINUOSITY = 5
 
 
 class Point:
