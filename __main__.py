@@ -11,9 +11,11 @@ from pyproj import Transformer
 from algorithm2.alns import alns
 from algorithm2.greedy import run_greedy
 from algorithm2.prepare_reduced_graph import prepare_data, generate_graph
-from algorithm2.cost_func import create_complete_sol
+from postprocessing.complete_solution import create_complete_sol
 from data_reader import read_data, PointType
-from algorithm2.operators import fix_init_point_connection, fix_all_inverse
+
+from postprocessing.fixing import fix_init_point_connection, fix_all_inverse
+from postprocessing.smoothing import insert_sinuosities
 
 from geometry.shifting import shift_corners, shift_out_init_point
 from watering.single_pass_watering import single_pass_watering
@@ -50,8 +52,8 @@ def print_sol(sol, D, P, casename, filename="results"):
         pfp = {}
         pfp["idPoint"] = id_cnt
         tmp = transformer.transform(sol[i].x, sol[i].y)
-        pfp["longitude"] = round(tmp[0], 10)
-        pfp["latitude"] = round(tmp[1], 10)
+        pfp["latitude"] = round(tmp[0], 10)
+        pfp["longitude"] = round(tmp[1], 10)
         pfp["pointType"] = 'U' if sol[i].type == PointType.SAMPLE else 'P'
         res.append(pfp)
         id_cnt += 1
@@ -62,8 +64,8 @@ def print_sol(sol, D, P, casename, filename="results"):
                 pfp2 = {}
                 pfp2["idPoint"] = id_cnt
                 tmp = transformer.transform(p.x, p.y)
-                pfp2["longitude"] = round(tmp[0], 10)
-                pfp2["latitude"] = round(tmp[1], 10)
+                pfp2["latitude"] = round(tmp[0], 10)
+                pfp2["longitude"] = round(tmp[1], 10)
                 pfp2["pointType"] = 'P'
                 res.append(pfp2)
                 id_cnt += 1
@@ -71,8 +73,8 @@ def print_sol(sol, D, P, casename, filename="results"):
     pfp3 = {}
     pfp3["idPoint"] = id_cnt
     tmp = transformer.transform(sol[len(sol)-1].x, sol[len(sol)-1].y)
-    pfp3["longitude"] = round(tmp[0], 10)
-    pfp3["latitude"] = round(tmp[1], 10)
+    pfp3["latitude"] = round(tmp[0], 10)
+    pfp3["longitude"] = round(tmp[1], 10)
     pfp3["pointType"] = 'H'
     res.append(pfp3)
     id_cnt += 1
@@ -103,7 +105,7 @@ def check_solution(rows, collection_points, sol, casename, filename):
         x.append(sp.x)
         y.append(sp.y)
 
-    plt.plot(x, y, 'go-')
+    plt.plot(x, y, 'g.-')
 
     ind = 1
     for i in range(len(x)):
@@ -114,6 +116,9 @@ def check_solution(rows, collection_points, sol, casename, filename):
     for sp in sol:
         if sp.turning:
             plt.plot(sp.x, sp.y, 'mo')
+        
+        # if sp.type == PointType.SINUOSITY:
+        #     plt.plot(sp.x, sp.y, 'c+')
 
     # plt.show()
     os.makedirs(f'./data/out/paths/{casename}', exist_ok = True)
@@ -161,6 +166,7 @@ def main():
 
         fix_init_point_connection(alns_sol, rows)
 
+        alns_sol = insert_sinuosities(alns_sol, rows)
         check_solution(rows, sample_points, alns_sol, casename, filename='best_sol')
         print_sol(alns_sol, D, P, casename, filename="best_sol")
 
@@ -173,12 +179,14 @@ def main():
     elif usecase == "singlepass":
         # pass all rows once in zik-zak manner
         all_pass_solution = single_pass_watering(init_point, rows)
+        all_pass_solution = insert_sinuosities(all_pass_solution, rows)
         check_solution(rows, sample_points, all_pass_solution, casename, filename="single_pass_sol")
         print_sol(all_pass_solution, D, P, casename, filename="single_pass_sol")
 
     elif usecase == "doublepass":
         # pass all rows once in zik-zak manner
         all_pass_solution = double_pass_watering(init_point, rows)
+        all_pass_solution = insert_sinuosities(all_pass_solution, rows)
         check_solution(rows, sample_points, all_pass_solution, casename, filename="double_pass_sol")
         print_sol(all_pass_solution, D, P, casename, filename="double_pass_sol")
 
