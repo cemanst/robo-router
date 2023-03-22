@@ -1,15 +1,6 @@
-from enum import Enum
-from model.model import PointType
+from model.model import PointType, Direction
+from model.params import energy_rotation, TURNING_DIST
 
-from model.params import energy_rotation
-
-class Direction(Enum):
-    DOWN = 0
-    UP = 1
-    NA = 2
-
-
-TURNING_DIST = 20
 
 
 def create_complete_sol(sol, D, P):
