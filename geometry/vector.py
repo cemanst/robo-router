@@ -1,4 +1,4 @@
-from math import pi, sin, cos
+from math import pi, sin, cos, asin
 from copy import copy
 
 import numpy as np
@@ -6,9 +6,9 @@ import numpy as np
 from model.model import Point
 
 class Vector:
-    def __init__(self, p1 = Point(), p0 = Point()):
-        self.dx = p1.x - p0.x
-        self.dy = p1.y - p0.y
+    def __init__(self, destination = Point(), source = Point()):
+        self.dx = destination.x - source.x
+        self.dy = destination.y - source.y
 
 
     def from_array(self, arr):
@@ -42,6 +42,21 @@ class Vector:
             retval.x = point.x + self.dx
             retval.y = point.y + self.dy
             return retval
+
+    def angle(self):
+        l = self.get_length()
+        referent_angle =  asin(self.dy / l)
+
+        if self.dx >= 0:
+            return referent_angle
+        elif self.dx < 0:
+            if referent_angle >= 0:
+                diff = pi/2 - referent_angle
+            elif referent_angle < 0:
+                diff = (-pi/2) - referent_angle
+            return 2*diff + referent_angle
+            
+
 
 
     def rotate(self, angle = pi/2):

@@ -16,6 +16,7 @@ class PointType(Enum):
     SAMPLE = 3
     INIT = 4
     SINUOSITY = 5
+    DUPLICATE = 6
 
 
 class Point:
@@ -30,6 +31,7 @@ class Point:
     lowerRow = None
     upperProj = None
     lowerProj = None
+    orientation = None
 
     def __str__(self) -> str:
         return f"{self.id}:({self.x},{self.y},{self.elev}), type:{self.type}, turning:{self.turning}"
