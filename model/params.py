@@ -10,3 +10,5 @@ TURNING_DIST = 20
 robot_mass = 180 # 180kg, NextCloud readme info
 energy_transition = 1 # FIXME - update when info available
 energy_rotation = 5 * energy_transition # FIXME - update when info available if not correct 
+
+sinuosity_height = 0.5

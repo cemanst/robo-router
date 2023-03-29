@@ -1,11 +1,12 @@
 from model.model import PointType
+from model.params import sinuosity_height
 
 from geometry.field_analysis import locate_centroid, mean_row_width
 from geometry.polygon import sinuosity
 
 def insert_sinuosities(solution, rows):
     centroid = locate_centroid(rows)
-    H = mean_row_width(rows)
+    H = mean_row_width(rows) * sinuosity_height
 
     previous = solution[0]
     retval = [previous]
