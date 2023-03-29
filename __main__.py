@@ -16,6 +16,7 @@ from data_reader import read_data, PointType
 
 from postprocessing.fixing import fix_init_point_connection, fix_all_inverse
 from postprocessing.smoothing import insert_sinuosities
+from postprocessing.orientation import assign_directions, duplicate_rotation_points
 
 from geometry.shifting import shift_corners, shift_out_init_point
 from watering.single_pass_watering import single_pass_watering
@@ -52,30 +53,44 @@ def print_sol(sol, D, P, casename, filename="results"):
         pfp = {}
         pfp["idPoint"] = id_cnt
         tmp = transformer.transform(sol[i].x, sol[i].y)
+        pfp["x"] = sol[i].x
+        pfp["y"] = sol[i].y
         pfp["latitude"] = round(tmp[0], 10)
         pfp["longitude"] = round(tmp[1], 10)
-        pfp["pointType"] = 'U' if sol[i].type == PointType.SAMPLE else 'P'
+        if sol[i].type == PointType.SAMPLE:
+            pfp["pointType"] = 'U'  
+            pfp["samplingSide"] = "RIGHT"
+        else: 
+            pfp["pointType"] = 'P'
+            pfp["samplingSide"] = "none"
+        pfp["orientation"] = sol[i].orientation.angle()
+
         res.append(pfp)
         id_cnt += 1
 
-        path = P[sol[i].id, sol[i+1].id]
-        if path is not None:
-            for p in path:
-                pfp2 = {}
-                pfp2["idPoint"] = id_cnt
-                tmp = transformer.transform(p.x, p.y)
-                pfp2["latitude"] = round(tmp[0], 10)
-                pfp2["longitude"] = round(tmp[1], 10)
-                pfp2["pointType"] = 'P'
-                res.append(pfp2)
-                id_cnt += 1
+        # path = P[sol[i].id, sol[i+1].id]
+        # if path is not None:
+        #     for p in path:
+        #         pfp2 = {}
+        #         pfp2["idPoint"] = id_cnt
+        #         tmp = transformer.transform(p.x, p.y)
+        #         pfp2["latitude"] = round(tmp[0], 10)
+        #         pfp2["longitude"] = round(tmp[1], 10)
+        #         pfp2["pointType"] = 'P'
+        #         res.append(pfp2)
+        #         id_cnt += 1
 
     pfp3 = {}
     pfp3["idPoint"] = id_cnt
-    tmp = transformer.transform(sol[len(sol)-1].x, sol[len(sol)-1].y)
+    tmp = transformer.transform(sol[-1].x, sol[-1].y)
     pfp3["latitude"] = round(tmp[0], 10)
     pfp3["longitude"] = round(tmp[1], 10)
+    pfp3["x"] = sol[-1].x
+    pfp3["y"] = sol[-1].y
     pfp3["pointType"] = 'H'
+    pfp3["samplingSide"] = "none"
+    pfp3["orientation"] = sol[-1].orientation.angle()
+
     res.append(pfp3)
     id_cnt += 1
 
@@ -167,6 +182,8 @@ def main():
         fix_init_point_connection(alns_sol, rows)
 
         alns_sol = insert_sinuosities(alns_sol, rows)
+        alns_sol = assign_directions(alns_sol)
+        # alns_sol = duplicate_rotation_points(alns_sol)
         check_solution(rows, sample_points, alns_sol, casename, filename='best_sol')
         print_sol(alns_sol, D, P, casename, filename="best_sol")
 
@@ -180,6 +197,8 @@ def main():
         # pass all rows once in zik-zak manner
         all_pass_solution = single_pass_watering(init_point, rows)
         all_pass_solution = insert_sinuosities(all_pass_solution, rows)
+        all_pass_solution = assign_directions(all_pass_solution)
+        # all_pass_solution = duplicate_rotation_points(all_pass_solution)
         check_solution(rows, sample_points, all_pass_solution, casename, filename="single_pass_sol")
         print_sol(all_pass_solution, D, P, casename, filename="single_pass_sol")
 
@@ -187,6 +206,8 @@ def main():
         # pass all rows once in zik-zak manner
         all_pass_solution = double_pass_watering(init_point, rows)
         all_pass_solution = insert_sinuosities(all_pass_solution, rows)
+        all_pass_solution = assign_directions(all_pass_solution)
+        # all_pass_solution = duplicate_rotation_points(all_pass_solution)
         check_solution(rows, sample_points, all_pass_solution, casename, filename="double_pass_sol")
         print_sol(all_pass_solution, D, P, casename, filename="double_pass_sol")
 

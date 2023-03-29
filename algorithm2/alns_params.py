@@ -1,10 +1,12 @@
-M = 1000
+# M = 1000
+M = 200
 delta = 500
 p0 = 0.3
 pf = 0.00001
 Ts = 10000
 Tf = 100
-sa_iter_num = 1000
+# sa_iter_num = 1000
+sa_iter_num = 200
 reward_base = 0.001
 min_select_poss = 0.05
 f2_eps = 0.8
