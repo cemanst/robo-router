@@ -1,1 +1,1632 @@
-[{"idPoint": 0, "x": 462154.6553, "y": 4930399.603, "latitude": 44.5259288795, "longitude": 20.5237334277, "pointType": "P", "samplingSide": "none", "orientation": -1.8027799672308236}, {"idPoint": 1, "x": 462145.1079, "y": 4930402.921, "latitude": 44.5259582483, "longitude": 20.5236130386, "pointType": "P", "samplingSide": "none", "orientation": -1.8027799672308236}, {"idPoint": 2, "x": 462160.1219523873, "y": 4930466.476115109, "latitude": 44.5265311826, "longitude": 20.5237973159, "pointType": "U", "samplingSide": "RIGHT", "orientation": 1.3388126863610808}, {"idPoint": 3, "x": 462149.94663751364, "y": 4930423.403579368, "latitude": 44.5261428939, "longitude": 20.5236724272, "pointType": "U", "samplingSide": "RIGHT", "orientation": -1.802779967227709}, {"idPoint": 4, "x": 462145.1079, "y": 4930402.921, "latitude": 44.5259582483, "longitude": 20.5236130386, "pointType": "P", "samplingSide": "none", "orientation": -1.8027799672308236}, {"idPoint": 5, "x": 462145.0827162927, "y": 4930402.347849362, "latitude": 44.5259530873, "longitude": 20.5236127638, "pointType": "P", "samplingSide": "none", "orientation": -1.6147071548575642}, {"idPoint": 6, "x": 462145.278987381, "y": 4930401.808595265, "latitude": 44.525948243, "longitude": 20.5236152732, "pointType": "P", "samplingSide": "none", "orientation": -1.2217326893797864}, {"idPoint": 7, "x": 462145.666832771, "y": 4930401.385334258, "latitude": 44.525944453, "longitude": 20.523620185, "pointType": "P", "samplingSide": "none", "orientation": -0.8290337908485657}, {"idPoint": 8, "x": 462146.18720651785, "y": 4930401.142503991, "latitude": 44.5259422943, "longitude": 20.5236267512, "pointType": "P", "samplingSide": "none", "orientation": -0.4366100937105743}, {"idPoint": 9, "x": 462146.7608864358, "y": 4930401.117073172, "latitude": 44.5259420955, "longitude": 20.5236339724, "pointType": "P", "samplingSide": "none", "orientation": -0.0443002795250203}, {"idPoint": 10, "x": 462147.3005349577, "y": 4930401.312913412, "latitude": 44.5259438868, "longitude": 20.523640749, "pointType": "P", "samplingSide": "none", "orientation": 0.34812341886752307}, {"idPoint": 11, "x": 462147.7239954882, "y": 4930401.7002098095, "latitude": 44.5259473956, "longitude": 20.5236460495, "pointType": "P", "samplingSide": "none", "orientation": 0.7408223157748846}, {"idPoint": 12, "x": 462147.9668, "y": 4930402.22, "latitude": 44.5259520877, "longitude": 20.5236490668, "pointType": "P", "samplingSide": "none", "orientation": -1.802657363326989}, {"idPoint": 13, "x": 462150.97340657806, "y": 4930414.954069519, "latitude": 44.5260668822, "longitude": 20.5236859681, "pointType": "U", "samplingSide": "RIGHT", "orientation": 1.3389352902628042}, {"idPoint": 14, "x": 462147.9668, "y": 4930402.22, "latitude": 44.5259520877, "longitude": 20.5236490668, "pointType": "P", "samplingSide": "none", "orientation": -1.802657363326989}, {"idPoint": 15, "x": 462148.56884225184, "y": 4930400.324110032, "latitude": 44.5259350518, "longitude": 20.5236567821, "pointType": "P", "samplingSide": "none", "orientation": -1.2633162376483908}, {"idPoint": 16, "x": 462151.07676711207, "y": 4930398.238511108, "latitude": 44.5259164081, "longitude": 20.5236884951, "pointType": "P", "samplingSide": "none", "orientation": -0.6937164826242392}, {"idPoint": 17, "x": 462155.10876575514, "y": 4930396.280716757, "latitude": 44.5258989949, "longitude": 20.5237393778, "pointType": "P", "samplingSide": "none", "orientation": -0.4520324496492262}, {"idPoint": 18, "x": 462160.05100293783, "y": 4930394.748783424, "latitude": 44.5258854632, "longitude": 20.5238016838, "pointType": "P", "samplingSide": "none", "orientation": -0.30057609853165834}, {"idPoint": 19, "x": 462165.1510678506, "y": 4930393.875934068, "latitude": 44.5258778731, "longitude": 20.5238659276, "pointType": "P", "samplingSide": "none", "orientation": -0.16950254626256492}, {"idPoint": 20, "x": 462169.63252184255, "y": 4930393.795052095, "latitude": 44.52587738, "longitude": 20.5239223286, "pointType": "P", "samplingSide": "none", "orientation": -0.018046194963730146}, {"idPoint": 21, "x": 462172.81310416805, "y": 4930394.51845105, "latitude": 44.5258840592, "longitude": 20.5239623004, "pointType": "P", "samplingSide": "none", "orientation": 0.2236378377904932}, {"idPoint": 22, "x": 462174.2086, "y": 4930395.936, "latitude": 44.5258968936, "longitude": 20.5239797575, "pointType": "P", "samplingSide": "none", "orientation": 0.7932375928421584}, {"idPoint": 23, "x": 462190.46435628284, "y": 4930464.798737269, "latitude": 44.5265176736, "longitude": 20.5241792751, "pointType": "U", "samplingSide": "RIGHT", "orientation": 1.3389798239166368}, {"idPoint": 24, "x": 462195.2182, "y": 4930484.937, "latitude": 44.5266992148, "longitude": 20.5242376229, "pointType": "P", "samplingSide": "none", "orientation": 1.3389798239178077}, {"idPoint": 25, "x": 462195.44364635984, "y": 4930485.476368366, "latitude": 44.5267040822, "longitude": 20.5242404205, "pointType": "P", "samplingSide": "none", "orientation": 1.174884828845416}, {"idPoint": 26, "x": 462195.86265239865, "y": 4930485.888407229, "latitude": 44.5267078135, "longitude": 20.5242456632, "pointType": "P", "samplingSide": "none", "orientation": 0.7770147271640264}, {"idPoint": 27, "x": 462196.4114282452, "y": 4930486.110387409, "latitude": 44.5267098406, "longitude": 20.5242525529, "pointType": "P", "samplingSide": "none", "orientation": 0.38438020547743446}, {"idPoint": 28, "x": 462197.00642775156, "y": 4930486.108514435, "latitude": 44.526709855, "longitude": 20.5242600407, "pointType": "P", "samplingSide": "none", "orientation": -0.003147848429189383}, {"idPoint": 29, "x": 462197.55706763663, "y": 4930485.88307345, "latitude": 44.5267078543, "longitude": 20.5242669866, "pointType": "P", "samplingSide": "none", "orientation": -0.388597490877665}, {"idPoint": 30, "x": 462197.9795179695, "y": 4930485.468385802, "latitude": 44.5267041433, "longitude": 20.5242723332, "pointType": "P", "samplingSide": "none", "orientation": -0.7761255439264046}, {"idPoint": 31, "x": 462198.2094645163, "y": 4930484.927583924, "latitude": 44.5266992869, "longitude": 20.5242752665, "pointType": "P", "samplingSide": "none", "orientation": -1.1687600664785918}, {"idPoint": 32, "x": 462198.2119, "y": 4930484.343, "latitude": 44.5266940244, "longitude": 20.52427534, "pointType": "P", "samplingSide": "none", "orientation": 1.3392497813805515}, {"idPoint": 33, "x": 462190.10226984986, "y": 4930449.947409723, "latitude": 44.5263839576, "longitude": 20.5241758069, "pointType": "U", "samplingSide": "RIGHT", "orientation": -1.8023428722112165}, {"idPoint": 34, "x": 462184.67074199114, "y": 4930426.910525999, "latitude": 44.5261762863, "longitude": 20.5241091439, "pointType": "U", "samplingSide": "RIGHT", "orientation": -1.8023428722062929}, {"idPoint": 35, "x": 462198.2119, "y": 4930484.343, "latitude": 44.5266940244, "longitude": 20.52427534, "pointType": "P", "samplingSide": "none", "orientation": 1.3392497813805515}, {"idPoint": 36, "x": 462199.28098237974, "y": 4930485.66510964, "latitude": 44.5267059825, "longitude": 20.5242886968, "pointType": "P", "samplingSide": "none", "orientation": 0.8908222202470536}, {"idPoint": 37, "x": 462201.7537212504, "y": 4930486.482143287, "latitude": 44.5267134673, "longitude": 20.5243197546, "pointType": "P", "samplingSide": "none", "orientation": 0.3191230834279492}, {"idPoint": 38, "x": 462205.25366453436, "y": 4930486.669714973, "latitude": 44.5267153394, "longitude": 20.5243637851, "pointType": "P", "samplingSide": "none", "orientation": 0.05354155769766831}, {"idPoint": 39, "x": 462209.2479775938, "y": 4930486.199268611, "latitude": 44.5267113136, "longitude": 20.5244140852, "pointType": "P", "samplingSide": "none", "orientation": -0.11723892308426918}, {"idPoint": 40, "x": 462213.1285624739, "y": 4930485.142425395, "latitude": 44.5267020028, "longitude": 20.5244629969, "pointType": "P", "samplingSide": "none", "orientation": -0.2658926869813543}, {"idPoint": 41, "x": 462216.30463530426, "y": 4930483.660080123, "latitude": 44.5266888246, "longitude": 20.5245030741, "pointType": "P", "samplingSide": "none", "orientation": -0.43667316774324055}, {"idPoint": 42, "x": 462218.29266778764, "y": 4930481.9779064255, "latitude": 44.5266737852, "longitude": 20.5245282153, "pointType": "P", "samplingSide": "none", "orientation": -0.7022546934866607}, {"idPoint": 43, "x": 462218.79, "y": 4930480.352, "latitude": 44.5266591743, "longitude": 20.5245345929, "pointType": "P", "samplingSide": "none", "orientation": 1.3389039223464438}, {"idPoint": 44, "x": 462214.0879184241, "y": 4930460.439771746, "latitude": 44.5264796707, "longitude": 20.524476879, "pointType": "U", "samplingSide": "RIGHT", "orientation": -1.8026887312433493}, {"idPoint": 45, "x": 462218.79, "y": 4930480.352, "latitude": 44.5266591743, "longitude": 20.5245345929, "pointType": "P", "samplingSide": "none", "orientation": 1.3389039223464438}, {"idPoint": 46, "x": 462218.7838947832, "y": 4930480.933378712, "latitude": 44.5266644077, "longitude": 20.5245344735, "pointType": "P", "samplingSide": "none", "orientation": 1.5812972141966046}, {"idPoint": 47, "x": 462218.55289243936, "y": 4930481.469331971, "latitude": 44.5266692205, "longitude": 20.5245315272, "pointType": "P", "samplingSide": "none", "orientation": 1.977748242674966}, {"idPoint": 48, "x": 462218.13216098136, "y": 4930481.87826575, "latitude": 44.5266728798, "longitude": 20.5245262027, "pointType": "P", "samplingSide": "none", "orientation": 2.370413339084604}, {"idPoint": 49, "x": 462217.5857529597, "y": 4930482.097923589, "latitude": 44.5266748286, "longitude": 20.5245193105, "pointType": "P", "samplingSide": "none", "orientation": 2.7593604695929987}, {"idPoint": 50, "x": 462216.9968540426, "y": 4930482.094864572, "latitude": 44.5266747702, "longitude": 20.5245118998, "pointType": "P", "samplingSide": "none", "orientation": -3.1363982323762754}, {"idPoint": 51, "x": 462216.4551187516, "y": 4930481.869554409, "latitude": 44.5266727135, "longitude": 20.524505099, "pointType": "P", "samplingSide": "none", "orientation": -2.747451100964992}, {"idPoint": 52, "x": 462216.04302137403, "y": 4930481.456294527, "latitude": 44.5266689716, "longitude": 20.5244999433, "pointType": "P", "samplingSide": "none", "orientation": -2.354786005344357}, {"idPoint": 53, "x": 462215.8233, "y": 4930480.918, "latitude": 44.5266641142, "longitude": 20.5244972177, "pointType": "P", "samplingSide": "none", "orientation": 1.3388524979117225}, {"idPoint": 54, "x": 462209.57230177877, "y": 4930454.452552745, "latitude": 44.526425535, "longitude": 20.524420492, "pointType": "U", "samplingSide": "RIGHT", "orientation": -1.8027401556780707}, {"idPoint": 55, "x": 462215.8233, "y": 4930480.918, "latitude": 44.5266641142, "longitude": 20.5244972177, "pointType": "P", "samplingSide": "none", "orientation": 1.3388524979117225}, {"idPoint": 56, "x": 462214.6577577483, "y": 4930483.308516814, "latitude": 44.5266855734, "longitude": 20.5244823751, "pointType": "P", "samplingSide": "none", "orientation": 2.024449893189365}, {"idPoint": 57, "x": 462210.5306637969, "y": 4930485.9427688075, "latitude": 44.5267090717, "longitude": 20.5244302456, "pointType": "P", "samplingSide": "none", "orientation": 2.5734988180196234}, {"idPoint": 58, "x": 462204.0703307876, "y": 4930488.419714991, "latitude": 44.5267310315, "longitude": 20.5243487655, "pointType": "P", "samplingSide": "none", "orientation": 2.7754706576081833}, {"idPoint": 59, "x": 462196.260285858, "y": 4930490.362262762, "latitude": 44.5267481097, "longitude": 20.5242503393, "pointType": "P", "samplingSide": "none", "orientation": 2.89781503175388}, {"idPoint": 60, "x": 462188.2895375505, "y": 4930491.474676833, "latitude": 44.5267577062, "longitude": 20.5241499515, "pointType": "P", "samplingSide": "none", "orientation": 3.0029262572168456}, {"idPoint": 61, "x": 462181.37156003976, "y": 4930491.587602243, "latitude": 44.52675836, "longitude": 20.5240628854, "pointType": "P", "samplingSide": "none", "orientation": 3.125270631463417}, {"idPoint": 62, "x": 462176.5595526903, "y": 4930490.683847124, "latitude": 44.5267499717, "longitude": 20.5240023959, "pointType": "P", "samplingSide": "none", "orientation": -2.955942836155662}, {"idPoint": 63, "x": 462174.5861, "y": 4930488.901, "latitude": 44.5267338184, "longitude": 20.5239776921, "pointType": "P", "samplingSide": "none", "orientation": 1.338904087355775}, {"idPoint": 64, "x": 462164.38106465404, "y": 4930445.685003046, "latitude": 44.5263442369, "longitude": 20.5238524384, "pointType": "U", "samplingSide": "RIGHT", "orientation": -1.8026885662340182}, {"idPoint": 65, "x": 462174.5861, "y": 4930488.901, "latitude": 44.5267338184, "longitude": 20.5239776921, "pointType": "P", "samplingSide": "none", "orientation": 1.338904087355775}, {"idPoint": 66, "x": 462173.1184037631, "y": 4930491.564621321, "latitude": 44.5267577203, "longitude": 20.5239590269, "pointType": "P", "samplingSide": "none", "orientation": 2.074418743486654}, {"idPoint": 67, "x": 462168.06179437623, "y": 4930494.549452545, "latitude": 44.5267843256, "longitude": 20.5238951742, "pointType": "P", "samplingSide": "none", "orientation": 2.6083485467328207}, {"idPoint": 68, "x": 462160.1860947803, "y": 4930497.401080175, "latitude": 44.5268095838, "longitude": 20.5237958549, "pointType": "P", "samplingSide": "none", "orientation": 2.7941975726810893}, {"idPoint": 69, "x": 462150.6903088453, "y": 4930499.685369755, "latitude": 44.5268296495, "longitude": 20.5236761894, "pointType": "P", "samplingSide": "none", "orientation": 2.9055199003869956}, {"idPoint": 70, "x": 462141.0200839004, "y": 4930501.054558904, "latitude": 44.5268414678, "longitude": 20.5235543958, "pointType": "P", "samplingSide": "none", "orientation": 3.0009394436019314}, {"idPoint": 71, "x": 462132.6476240327, "y": 4930501.300200985, "latitude": 44.5268432396, "longitude": 20.5234490162, "pointType": "P", "samplingSide": "none", "orientation": 3.112261771301002}, {"idPoint": 72, "x": 462126.84756036045, "y": 4930500.384899218, "latitude": 44.5268346952, "longitude": 20.5233760935, "pointType": "P", "samplingSide": "none", "orientation": -2.985074509957851}, {"idPoint": 73, "x": 462124.5029, "y": 4930498.448, "latitude": 44.5268171354, "longitude": 20.5233467298, "pointType": "P", "samplingSide": "none", "orientation": -2.4511447068031478}, {"idPoint": 74, "x": 462116.4118975155, "y": 4930464.196389482, "latitude": 44.5265083649, "longitude": 20.5232474253, "pointType": "U", "samplingSide": "RIGHT", "orientation": -1.8027665312898957}, {"idPoint": 75, "x": 462113.90651116497, "y": 4930453.590346827, "latitude": 44.5264127539, "longitude": 20.5232166757, "pointType": "U", "samplingSide": "RIGHT", "orientation": -1.8027665312938388}, {"idPoint": 76, "x": 462107.1379925293, "y": 4930424.937202235, "latitude": 44.5261544522, "longitude": 20.5231336037, "pointType": "U", "samplingSide": "RIGHT", "orientation": -1.8027665312928713}, {"idPoint": 77, "x": 462104.2754, "y": 4930412.819, "latitude": 44.5260452093, "longitude": 20.5230984705, "pointType": "P", "samplingSide": "none", "orientation": -1.802766531283214}, {"idPoint": 78, "x": 462104.78367814404, "y": 4930411.040175119, "latitude": 44.5260292224, "longitude": 20.5231049974, "pointType": "P", "samplingSide": "none", "orientation": -1.29247459772197}, {"idPoint": 79, "x": 462106.9924451869, "y": 4930409.09895862, "latitude": 44.5260118629, "longitude": 20.5231329354, "pointType": "P", "samplingSide": "none", "orientation": -0.7210169969305431}, {"idPoint": 80, "x": 462110.56543636875, "y": 4930407.290883117, "latitude": 44.5259957737, "longitude": 20.5231780312, "pointType": "P", "samplingSide": "none", "orientation": -0.4684677128643937}, {"idPoint": 81, "x": 462114.95869617147, "y": 4930405.891211718, "latitude": 44.5259834041, "longitude": 20.5232334193, "pointType": "P", "samplingSide": "none", "orientation": -0.308428096920974}, {"idPoint": 82, "x": 462119.50339061505, "y": 4930405.113031704, "latitude": 44.5259766374, "longitude": 20.5232906674, "pointType": "P", "samplingSide": "none", "orientation": -0.1695836517231466}, {"idPoint": 83, "x": 462123.5076311683, "y": 4930405.074813927, "latitude": 44.5259765036, "longitude": 20.5233410601, "pointType": "P", "samplingSide": "none", "orientation": -0.009544036245940813}, {"idPoint": 84, "x": 462126.3618085054, "y": 4930405.782376698, "latitude": 44.5259830233, "longitude": 20.5233769255, "pointType": "P", "samplingSide": "none", "orientation": 0.2430052482049249}, {"idPoint": 85, "x": 462127.6314, "y": 4930407.128, "latitude": 44.5259952037, "longitude": 20.5233928034, "pointType": "P", "samplingSide": "none", "orientation": 0.8144628490877668}, {"idPoint": 86, "x": 462134.0896740927, "y": 4930434.499068752, "latitude": 44.5262419472, "longitude": 20.5234720663, "pointType": "U", "samplingSide": "RIGHT", "orientation": 1.3390818380054896}, {"idPoint": 87, "x": 462148.1286, "y": 4930493.998, "latitude": 44.5267783153, "longitude": 20.5236443693, "pointType": "P", "samplingSide": "none", "orientation": 1.339081838007188}, {"idPoint": 88, "x": 462147.61841817794, "y": 4930495.627382137, "latitude": 44.5267929568, "longitude": 20.5236378295, "pointType": "P", "samplingSide": "none", "orientation": 1.8742401711727372}, {"idPoint": 89, "x": 462145.6071684177, "y": 4930497.306412763, "latitude": 44.5268079665, "longitude": 20.5236123961, "pointType": "P", "samplingSide": "none", "orientation": 2.445977904927884}, {"idPoint": 90, "x": 462142.4010452634, "y": 4930498.779474684, "latitude": 44.5268210592, "longitude": 20.5235719412, "pointType": "P", "samplingSide": "none", "orientation": 2.7109057282784765}, {"idPoint": 91, "x": 462138.4881519016, "y": 4930499.822307577, "latitude": 44.5268302417, "longitude": 20.5235226236, "pointType": "P", "samplingSide": "none", "orientation": 2.8811346997034635}, {"idPoint": 92, "x": 462134.4641908761, "y": 4930500.276149589, "latitude": 44.5268341161, "longitude": 20.5234719516, "pointType": "P", "samplingSide": "none", "orientation": 3.0292823682801995}, {"idPoint": 93, "x": 462130.9417737759, "y": 4930500.071907384, "latitude": 44.5268320925, "longitude": 20.5234276394, "pointType": "P", "samplingSide": "none", "orientation": -3.083673967204172}, {"idPoint": 94, "x": 462128.45715667366, "y": 4930499.240674989, "latitude": 44.526824479, "longitude": 20.5233964332, "pointType": "P", "samplingSide": "none", "orientation": -2.818746144160006}, {"idPoint": 95, "x": 462127.3886, "y": 4930497.909, "latitude": 44.5268124347, "longitude": 20.5233830839, "pointType": "P", "samplingSide": "none", "orientation": -2.247008410099437}, {"idPoint": 96, "x": 462124.4507221413, "y": 4930485.465112283, "latitude": 44.526700256, "longitude": 20.5233470263, "pointType": "U", "samplingSide": "RIGHT", "orientation": -1.8026410222276064}, {"idPoint": 97, "x": 462122.9518797007, "y": 4930479.116506952, "latitude": 44.5266430248, "longitude": 20.5233286306, "pointType": "U", "samplingSide": "RIGHT", "orientation": -1.8026410222375406}, {"idPoint": 98, "x": 462111.1930791046, "y": 4930429.310081585, "latitude": 44.5261940315, "longitude": 20.5231843124, "pointType": "U", "samplingSide": "RIGHT", "orientation": -1.8026410222282732}, {"idPoint": 99, "x": 462107.1342, "y": 4930412.118, "latitude": 44.5260390489, "longitude": 20.5231344975, "pointType": "P", "samplingSide": "none", "orientation": -1.8026410222278688}, {"idPoint": 100, "x": 462107.23389687494, "y": 4930411.08516765, "latitude": 44.5260297562, "longitude": 20.523135828, "pointType": "P", "samplingSide": "none", "orientation": -1.4745668178132807}, {"idPoint": 101, "x": 462107.9794687802, "y": 4930410.0494172005, "latitude": 44.5260204711, "longitude": 20.5231452864, "pointType": "P", "samplingSide": "none", "orientation": -0.9468803719366937}, {"idPoint": 102, "x": 462109.2574091519, "y": 4930409.168432267, "latitude": 44.5260126073, "longitude": 20.5231614329, "pointType": "P", "samplingSide": "none", "orientation": -0.6035619819275754}, {"idPoint": 103, "x": 462110.8731631529, "y": 4930408.576334819, "latitude": 44.5260073619, "longitude": 20.5231818092, "pointType": "P", "samplingSide": "none", "orientation": -0.3512561892021241}, {"idPoint": 104, "x": 462112.5807468835, "y": 4930408.363266326, "latitude": 44.5260055335, "longitude": 20.5232033133, "pointType": "P", "samplingSide": "none", "orientation": -0.12413617959040024}, {"idPoint": 105, "x": 462114.12019620003, "y": 4930408.561664535, "latitude": 44.5260074005, "longitude": 20.5232226714, "pointType": "P", "samplingSide": "none", "orientation": 0.12816961441688857}, {"idPoint": 106, "x": 462115.2571438991, "y": 4930409.141325115, "latitude": 44.5260126785, "longitude": 20.5232369363, "pointType": "P", "samplingSide": "none", "orientation": 0.47148800310606814}, {"idPoint": 107, "x": 462115.8185, "y": 4930410.014, "latitude": 44.5260205641, "longitude": 20.5232439364, "pointType": "P", "samplingSide": "none", "orientation": -1.8024104138493273}, {"idPoint": 108, "x": 462127.5644104905, "y": 4930459.817182639, "latitude": 44.5264695275, "longitude": 20.5233880926, "pointType": "U", "samplingSide": "RIGHT", "orientation": 1.3391822397404658}, {"idPoint": 109, "x": 462115.8185, "y": 4930410.014, "latitude": 44.5260205641, "longitude": 20.5232439364, "pointType": "P", "samplingSide": "none", "orientation": -1.8024104138493273}, {"idPoint": 110, "x": 462115.4137056947, "y": 4930409.289261974, "latitude": 44.5260140185, "longitude": 20.5232388957, "pointType": "P", "samplingSide": "none", "orientation": -2.080171590636186}, {"idPoint": 111, "x": 462114.6312007628, "y": 4930408.779524386, "latitude": 44.5260093886, "longitude": 20.523229086, "pointType": "P", "samplingSide": "none", "orientation": -2.564221430007359}, {"idPoint": 112, "x": 462113.5901144867, "y": 4930408.562390163, "latitude": 44.5260073791, "longitude": 20.5232160007, "pointType": "P", "samplingSide": "none", "orientation": -2.935975185682319}, {"idPoint": 113, "x": 462112.44894281443, "y": 4930408.670916021, "latitude": 44.5260082962, "longitude": 20.5232016321, "pointType": "P", "samplingSide": "none", "orientation": 3.0467774275989714}, {"idPoint": 114, "x": 462111.38141878846, "y": 4930409.088579882, "latitude": 44.5260120001, "longitude": 20.5231881676, "pointType": "P", "samplingSide": "none", "orientation": 2.768656055971735}, {"idPoint": 115, "x": 462110.5500632645, "y": 4930409.75179621, "latitude": 44.5260179269, "longitude": 20.523177657, "pointType": "P", "samplingSide": "none", "orientation": 2.4682233616606606}, {"idPoint": 116, "x": 462110.08144258487, "y": 4930410.559596332, "latitude": 44.5260251744, "longitude": 20.5231717005, "pointType": "P", "samplingSide": "none", "orientation": 2.0964696063510875}, {"idPoint": 117, "x": 462110.0469, "y": 4930411.389, "latitude": 44.5260326392, "longitude": 20.5231712049, "pointType": "P", "samplingSide": "none", "orientation": -1.802445393156965}, {"idPoint": 118, "x": 462115.61696534517, "y": 4930435.002627614, "latitude": 44.5262455103, "longitude": 20.5232395654, "pointType": "U", "samplingSide": "RIGHT", "orientation": 1.339147260432828}, {"idPoint": 119, "x": 462110.0469, "y": 4930411.389, "latitude": 44.5260326392, "longitude": 20.5231712049, "pointType": "P", "samplingSide": "none", "orientation": -1.802445393156965}, {"idPoint": 120, "latitude": 44.5259288795, "longitude": 20.5237334277, "x": 462154.6553, "y": 4930399.603, "pointType": "H", "samplingSide": "none", "orientation": -1.8027799672308236}]
+[
+  {
+    "idPoint": 0,
+    "x": 462154.6553,
+    "y": 4930399.603,
+    "latitude": 44.5259288795,
+    "longitude": 20.5237334277,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.3729567163592264
+  },
+  {
+    "idPoint": 1,
+    "x": 462177.2022,
+    "y": 4930395.234,
+    "latitude": 44.525890731,
+    "longitude": 20.5240174808,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.19140178857118373
+  },
+  {
+    "idPoint": 2,
+    "x": 462184.67074199114,
+    "y": 4930426.910525999,
+    "latitude": 44.5261762863,
+    "longitude": 20.5241091439,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3392497813744644
+  },
+  {
+    "idPoint": 3,
+    "x": 462184.67074199114,
+    "y": 4930426.910525999,
+    "latitude": 44.5261762863,
+    "longitude": 20.5241091439,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.8023428722153287
+  },
+  {
+    "idPoint": 4,
+    "x": 462184.67074199114,
+    "y": 4930426.910525999,
+    "latitude": 44.5261762863,
+    "longitude": 20.5241091439,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3392497813805515
+  },
+  {
+    "idPoint": 5,
+    "x": 462198.2119,
+    "y": 4930484.343,
+    "latitude": 44.5266940244,
+    "longitude": 20.52427534,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3392497813785766
+  },
+  {
+    "idPoint": 6,
+    "x": 462198.20946451597,
+    "y": 4930484.9275839245,
+    "latitude": 44.5266992869,
+    "longitude": 20.5242752665,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.5749624864112082
+  },
+  {
+    "idPoint": 7,
+    "x": 462197.97951796884,
+    "y": 4930485.468385802,
+    "latitude": 44.5267041433,
+    "longitude": 20.5242723332,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.9728325881870865
+  },
+  {
+    "idPoint": 8,
+    "x": 462197.5570676358,
+    "y": 4930485.883073451,
+    "latitude": 44.5267078543,
+    "longitude": 20.5242669866,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.3654671087473043
+  },
+  {
+    "idPoint": 9,
+    "x": 462197.0064277507,
+    "y": 4930486.108514435,
+    "latitude": 44.526709855,
+    "longitude": 20.5242600407,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.752995164197733
+  },
+  {
+    "idPoint": 10,
+    "x": 462196.4114282444,
+    "y": 4930486.110387409,
+    "latitude": 44.5267098406,
+    "longitude": 20.5242525529,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 3.1384448051602956
+  },
+  {
+    "idPoint": 11,
+    "x": 462195.862652398,
+    "y": 4930485.888407229,
+    "latitude": 44.5267078135,
+    "longitude": 20.5242456632,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.7572124480017437
+  },
+  {
+    "idPoint": 12,
+    "x": 462195.4436463595,
+    "y": 4930485.476368366,
+    "latitude": 44.5267040822,
+    "longitude": 20.5242404205,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.3645779260785194
+  },
+  {
+    "idPoint": 13,
+    "x": 462195.2182,
+    "y": 4930484.937,
+    "latitude": 44.5266992148,
+    "longitude": 20.5242376229,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3389798239178077
+  },
+  {
+    "idPoint": 14,
+    "x": 462190.46435628284,
+    "y": 4930464.798737269,
+    "latitude": 44.5265176736,
+    "longitude": 20.5241792751,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.8026128296719854
+  },
+  {
+    "idPoint": 15,
+    "x": 462190.46435628284,
+    "y": 4930464.798737269,
+    "latitude": 44.5265176736,
+    "longitude": 20.5241792751,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3389798239178077
+  },
+  {
+    "idPoint": 16,
+    "x": 462195.2182,
+    "y": 4930484.937,
+    "latitude": 44.5266992148,
+    "longitude": 20.5242376229,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3389798239178077
+  },
+  {
+    "idPoint": 17,
+    "x": 462196.4221918346,
+    "y": 4930486.3399979435,
+    "latitude": 44.5267119083,
+    "longitude": 20.5242526715,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 0.8615859997161879
+  },
+  {
+    "idPoint": 18,
+    "x": 462199.2371832621,
+    "y": 4930487.180389824,
+    "latitude": 44.5267196213,
+    "longitude": 20.5242880346,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 0.2901182228834093
+  },
+  {
+    "idPoint": 19,
+    "x": 462203.2346173557,
+    "y": 4930487.330233597,
+    "latitude": 44.5267211798,
+    "longitude": 20.5243383285,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 0.037467446724843444
+  },
+  {
+    "idPoint": 20,
+    "x": 462207.8059210114,
+    "y": 4930486.766716906,
+    "latitude": 44.5267163464,
+    "longitude": 20.5243958963,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.12265385391819425
+  },
+  {
+    "idPoint": 21,
+    "x": 462212.2551546867,
+    "y": 4930485.5756300595,
+    "latitude": 44.5267058569,
+    "longitude": 20.524451974,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.26157253448409035
+  },
+  {
+    "idPoint": 22,
+    "x": 462215.9049628868,
+    "y": 4930483.938305232,
+    "latitude": 44.5266913083,
+    "longitude": 20.5244980241,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.421693835178265
+  },
+  {
+    "idPoint": 23,
+    "x": 462218.199695399,
+    "y": 4930482.104010286,
+    "latitude": 44.5266749156,
+    "longitude": 20.524527036,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.6743446112987345
+  },
+  {
+    "idPoint": 24,
+    "x": 462218.79,
+    "y": 4930480.352,
+    "latitude": 44.5266591743,
+    "longitude": 20.5245345929,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3389039223464438
+  },
+  {
+    "idPoint": 25,
+    "x": 462214.0879184241,
+    "y": 4930460.439771746,
+    "latitude": 44.5264796707,
+    "longitude": 20.524476879,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.8026887312433493
+  },
+  {
+    "idPoint": 26,
+    "x": 462214.0879184241,
+    "y": 4930460.439771746,
+    "latitude": 44.5264796707,
+    "longitude": 20.524476879,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3389039223464438
+  },
+  {
+    "idPoint": 27,
+    "x": 462218.79,
+    "y": 4930480.352,
+    "latitude": 44.5266591743,
+    "longitude": 20.5245345929,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3389039223464438
+  },
+  {
+    "idPoint": 28,
+    "x": 462218.7838947832,
+    "y": 4930480.933378712,
+    "latitude": 44.5266644077,
+    "longitude": 20.5245344735,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.5812972141966046
+  },
+  {
+    "idPoint": 29,
+    "x": 462218.55289243936,
+    "y": 4930481.469331971,
+    "latitude": 44.5266692205,
+    "longitude": 20.5245315272,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.977748242674966
+  },
+  {
+    "idPoint": 30,
+    "x": 462218.13216098136,
+    "y": 4930481.87826575,
+    "latitude": 44.5266728798,
+    "longitude": 20.5245262027,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.370413339084604
+  },
+  {
+    "idPoint": 31,
+    "x": 462217.5857529597,
+    "y": 4930482.097923589,
+    "latitude": 44.5266748286,
+    "longitude": 20.5245193105,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.7593604695929987
+  },
+  {
+    "idPoint": 32,
+    "x": 462216.9968540426,
+    "y": 4930482.094864572,
+    "latitude": 44.5266747702,
+    "longitude": 20.5245118998,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -3.1363982323762754
+  },
+  {
+    "idPoint": 33,
+    "x": 462216.4551187516,
+    "y": 4930481.869554409,
+    "latitude": 44.5266727135,
+    "longitude": 20.524505099,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.747451100964992
+  },
+  {
+    "idPoint": 34,
+    "x": 462216.04302137403,
+    "y": 4930481.456294527,
+    "latitude": 44.5266689716,
+    "longitude": 20.5244999433,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.354786005344357
+  },
+  {
+    "idPoint": 35,
+    "x": 462215.8233,
+    "y": 4930480.918,
+    "latitude": 44.5266641142,
+    "longitude": 20.5244972177,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3388524979117225
+  },
+  {
+    "idPoint": 36,
+    "x": 462209.57230177877,
+    "y": 4930454.452552745,
+    "latitude": 44.526425535,
+    "longitude": 20.524420492,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.8027401556780707
+  },
+  {
+    "idPoint": 37,
+    "x": 462209.57230177877,
+    "y": 4930454.452552745,
+    "latitude": 44.526425535,
+    "longitude": 20.524420492,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3388524979117225
+  },
+  {
+    "idPoint": 38,
+    "x": 462215.8233,
+    "y": 4930480.918,
+    "latitude": 44.5266641142,
+    "longitude": 20.5244972177,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3388524979117225
+  },
+  {
+    "idPoint": 39,
+    "x": 462215.41818505427,
+    "y": 4930482.411910871,
+    "latitude": 44.5266775417,
+    "longitude": 20.5244920102,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.835605285067914
+  },
+  {
+    "idPoint": 40,
+    "x": 462213.7341571855,
+    "y": 4930483.939099955,
+    "latitude": 44.5266912018,
+    "longitude": 20.5244707061,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.4049966282434405
+  },
+  {
+    "idPoint": 41,
+    "x": 462211.027594371,
+    "y": 4930485.26706656,
+    "latitude": 44.5267030148,
+    "longitude": 20.5244365486,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.6854554971988485
+  },
+  {
+    "idPoint": 42,
+    "x": 462207.71054626413,
+    "y": 4930486.193639806,
+    "latitude": 44.5267111823,
+    "longitude": 20.5243947381,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.8691991415732434
+  },
+  {
+    "idPoint": 43,
+    "x": 462204.2880033702,
+    "y": 4930486.577757316,
+    "latitude": 44.5267144609,
+    "longitude": 20.5243516397,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 3.0298287315600256
+  },
+  {
+    "idPoint": 44,
+    "x": 462201.2810168193,
+    "y": 4930486.360940682,
+    "latitude": 44.5267123515,
+    "longitude": 20.5243138148,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -3.0696129314539395
+  },
+  {
+    "idPoint": 45,
+    "x": 462199.14737305534,
+    "y": 4930485.576198271,
+    "latitude": 44.5267051751,
+    "longitude": 20.5242870219,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.7891540622397786
+  },
+  {
+    "idPoint": 46,
+    "x": 462198.2119,
+    "y": 4930484.343,
+    "latitude": 44.5266940244,
+    "longitude": 20.52427534,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3392497813785766
+  },
+  {
+    "idPoint": 47,
+    "x": 462190.10226984986,
+    "y": 4930449.947409723,
+    "latitude": 44.5263839576,
+    "longitude": 20.5241758069,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.8023428722112165
+  },
+  {
+    "idPoint": 48,
+    "x": 462190.10226984986,
+    "y": 4930449.947409723,
+    "latitude": 44.5263839576,
+    "longitude": 20.5241758069,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3392497813785766
+  },
+  {
+    "idPoint": 49,
+    "x": 462198.2119,
+    "y": 4930484.343,
+    "latitude": 44.5266940244,
+    "longitude": 20.52427534,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3392497813785766
+  },
+  {
+    "idPoint": 50,
+    "x": 462197.6174295705,
+    "y": 4930486.096022617,
+    "latitude": 44.5267097745,
+    "longitude": 20.5242677306,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.8977383392833063
+  },
+  {
+    "idPoint": 51,
+    "x": 462195.3150549343,
+    "y": 4930487.929120523,
+    "latitude": 44.5267261561,
+    "longitude": 20.5242386225,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.4691871134691663
+  },
+  {
+    "idPoint": 52,
+    "x": 462191.6552917586,
+    "y": 4930489.563221178,
+    "latitude": 44.526740675,
+    "longitude": 20.5241924473,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.721649403707854
+  },
+  {
+    "idPoint": 53,
+    "x": 462187.195305811,
+    "y": 4930490.749547571,
+    "latitude": 44.5267511209,
+    "longitude": 20.5241362345,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.8816190263188886
+  },
+  {
+    "idPoint": 54,
+    "x": 462182.6140895223,
+    "y": 4930491.307492263,
+    "latitude": 44.5267559035,
+    "longitude": 20.5240785423,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 3.020399865835774
+  },
+  {
+    "idPoint": 55,
+    "x": 462178.6090915434,
+    "y": 4930491.152113231,
+    "latitude": 44.5267542947,
+    "longitude": 20.5240281536,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -3.10281581859452
+  },
+  {
+    "idPoint": 56,
+    "x": 462175.7900365114,
+    "y": 4930490.307065526,
+    "latitude": 44.5267465394,
+    "longitude": 20.5239927397,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.8503535286425934
+  },
+  {
+    "idPoint": 57,
+    "x": 462174.5861,
+    "y": 4930488.901,
+    "latitude": 44.5267338184,
+    "longitude": 20.5239776921,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.338904087355775
+  },
+  {
+    "idPoint": 58,
+    "x": 462164.38106465404,
+    "y": 4930445.685003046,
+    "latitude": 44.5263442369,
+    "longitude": 20.5238524384,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.8026885662340182
+  },
+  {
+    "idPoint": 59,
+    "x": 462164.38106465404,
+    "y": 4930445.685003046,
+    "latitude": 44.5263442369,
+    "longitude": 20.5238524384,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.338904087355775
+  },
+  {
+    "idPoint": 60,
+    "x": 462174.5861,
+    "y": 4930488.901,
+    "latitude": 44.5267338184,
+    "longitude": 20.5239776921,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.338904087355775
+  },
+  {
+    "idPoint": 61,
+    "x": 462173.215929543,
+    "y": 4930491.476807177,
+    "latitude": 44.5267569349,
+    "longitude": 20.5239602607,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.0596669150488713
+  },
+  {
+    "idPoint": 62,
+    "x": 462168.4616593532,
+    "y": 4930494.346164234,
+    "latitude": 44.5267825165,
+    "longitude": 20.5239002211,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.5985796997787483
+  },
+  {
+    "idPoint": 63,
+    "x": 462161.04708396934,
+    "y": 4930497.072237568,
+    "latitude": 44.5268066686,
+    "longitude": 20.5238067139,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.7892688992653905
+  },
+  {
+    "idPoint": 64,
+    "x": 462152.1010052804,
+    "y": 4930499.240007225,
+    "latitude": 44.5268257142,
+    "longitude": 20.5236939747,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.9038598440353045
+  },
+  {
+    "idPoint": 65,
+    "x": 462142.9853826703,
+    "y": 4930500.519449927,
+    "latitude": 44.5268367538,
+    "longitude": 20.523579167,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 3.002146456550664
+  },
+  {
+    "idPoint": 66,
+    "x": 462135.08798704814,
+    "y": 4930500.71578212,
+    "latitude": 44.5268381066,
+    "longitude": 20.5234797693,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 3.1167374012460853
+  },
+  {
+    "idPoint": 67,
+    "x": 462129.61112530733,
+    "y": 4930499.7991140075,
+    "latitude": 44.5268295669,
+    "longitude": 20.5234109141,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.975758706457145
+  },
+  {
+    "idPoint": 68,
+    "x": 462127.3886,
+    "y": 4930497.909,
+    "latitude": 44.5268124347,
+    "longitude": 20.5233830839,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3389516313621868
+  },
+  {
+    "idPoint": 69,
+    "x": 462122.9518797007,
+    "y": 4930479.116506952,
+    "latitude": 44.5266430248,
+    "longitude": 20.5233286306,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.802641022230963
+  },
+  {
+    "idPoint": 70,
+    "x": 462111.1930791046,
+    "y": 4930429.310081585,
+    "latitude": 44.5261940315,
+    "longitude": 20.5231843124,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.8026410222282732
+  },
+  {
+    "idPoint": 71,
+    "x": 462107.1342,
+    "y": 4930412.118,
+    "latitude": 44.5260390489,
+    "longitude": 20.5231344975,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -1.8026410222278688
+  },
+  {
+    "idPoint": 72,
+    "x": 462106.8913970832,
+    "y": 4930411.598219909,
+    "latitude": 44.5260343569,
+    "longitude": 20.5231314802,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.007800802661853
+  },
+  {
+    "idPoint": 73,
+    "x": 462106.46794551704,
+    "y": 4930411.210932073,
+    "latitude": 44.5260308481,
+    "longitude": 20.5231261799,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.4007708044504565
+  },
+  {
+    "idPoint": 74,
+    "x": 462105.92831196386,
+    "y": 4930411.015097554,
+    "latitude": 44.5260290568,
+    "longitude": 20.5231194035,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.7934697077987662
+  },
+  {
+    "idPoint": 75,
+    "x": 462105.3546507403,
+    "y": 4930411.040530383,
+    "latitude": 44.5260292556,
+    "longitude": 20.5231121826,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 3.0972874357233615
+  },
+  {
+    "idPoint": 76,
+    "x": 462104.8342965674,
+    "y": 4930411.283358641,
+    "latitude": 44.5260314143,
+    "longitude": 20.5231056165,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.7049713154116812
+  },
+  {
+    "idPoint": 77,
+    "x": 462104.446468651,
+    "y": 4930411.706613927,
+    "latitude": 44.5260352042,
+    "longitude": 20.5231007049,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.312543154273219
+  },
+  {
+    "idPoint": 78,
+    "x": 462104.2502102757,
+    "y": 4930412.245859462,
+    "latitude": 44.5260400484,
+    "longitude": 20.5230981956,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.9198442491083199
+  },
+  {
+    "idPoint": 79,
+    "x": 462104.2754,
+    "y": 4930412.819,
+    "latitude": 44.5260452093,
+    "longitude": 20.5230984705,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -1.802766531290001
+  },
+  {
+    "idPoint": 80,
+    "x": 462107.1379925293,
+    "y": 4930424.937202235,
+    "latitude": 44.5261544522,
+    "longitude": 20.5231336037,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3388261223065792
+  },
+  {
+    "idPoint": 81,
+    "x": 462107.1379925293,
+    "y": 4930424.937202235,
+    "latitude": 44.5261544522,
+    "longitude": 20.5231336037,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.802766531283214
+  },
+  {
+    "idPoint": 82,
+    "x": 462104.2754,
+    "y": 4930412.819,
+    "latitude": 44.5260452093,
+    "longitude": 20.5230984705,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -1.802766531290001
+  },
+  {
+    "idPoint": 83,
+    "x": 462104.3027425436,
+    "y": 4930411.988359199,
+    "latitude": 44.526037733,
+    "longitude": 20.5230988756,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -1.537890798630742
+  },
+  {
+    "idPoint": 84,
+    "x": 462104.7652517109,
+    "y": 4930411.1753236605,
+    "latitude": 44.5260304381,
+    "longitude": 20.5231047556,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -1.0535833000020043
+  },
+  {
+    "idPoint": 85,
+    "x": 462105.59251467383,
+    "y": 4930410.503670678,
+    "latitude": 44.5260244351,
+    "longitude": 20.5231152153,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.6819537134251832
+  },
+  {
+    "idPoint": 86,
+    "x": 462106.6585881455,
+    "y": 4930410.075653326,
+    "latitude": 44.5260206379,
+    "longitude": 20.5231286624,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.38178980665384327
+  },
+  {
+    "idPoint": 87,
+    "x": 462107.80117210373,
+    "y": 4930409.956433369,
+    "latitude": 44.5260196247,
+    "longitude": 20.5231430495,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.10396618819093276
+  },
+  {
+    "idPoint": 88,
+    "x": 462108.84631849854,
+    "y": 4930410.164160964,
+    "latitude": 44.5260215496,
+    "longitude": 20.5231561865,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 0.1961977197897691
+  },
+  {
+    "idPoint": 89,
+    "x": 462109.63491326553,
+    "y": 4930410.667211467,
+    "latitude": 44.5260261197,
+    "longitude": 20.5231660734,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 0.5678273051336844
+  },
+  {
+    "idPoint": 90,
+    "x": 462110.0469,
+    "y": 4930411.389,
+    "latitude": 44.5260326392,
+    "longitude": 20.5231712049,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.0521348042398397
+  },
+  {
+    "idPoint": 91,
+    "x": 462115.61696534517,
+    "y": 4930435.002627614,
+    "latitude": 44.5262455103,
+    "longitude": 20.5232395654,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.339147260432828
+  },
+  {
+    "idPoint": 92,
+    "x": 462115.61696534517,
+    "y": 4930435.002627614,
+    "latitude": 44.5262455103,
+    "longitude": 20.5232395654,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.802445393156965
+  },
+  {
+    "idPoint": 93,
+    "x": 462115.61696534517,
+    "y": 4930435.002627614,
+    "latitude": 44.5262455103,
+    "longitude": 20.5232395654,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3391472604304304
+  },
+  {
+    "idPoint": 94,
+    "x": 462130.3284,
+    "y": 4930497.37,
+    "latitude": 44.5268077368,
+    "longitude": 20.5234201188,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3391472604304304
+  },
+  {
+    "idPoint": 95,
+    "x": 462132.0486099476,
+    "y": 4930499.048729104,
+    "latitude": 44.5268229396,
+    "longitude": 20.5234416432,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 0.7731947128740844
+  },
+  {
+    "idPoint": 96,
+    "x": 462136.2086392168,
+    "y": 4930499.956551355,
+    "latitude": 44.5268313306,
+    "longitude": 20.5234939277,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 0.21485658846513545
+  },
+  {
+    "idPoint": 97,
+    "x": 462142.1751610621,
+    "y": 4930499.955259045,
+    "latitude": 44.5268316322,
+    "longitude": 20.5235690123,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.0002165936316688444
+  },
+  {
+    "idPoint": 98,
+    "x": 462149.03982661915,
+    "y": 4930499.045048915,
+    "latitude": 44.5268237985,
+    "longitude": 20.5236554662,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.13182456540872475
+  },
+  {
+    "idPoint": 99,
+    "x": 462155.75755278533,
+    "y": 4930497.364492208,
+    "latitude": 44.526809022,
+    "longitude": 20.5237401274,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.24513629646322363
+  },
+  {
+    "idPoint": 100,
+    "x": 462161.30562664807,
+    "y": 4930495.169438447,
+    "latitude": 44.5267895525,
+    "longitude": 20.5238101071,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.3767442682790562
+  },
+  {
+    "idPoint": 101,
+    "x": 462164.83940425527,
+    "y": 4930492.794064669,
+    "latitude": 44.5267683539,
+    "longitude": 20.5238547514,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.5918174503865542
+  },
+  {
+    "idPoint": 102,
+    "x": 462165.8209,
+    "y": 4930490.6,
+    "latitude": 44.5267486536,
+    "longitude": 20.5238672637,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3388126863612764
+  },
+  {
+    "idPoint": 103,
+    "x": 462160.1219523873,
+    "y": 4930466.476115109,
+    "latitude": 44.5265311826,
+    "longitude": 20.5237973159,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.8027799672299587
+  },
+  {
+    "idPoint": 104,
+    "x": 462149.94663751364,
+    "y": 4930423.403579368,
+    "latitude": 44.5261428939,
+    "longitude": 20.5236724272,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.802779967227709
+  },
+  {
+    "idPoint": 105,
+    "x": 462149.94663751364,
+    "y": 4930423.403579368,
+    "latitude": 44.5261428939,
+    "longitude": 20.5236724272,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3388126863612764
+  },
+  {
+    "idPoint": 106,
+    "x": 462165.8209,
+    "y": 4930490.6,
+    "latitude": 44.5267486536,
+    "longitude": 20.5238672637,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3388126863612764
+  },
+  {
+    "idPoint": 107,
+    "x": 462164.7413867454,
+    "y": 4930492.893283419,
+    "latitude": 44.5267692419,
+    "longitude": 20.5238535106,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.0107535200633775
+  },
+  {
+    "idPoint": 108,
+    "x": 462160.9007349554,
+    "y": 4930495.393799724,
+    "latitude": 44.526791551,
+    "longitude": 20.5238049953,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.5644686862175115
+  },
+  {
+    "idPoint": 109,
+    "x": 462154.8836490493,
+    "y": 4930497.720867974,
+    "latitude": 44.5268121844,
+    "longitude": 20.5237291038,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.7725663577836275
+  },
+  {
+    "idPoint": 110,
+    "x": 462147.6061758114,
+    "y": 4930499.520213122,
+    "latitude": 44.5268280008,
+    "longitude": 20.5236373898,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.8992052050133394
+  },
+  {
+    "idPoint": 111,
+    "x": 462140.17624457163,
+    "y": 4930500.517901181,
+    "latitude": 44.5268365924,
+    "longitude": 20.5235438161,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 3.008111516685548
+  },
+  {
+    "idPoint": 112,
+    "x": 462133.7249950088,
+    "y": 4930500.562043188,
+    "latitude": 44.526836651,
+    "longitude": 20.5234626283,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 3.1347503639527377
+  },
+  {
+    "idPoint": 113,
+    "x": 462129.2345713881,
+    "y": 4930499.6459189225,
+    "latitude": 44.526828168,
+    "longitude": 20.5234061867,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.9403372715858587
+  },
+  {
+    "idPoint": 114,
+    "x": 462127.3886,
+    "y": 4930497.909,
+    "latitude": 44.5268124347,
+    "longitude": 20.5233830839,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3389516313621868
+  },
+  {
+    "idPoint": 115,
+    "x": 462124.4507221413,
+    "y": 4930485.465112283,
+    "latitude": 44.526700256,
+    "longitude": 20.5233470263,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.8026410222276064
+  },
+  {
+    "idPoint": 116,
+    "x": 462124.4507221413,
+    "y": 4930485.465112283,
+    "latitude": 44.526700256,
+    "longitude": 20.5233470263,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3389516313621868
+  },
+  {
+    "idPoint": 117,
+    "x": 462127.3886,
+    "y": 4930497.909,
+    "latitude": 44.5268124347,
+    "longitude": 20.5233830839,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3389516313621868
+  },
+  {
+    "idPoint": 118,
+    "x": 462127.9057696231,
+    "y": 4930498.807660367,
+    "latitude": 44.5268205519,
+    "longitude": 20.5233895262,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.0485942378150492
+  },
+  {
+    "idPoint": 119,
+    "x": 462129.011423593,
+    "y": 4930499.442234418,
+    "latitude": 44.5268263226,
+    "longitude": 20.5234033935,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 0.521033902968388
+  },
+  {
+    "idPoint": 120,
+    "x": 462130.53723611543,
+    "y": 4930499.716114006,
+    "latitude": 44.5268288683,
+    "longitude": 20.5234225747,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 0.17760620021462012
+  },
+  {
+    "idPoint": 121,
+    "x": 462132.2509160654,
+    "y": 4930499.587603446,
+    "latitude": 44.5268278014,
+    "longitude": 20.5234441496,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.07485089037513717
+  },
+  {
+    "idPoint": 122,
+    "x": 462133.8915712051,
+    "y": 4930499.076267307,
+    "latitude": 44.5268232843,
+    "longitude": 20.5234648336,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.30212472882733626
+  },
+  {
+    "idPoint": 123,
+    "x": 462135.2094266621,
+    "y": 4930498.259951879,
+    "latitude": 44.5268160047,
+    "longitude": 20.5234814778,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.5545818195095817
+  },
+  {
+    "idPoint": 124,
+    "x": 462136.00385088945,
+    "y": 4930497.262933789,
+    "latitude": 44.5268070709,
+    "longitude": 20.5234915483,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.8980095215804663
+  },
+  {
+    "idPoint": 125,
+    "x": 462136.1539,
+    "y": 4930496.237,
+    "latitude": 44.526797843,
+    "longitude": 20.5234935118,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.339182239737529
+  },
+  {
+    "idPoint": 126,
+    "x": 462127.5644104905,
+    "y": 4930459.817182639,
+    "latitude": 44.5264695275,
+    "longitude": 20.5233880926,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.802410413852264
+  },
+  {
+    "idPoint": 127,
+    "x": 462127.5644104905,
+    "y": 4930459.817182639,
+    "latitude": 44.5264695275,
+    "longitude": 20.5233880926,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.339182239737529
+  },
+  {
+    "idPoint": 128,
+    "x": 462136.1539,
+    "y": 4930496.237,
+    "latitude": 44.526797843,
+    "longitude": 20.5234935118,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.339182239737529
+  },
+  {
+    "idPoint": 129,
+    "x": 462135.9210183936,
+    "y": 4930497.430700392,
+    "latitude": 44.5268085769,
+    "longitude": 20.5234904936,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.763468401532171
+  },
+  {
+    "idPoint": 130,
+    "x": 462134.836711334,
+    "y": 4930498.610973076,
+    "latitude": 44.5268191452,
+    "longitude": 20.5234767617,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.313843037901479
+  },
+  {
+    "idPoint": 131,
+    "x": 462133.0660547418,
+    "y": 4930499.598132232,
+    "latitude": 44.526827939,
+    "longitude": 20.5234544067,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.6330017257558107
+  },
+  {
+    "idPoint": 132,
+    "x": 462130.878615032,
+    "y": 4930500.241891828,
+    "latitude": 44.5268336195,
+    "longitude": 20.5234268321,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 2.8553750309448116
+  },
+  {
+    "idPoint": 133,
+    "x": 462128.6074100713,
+    "y": 4930500.444245302,
+    "latitude": 44.5268353219,
+    "longitude": 20.5233982357,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 3.0527320757584198
+  },
+  {
+    "idPoint": 134,
+    "x": 462126.59821022645,
+    "y": 4930500.174386171,
+    "latitude": 44.526832787,
+    "longitude": 20.5233729711,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -3.008079926115833
+  },
+  {
+    "idPoint": 135,
+    "x": 462125.15689796035,
+    "y": 4930499.47339804,
+    "latitude": 44.5268264007,
+    "longitude": 20.5233548846,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.688921237836962
+  },
+  {
+    "idPoint": 136,
+    "x": 462124.5029,
+    "y": 4930498.448,
+    "latitude": 44.5268171354,
+    "longitude": 20.5233467298,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -2.1385466015670582
+  },
+  {
+    "idPoint": 137,
+    "x": 462116.4118975155,
+    "y": 4930464.196389482,
+    "latitude": 44.5265083649,
+    "longitude": 20.5232474253,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.8027665312898957
+  },
+  {
+    "idPoint": 138,
+    "x": 462113.90651116497,
+    "y": 4930453.590346827,
+    "latitude": 44.5264127539,
+    "longitude": 20.5232166757,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.8027665312938388
+  },
+  {
+    "idPoint": 139,
+    "x": 462104.2754,
+    "y": 4930412.819,
+    "latitude": 44.5260452093,
+    "longitude": 20.5230984705,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -1.802766531290001
+  },
+  {
+    "idPoint": 140,
+    "x": 462104.78367814404,
+    "y": 4930411.040175119,
+    "latitude": 44.5260292224,
+    "longitude": 20.5231049974,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -1.29247459772197
+  },
+  {
+    "idPoint": 141,
+    "x": 462106.9924451869,
+    "y": 4930409.09895862,
+    "latitude": 44.5260118629,
+    "longitude": 20.5231329354,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.7210169969305431
+  },
+  {
+    "idPoint": 142,
+    "x": 462110.56543636875,
+    "y": 4930407.290883117,
+    "latitude": 44.5259957737,
+    "longitude": 20.5231780312,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.4684677128643937
+  },
+  {
+    "idPoint": 143,
+    "x": 462114.95869617147,
+    "y": 4930405.891211718,
+    "latitude": 44.5259834041,
+    "longitude": 20.5232334193,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.308428096920974
+  },
+  {
+    "idPoint": 144,
+    "x": 462119.50339061505,
+    "y": 4930405.113031704,
+    "latitude": 44.5259766374,
+    "longitude": 20.5232906674,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.1695836517231466
+  },
+  {
+    "idPoint": 145,
+    "x": 462123.5076311683,
+    "y": 4930405.074813927,
+    "latitude": 44.5259765036,
+    "longitude": 20.5233410601,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.009544036245940813
+  },
+  {
+    "idPoint": 146,
+    "x": 462126.3618085054,
+    "y": 4930405.782376698,
+    "latitude": 44.5259830233,
+    "longitude": 20.5233769255,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 0.2430052482049249
+  },
+  {
+    "idPoint": 147,
+    "x": 462127.6314,
+    "y": 4930407.128,
+    "latitude": 44.5259952037,
+    "longitude": 20.5233928034,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -1.8025108155843035
+  },
+  {
+    "idPoint": 148,
+    "x": 462134.0896740927,
+    "y": 4930434.499068752,
+    "latitude": 44.5262419472,
+    "longitude": 20.5234720663,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3390818380054896
+  },
+  {
+    "idPoint": 149,
+    "x": 462134.0896740927,
+    "y": 4930434.499068752,
+    "latitude": 44.5262419472,
+    "longitude": 20.5234720663,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.8025108155843035
+  },
+  {
+    "idPoint": 150,
+    "x": 462127.6314,
+    "y": 4930407.128,
+    "latitude": 44.5259952037,
+    "longitude": 20.5233928034,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -1.8025108155843035
+  },
+  {
+    "idPoint": 151,
+    "x": 462128.05345553113,
+    "y": 4930405.483106839,
+    "latitude": 44.525980418,
+    "longitude": 20.5233982354,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -1.3196293301452735
+  },
+  {
+    "idPoint": 152,
+    "x": 462129.95919708814,
+    "y": 4930403.715034496,
+    "latitude": 44.5259646012,
+    "longitude": 20.5234223472,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.7479425838272462
+  },
+  {
+    "idPoint": 153,
+    "x": 462133.0584927946,
+    "y": 4930402.092955959,
+    "latitude": 44.5259501614,
+    "longitude": 20.5234614682,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.4821683757315541
+  },
+  {
+    "idPoint": 154,
+    "x": 462136.87950297433,
+    "y": 4930400.86381798,
+    "latitude": 44.5259392969,
+    "longitude": 20.5235096425,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.3112250632126173
+  },
+  {
+    "idPoint": 155,
+    "x": 462140.84051346505,
+    "y": 4930400.214745672,
+    "latitude": 44.5259336616,
+    "longitude": 20.5235595359,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -0.16242182449958983
+  },
+  {
+    "idPoint": 156,
+    "x": 462144.33849632624,
+    "y": 4930400.244554414,
+    "latitude": 44.5259341136,
+    "longitude": 20.5236035527,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 0.008521488425025116
+  },
+  {
+    "idPoint": 157,
+    "x": 462146.84091537655,
+    "y": 4930400.948706093,
+    "latitude": 44.525940584,
+    "longitude": 20.5236349918,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 0.2742956961991861
+  },
+  {
+    "idPoint": 158,
+    "x": 462147.9668,
+    "y": 4930402.22,
+    "latitude": 44.5259520877,
+    "longitude": 20.5236490668,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -1.802657363326989
+  },
+  {
+    "idPoint": 159,
+    "x": 462150.97340657806,
+    "y": 4930414.954069519,
+    "latitude": 44.5260668822,
+    "longitude": 20.5236859681,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": 1.3389352902628042
+  },
+  {
+    "idPoint": 160,
+    "x": 462150.97340657806,
+    "y": 4930414.954069519,
+    "latitude": 44.5260668822,
+    "longitude": 20.5236859681,
+    "pointType": "U",
+    "samplingSide": "RIGHT",
+    "orientation": -1.802657363326989
+  },
+  {
+    "idPoint": 161,
+    "x": 462147.9668,
+    "y": 4930402.22,
+    "latitude": 44.5259520877,
+    "longitude": 20.5236490668,
+    "pointType": "P",
+    "samplingSide": "none",
+    "orientation": -1.802657363326989
+  },
+  {
+    "idPoint": 162,
+    "latitude": 44.5259288795,
+    "longitude": 20.5237334277,
+    "x": 462154.6553,
+    "y": 4930399.603,
+    "pointType": "H",
+    "samplingSide": "none",
+    "orientation": -0.3729567163592264
+  }
+]

@@ -91,4 +91,9 @@ class Vector:
         retval.from_array(result)
         return retval
     
+    def __str__(self):
+        return f"({self.dx}, {self.dy}), {self.angle()}°"
+    
+    def __repr__(self):
+        return str(self)
 

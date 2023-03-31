@@ -24,7 +24,7 @@ def duplicate_prepend_rotation(solution):
     for s in solution:
         step_original = copy(s)
 
-        if s.turning:
+        if s.type == PointType.SAMPLE and s.turning:
             step_duplicate = copy(s)
             step_duplicate.type = PointType.DUPLICATE
             step_duplicate.orientation_out = None
@@ -40,17 +40,18 @@ def duplicate_prepend_rotation(solution):
 
 def duplicate_postpend_direction(solution):
     retval  = []
-    for s in solution:
+    for ind, s in enumerate(solution):
         step_original = copy(s)
         step_duplicate = None
 
-        if step_original.orientation_in.angle_between(step_original.orientation_out) > 0.9 * pi:
-            step_duplicate = copy(s)
-            step_duplicate.type = PointType.DUPLICATE
-            step_duplicate.orientation_in = step_original.orientation_out
-            step_duplicate.orientation_out = step_original.orientation_out
+        if step_original.type == PointType.SAMPLE:
+            if step_original.orientation_in.angle_between(step_original.orientation_out) > 0.9 * pi:
+                step_duplicate = copy(s)
+                step_duplicate.type = PointType.DUPLICATE
+                step_duplicate.orientation_in = step_original.orientation_out
+                step_duplicate.orientation_out = step_original.orientation_out
 
-            step_original.orientation_out = None
+                step_original.orientation_out = None
 
         retval.append(step_original)
         if step_duplicate:

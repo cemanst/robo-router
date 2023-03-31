@@ -64,7 +64,7 @@ def print_sol(sol, D, P, casename, filename="results"):
         else: 
             pfp["pointType"] = 'P'
             pfp["samplingSide"] = "none"
-        pfp["orientation"] = sol[i].orientation.angle()
+        pfp["orientation"] = sol[i].orientation_in.angle()
 
         res.append(pfp)
         id_cnt += 1
@@ -90,7 +90,7 @@ def print_sol(sol, D, P, casename, filename="results"):
     pfp3["y"] = sol[-1].y
     pfp3["pointType"] = 'H'
     pfp3["samplingSide"] = "none"
-    pfp3["orientation"] = sol[-1].orientation.angle()
+    pfp3["orientation"] = sol[-1].orientation_in.angle()
 
     res.append(pfp3)
     id_cnt += 1
