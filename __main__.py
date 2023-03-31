@@ -128,6 +128,9 @@ def check_solution(rows, collection_points, sol, casename, filename):
         if sol[i].type == PointType.SAMPLE or sol[i].type == PointType.UPPER:
             plt.annotate(str(ind), (x[i], y[i]))
             ind += 1
+    # for ind, sp in enumerate(sol):
+    #     if sp.type in [PointType.SAMPLE, PointType.UPPER]:
+    #         plt.annotate(ind, (sp.x, sp.y) )
 
     for sp in sol:
         if sp.turning:

@@ -35,10 +35,16 @@ class Point:
     oritentation_out = None # auxiliary orientation, for where it should go afterwards
 
     def __str__(self) -> str:
-        return f"{self.id}:({self.x},{self.y},{self.elev}), type:{self.type}, turning:{self.turning}"
+        return f"{self.id}:({self.x},{self.y},{self.elev}), type:{self.type}, turning:{self.turning}, orientation: {self.orientation_in}"
     
     def __repr__(self) -> str:
         return str(self)
+    
+    def approaching_point(self):
+        return self.lowerProj
+    
+    def approaching_row(self):
+        return self.lowerRow
 
 
 class Arc:
