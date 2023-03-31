@@ -31,7 +31,8 @@ class Point:
     lowerRow = None
     upperProj = None
     lowerProj = None
-    orientation = None
+    orientation_in = None # referent orientation
+    oritentation_out = None # auxiliary orientation, for where it should go afterwards
 
     def __str__(self) -> str:
         return f"{self.id}:({self.x},{self.y},{self.elev}), type:{self.type}, turning:{self.turning}"

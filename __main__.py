@@ -11,12 +11,13 @@ from pyproj import Transformer
 from algorithm2.alns import alns
 from algorithm2.greedy import run_greedy
 from algorithm2.prepare_reduced_graph import prepare_data, generate_graph
-from postprocessing.complete_solution import create_complete_sol
+
 from data_reader import read_data, PointType
 
+from postprocessing.complete_solution import create_complete_sol
 from postprocessing.fixing import fix_init_point_connection, fix_all_inverse
 from postprocessing.smoothing import insert_sinuosities
-from postprocessing.orientation import assign_directions, duplicate_rotation_points
+from postprocessing.orientation import assign_orientation, duplicate_prepend_rotation, duplicate_postpend_direction
 
 from geometry.shifting import shift_corners, shift_out_init_point
 from watering.single_pass_watering import single_pass_watering
@@ -182,9 +183,11 @@ def main():
         fix_init_point_connection(alns_sol, rows)
 
         alns_sol = insert_sinuosities(alns_sol, rows)
-        alns_sol = assign_directions(alns_sol)
-        # alns_sol = duplicate_rotation_points(alns_sol)
         check_solution(rows, sample_points, alns_sol, casename, filename='best_sol')
+
+        alns_sol = assign_orientation(alns_sol)
+        alns_sol = duplicate_prepend_rotation(alns_sol)
+        alns_sol = duplicate_postpend_direction(alns_sol)
         print_sol(alns_sol, D, P, casename, filename="best_sol")
 
         x = range(len(trend[1]))
@@ -196,19 +199,21 @@ def main():
     elif usecase == "singlepass":
         # pass all rows once in zik-zak manner
         all_pass_solution = single_pass_watering(init_point, rows)
+        
         all_pass_solution = insert_sinuosities(all_pass_solution, rows)
-        all_pass_solution = assign_directions(all_pass_solution)
-        # all_pass_solution = duplicate_rotation_points(all_pass_solution)
         check_solution(rows, sample_points, all_pass_solution, casename, filename="single_pass_sol")
+
+        all_pass_solution = assign_orientation(all_pass_solution)
         print_sol(all_pass_solution, D, P, casename, filename="single_pass_sol")
 
     elif usecase == "doublepass":
         # pass all rows once in zik-zak manner
         all_pass_solution = double_pass_watering(init_point, rows)
+
         all_pass_solution = insert_sinuosities(all_pass_solution, rows)
-        all_pass_solution = assign_directions(all_pass_solution)
-        # all_pass_solution = duplicate_rotation_points(all_pass_solution)
         check_solution(rows, sample_points, all_pass_solution, casename, filename="double_pass_sol")
+
+        all_pass_solution = assign_orientation(all_pass_solution)
         print_sol(all_pass_solution, D, P, casename, filename="double_pass_sol")
 
     # for debugging

@@ -1,4 +1,4 @@
-from math import pi, sin, cos, asin
+from math import pi, sin, cos, asin, acos
 from copy import copy
 
 import numpy as np
@@ -55,8 +55,18 @@ class Vector:
             elif referent_angle < 0:
                 diff = (-pi/2) - referent_angle
             return 2*diff + referent_angle
-            
+    
+    def dot(self, another):
+        return self.dx * another.dx + self.dy * another.dy
 
+
+    def angle_between(self, another):
+        ratio = self.dot(another) / (self.get_length() * another.get_length())
+        
+        ratio = max(-1, ratio)
+        ratio = min(1, ratio)
+
+        return acos(ratio)
 
 
     def rotate(self, angle = pi/2):
@@ -80,5 +90,5 @@ class Vector:
         retval = Vector()
         retval.from_array(result)
         return retval
-        
+    
 
