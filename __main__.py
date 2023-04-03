@@ -14,7 +14,7 @@ from algorithm2.prepare_reduced_graph import prepare_data, generate_graph
 
 from data_reader import read_data, PointType
 
-from postprocessing.complete_solution import create_complete_sol
+from postprocessing.complete_solution import create_complete_sol, extract_copies
 from postprocessing.fixing import fix_init_point_connection, fix_all_inverse
 from postprocessing.smoothing import insert_sinuosities
 from postprocessing.orientation import assign_orientation, duplicate_prepend_rotation, duplicate_postpend_direction
@@ -188,6 +188,7 @@ def main():
         alns_sol = insert_sinuosities(alns_sol, rows)
         check_solution(rows, sample_points, alns_sol, casename, filename='best_sol')
 
+        alns_sol = extract_copies(alns_sol)
         alns_sol = assign_orientation(alns_sol)
         alns_sol = duplicate_prepend_rotation(alns_sol)
         alns_sol = duplicate_postpend_direction(alns_sol)
@@ -206,6 +207,7 @@ def main():
         all_pass_solution = insert_sinuosities(all_pass_solution, rows)
         check_solution(rows, sample_points, all_pass_solution, casename, filename="single_pass_sol")
 
+        all_pass_solution = extract_copies(all_pass_solution)
         all_pass_solution = assign_orientation(all_pass_solution)
         print_sol(all_pass_solution, D, P, casename, filename="single_pass_sol")
 
@@ -216,6 +218,7 @@ def main():
         all_pass_solution = insert_sinuosities(all_pass_solution, rows)
         check_solution(rows, sample_points, all_pass_solution, casename, filename="double_pass_sol")
 
+        all_pass_solution = extract_copies(all_pass_solution)
         all_pass_solution = assign_orientation(all_pass_solution)
         print_sol(all_pass_solution, D, P, casename, filename="double_pass_sol")
 

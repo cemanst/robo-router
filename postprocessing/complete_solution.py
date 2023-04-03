@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from model.model import PointType, Direction
 from model.params import energy_rotation, TURNING_DIST
 
@@ -39,3 +41,9 @@ def create_complete_sol(sol, D, P):
                 direction = Direction.DOWN
 
     return full, cost
+
+def extract_copies(solution):
+    retval = []
+    for s in solution:
+        retval.append( deepcopy(s) ) # resolved pointing to same auxiliray point issue
+    return retval
