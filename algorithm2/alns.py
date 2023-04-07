@@ -88,7 +88,8 @@ def alns(init_point, collection_points, graph, D, P):
                 reward = reward_base
             else:
                 reward = -reward_base
-                r = random.random()
+                # r = random.random()
+                r = random.random() if not DEBUG else 0
                 if r < math.exp((curr_cost - new_cost) / temperatures[i]):
                     curr_sol = new_sol
                     curr_cost = new_cost
