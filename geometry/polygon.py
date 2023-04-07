@@ -1,6 +1,10 @@
+from math import pi
+
 import numpy as np
 
-from geometry.crown import Crown
+from model.params import sinuosity_scale_width, sinuosity_scale_height
+from geometry.bend import Bend
+# from geometry.crown import Crown
 from geometry.symmetry import symmetry
 from geometry.vector import Vector
 
@@ -29,7 +33,11 @@ def is_same_side(init_point, centroid, point1, point2):
     return side_centroid == side_init # same or different sides of point1-point2 line
 
 
-def sinuosity(point_a, point_b, centroid, height):
+def sinuosity(point_a, point_b, centroid, row_width):
+    distance = Vector(point_b, point_a).get_length()
+    W = min(distance, row_width) * sinuosity_scale_width
+    H = min(distance, row_width) * sinuosity_scale_height
+
     sa, middle, sb = symmetry(point_a, point_b)
     outer = None
     if not is_same_side(sa, centroid, point_a, point_b):
@@ -39,11 +47,22 @@ def sinuosity(point_a, point_b, centroid, height):
     
     xaxis  = Vector(point_b, middle)
     yaxis = Vector(outer, middle)
-    yaxis.set_length(height)
+    
+    xaxis.set_length(W)
+    yaxis.set_length(H)
 
-    crown = Crown(npoints = 9)
-    intersteps = crown.apply(xaxis, yaxis, middle)
-    return intersteps
+    bend_a = Bend(npoints=9, leaving=True, inner=True)
+    pivot_a = xaxis.shift(point_a, inplace=False)
+    pivot_a.elev = point_a.elev
+    intersteps_a = bend_a.apply(xaxis, yaxis, pivot_a)
+
+    bend_b = Bend(npoints=9, leaving=False, inner=True)
+    xreverse = xaxis.rotate(pi)
+    pivot_b = xreverse.shift(point_b, inplace=False)
+    pivot_b.elev = point_b.elev
+    intersteps_b = bend_b.apply(xaxis, yaxis, pivot_b)
+
+    return intersteps_a + intersteps_b
     
 
 

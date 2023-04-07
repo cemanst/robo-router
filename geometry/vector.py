@@ -26,7 +26,7 @@ class Vector:
 
     def set_length(self, length = 1):
         prev_len = self.get_length()
-        scale = (length/prev_len) ** 0.5
+        scale = length / prev_len
         
         self.dx *= scale 
         self.dy *= scale
