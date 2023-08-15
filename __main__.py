@@ -1,6 +1,4 @@
-import math
 import random
-import sys
 import os
 
 import pandas as pd
@@ -15,11 +13,10 @@ from algorithm2.prepare_reduced_graph import prepare_data, generate_graph
 from data_reader import read_data, PointType
 
 from postprocessing.complete_solution import create_complete_sol, extract_copies
-from postprocessing.fixing import fix_init_point_connection, fix_all_inverse
+from postprocessing.fixing import fix_init_point_connection
 from postprocessing.smoothing import insert_sinuosities
 from postprocessing.orientation import assign_orientation, duplicate_prepend_rotation, duplicate_postpend_direction
 
-from geometry.shifting import shift_corners, shift_out_init_point
 from watering.single_pass_watering import single_pass_watering
 from watering.double_pass_watering import double_pass_watering
 
@@ -103,14 +100,14 @@ def print_sol(sol, D, P, casename, filename="results"):
 
 def check_solution(rows, collection_points, sol, casename, filename):
     for r in rows:
-        plt.plot([r.a.x, r.b.x], [r.a.y, r.b.y], 'ro--')
+        plt.plot([r.a.x, r.b.x], [r.a.y, r.b.y], 'r.--')
 
     for cp in collection_points:
-        plt.plot(cp.x, cp.y, 'bo')
+        plt.plot(cp.x, cp.y, 'bs')
         if cp.upperProj is not None:
-            plt.plot(cp.upperProj.x, cp.upperProj.y, 'yo')
-        if cp.lowerProj is not None:
-            plt.plot(cp.lowerProj.x, cp.lowerProj.y, 'yo')
+            plt.plot(cp.upperProj.x, cp.upperProj.y, 'kx')
+        # if cp.lowerProj is not None:
+        #     plt.plot(cp.lowerProj.x, cp.lowerProj.y, 'kx')
 
         # plt.plot([cp.upperRow.a.x, cp.upperRow.b.x], [cp.upperRow.a.y, cp.upperRow.b.y], 'bo-')
         # plt.plot([cp.lowerRow.a.x, cp.lowerRow.b.x], [cp.lowerRow.a.y, cp.lowerRow.b.y], 'bo-')
@@ -121,12 +118,14 @@ def check_solution(rows, collection_points, sol, casename, filename):
         x.append(sp.x)
         y.append(sp.y)
 
-    plt.plot(x, y, 'g.-')
+    plt.plot(x, y, 'g-')
 
     ind = 1
     for i in range(len(x)):
-        if sol[i].type == PointType.SAMPLE or sol[i].type == PointType.UPPER:
-            plt.annotate(str(ind), (x[i], y[i]))
+        if sol[i].type == PointType.SAMPLE:
+            plt.annotate(str(ind), (x[i]-130, y[i]+50))
+            if not sol[i].turning:
+                plt.plot(x[i], y[i], 'go')
             ind += 1
     # for ind, sp in enumerate(sol):
     #     if sp.type in [PointType.SAMPLE, PointType.UPPER]:
@@ -134,7 +133,7 @@ def check_solution(rows, collection_points, sol, casename, filename):
 
     for sp in sol:
         if sp.turning:
-            plt.plot(sp.x, sp.y, 'mo')
+            plt.plot(sp.x, sp.y, 'md')
         
         # if sp.type == PointType.SINUOSITY:
         #     plt.plot(sp.x, sp.y, 'c+')
@@ -148,7 +147,7 @@ def check_solution(rows, collection_points, sol, casename, filename):
 # main for run
 def main():
     usecase = "optimize" # options: optimize, singlepass, doublepass
-    casename = "test2_6mart" # test2_6mart, with_elev
+    casename = "with_elev_10" # test2_6mart, with_elev
 
     random.seed()
     rows, sample_points, init_points = read_data(casename)
@@ -227,49 +226,63 @@ def main():
 
 
 # main for tuning and testing
-def main_for_tuning():
-    rows, sample_points, init_points = read_data()
+def tuning_main():
 
-    res = pd.DataFrame(columns = ['init_cost', 'init_elapsed', 'final_cost', 'final_elapsed', 'improvement'])
-    best_sol = None
-    best_cost = sys.float_info.max
+    stats = pd.DataFrame(columns=['case', 'init cost', 'best cost', 'improvement', 'sol time'])
 
-    for init_point in init_points:
-        prepare_data(init_point, sample_points, rows)
-        graph, D, P = generate_graph(init_point, sample_points)
+    casenames = ["with_elev_10", "with_elev_50", "with_elev"] #"with_elev",
 
-        # Greedy
-        start = time.process_time_ns()
-        sol = run_greedy(init_point, graph, D)
-        init_sol, init_cost = create_complete_sol(sol, D, P)
-        end = time.process_time_ns()
-        init_time = (end-start)/1000000000.0
+    for casename in casenames:
 
-        # ALNS
-        start = time.process_time_ns()
-        sol, weights, trend = alns(init_point, sample_points, graph, D, P)
-        # check_P(rows, sample_points, sol, P)
-        alns_sol, alns_cost = create_complete_sol(sol, D, P)
-        end = time.process_time_ns()
-        alns_time = (end - start) / 1000000000.0
+        rows, sample_points, init_points = read_data(casename)
 
-        if best_cost > alns_cost:
-            best_cost = alns_cost
-            best_sol = alns_sol
+        for init_point in init_points:
+            prepare_data(init_point, sample_points, rows)
+            graph, D, P = generate_graph(init_point, sample_points)
 
-        res.loc[len(res)] = [init_cost, init_time, alns_cost, alns_time, (init_cost-alns_cost) / init_cost]
+            # Greedy
+            start = time.process_time_ns()
+            init_sol = run_greedy(init_point, graph, D)
+            # create_complete_sol(init_sol, D, P)
+            # fixed_sol = fix_all_inverse(init_sol, sample_points)
+            fs, init_cost = create_complete_sol(init_sol, D, P)
+            end = time.process_time_ns()
+            init_time = (end - start) / 1000000000.0
+            fix_init_point_connection(fs, rows)
+            # check_solution(rows, sample_points, fs, casename, filename='init_sol')
 
-    casename = None
-    check_solution(rows, sample_points, best_sol, casename, filename='best_sol')
-    print_sol(best_sol, D, P, casename, filename="best_sol")
+            # ALNS
+            start = time.process_time_ns()
+            alns_sol, alns_cost, weights, trend, init_cost = alns(init_point, sample_points, graph, D, P)
+            end = time.process_time_ns()
+            alns_time = (end - start) / 1000000000.0
 
-    res.to_csv('./data/best_solutions.csv')
+            # print('Initial solution found in ' + str(init_time) + ' seconds.')
+            # print('Initial solution cost: ' + str(init_cost))
+            # print('Final solution found in ' + str(alns_time) + ' seconds.')
+            # print('Final solution cost: ' + str(alns_cost))
 
-    # x = range(len(trend[1]))
-    # plt.plot(x, trend[1], 'g-')
-    # plt.plot(x, trend[2], 'b-')
-    # # plt.show()
-    # plt.savefig('./data/trend.svg', format="svg")
+            fix_init_point_connection(alns_sol, rows)
+
+            alns_sol = insert_sinuosities(alns_sol, rows)
+            #check_solution(rows, sample_points, alns_sol, casename, filename='best_sol')
+
+            alns_sol = extract_copies(alns_sol)
+            alns_sol = assign_orientation(alns_sol)
+            alns_sol = duplicate_prepend_rotation(alns_sol)
+            alns_sol = duplicate_postpend_direction(alns_sol)
+            #print_sol(alns_sol, D, P, casename, filename="best_sol")
+
+            # x = range(len(trend[1]))
+            # plt.plot(x, trend[1], 'g-')
+            # plt.plot(x, trend[2], 'b-')
+            # # plt.show()
+            # plt.savefig(f'./data/out/paths/{casename}/trend.svg', format="svg")
+
+            stats.loc[len(stats)] = [casename, init_cost, alns_cost, round(100*(init_cost - alns_cost) / init_cost, 2),  alns_time]
+
+    os.makedirs(f'./data/out', exist_ok=True)
+    stats.to_csv(f'./data/out/stats.csv')
 
     # for debugging
     pass

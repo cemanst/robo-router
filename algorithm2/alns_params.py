@@ -4,7 +4,7 @@ DEBUG = False
 M = 100 if DEBUG else 1000
 
 delta = 500
-p0 = 0.3
+p0 = 0.8
 pf = 0.00001
 Ts = 10000
 Tf = 100
