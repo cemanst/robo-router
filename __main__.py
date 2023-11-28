@@ -236,7 +236,8 @@ def tuning_main():
 
         rows, sample_points, init_points = read_data(casename)
 
-        for init_point in init_points:
+        for iter, init_point in enumerate(init_points):
+            print(f"{casename}, iteration {iter}")
             prepare_data(init_point, sample_points, rows)
             graph, D, P = generate_graph(init_point, sample_points)
 
@@ -290,4 +291,4 @@ def tuning_main():
 
 
 if __name__ == '__main__':
-    main()
+    tuning_main()
