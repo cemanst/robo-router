@@ -9,6 +9,7 @@ from pyproj import Transformer
 from algorithm2.alns import alns
 from algorithm2.greedy import run_greedy
 from algorithm2.prepare_reduced_graph import prepare_data, generate_graph
+from algorithm2.vns import vns
 
 from data_reader import read_data, PointType
 
@@ -143,11 +144,94 @@ def check_solution(rows, collection_points, sol, casename, filename):
     plt.savefig(f'./data/out/paths/{casename}/{filename}.svg', format="svg")
     plt.clf()
 
+def run_alns(casename, init_point, sample_points, rows):
+    prepare_data(init_point, sample_points, rows)
+    graph, D, P = generate_graph(init_point, sample_points)
+
+    # Greedy
+    start = time.process_time_ns()
+    init_sol = run_greedy(init_point, graph, D)
+    # create_complete_sol(init_sol, D, P)
+    # fixed_sol = fix_all_inverse(init_sol, sample_points)
+    fs, init_cost = create_complete_sol(init_sol, D, P)
+    end = time.process_time_ns()
+    init_time = (end - start) / 1000000000.0
+    fix_init_point_connection(fs, rows)
+    check_solution(rows, sample_points, fs, casename, filename='init_sol')
+
+    # ALNS
+    start = time.process_time_ns()
+    alns_sol, alns_cost, weights, trend, init_cost = alns(init_point, sample_points, graph, D, P)
+    end = time.process_time_ns()
+    alns_time = (end - start) / 1000000000.0
+
+    print('Initial solution found in ' + str(init_time) + ' seconds.')
+    print('Initial solution cost: ' + str(init_cost))
+    print('Final solution found in ' + str(alns_time) + ' seconds.')
+    print('Final solution cost: ' + str(alns_cost))
+
+    fix_init_point_connection(alns_sol, rows)
+
+    alns_sol = insert_sinuosities(alns_sol, rows)
+    check_solution(rows, sample_points, alns_sol, casename, filename='best_sol')
+
+    alns_sol = extract_copies(alns_sol)
+    alns_sol = assign_orientation(alns_sol)
+    alns_sol = duplicate_prepend_rotation(alns_sol)
+    alns_sol = duplicate_postpend_direction(alns_sol)
+    print_sol(alns_sol, D, P, casename, filename="best_sol")
+
+    x = range(len(trend[1]))
+    plt.plot(x, trend[1], 'g-')
+    plt.plot(x, trend[2], 'b-')
+    # plt.show()
+    plt.savefig(f'./data/out/paths/{casename}/trend.svg', format="svg")
+
+    return alns_cost, init_cost, alns_time
+
+
+def run_vns(casename, init_point, sample_points, rows):
+    prepare_data(init_point, sample_points, rows)
+    graph, D, P = generate_graph(init_point, sample_points)
+
+    start = time.process_time_ns()
+    init_sol = run_greedy(init_point, graph, D)
+    # create_complete_sol(init_sol, D, P)
+    # fixed_sol = fix_all_inverse(init_sol, sample_points)
+    fs, init_cost = create_complete_sol(init_sol, D, P)
+    end = time.process_time_ns()
+    init_time = (end - start) / 1000000000.0
+    fix_init_point_connection(fs, rows)
+    check_solution(rows, sample_points, fs, casename, filename='init_sol')
+
+    # VNS
+    start = time.process_time_ns()
+    vns_sol, vns_cost, init_cost = vns(init_point, sample_points, graph, D, P)
+    end = time.process_time_ns()
+    vns_time = (end - start) / 1000000000.0
+
+    print('Initial solution found in ' + str(init_time) + ' seconds.')
+    print('Initial solution cost: ' + str(init_cost))
+    print('Final solution found in ' + str(vns_time) + ' seconds.')
+    print('Final solution cost: ' + str(vns_cost))
+
+    fix_init_point_connection(vns_sol, rows)
+
+    vns_sol = insert_sinuosities(vns_sol, rows)
+    check_solution(rows, sample_points, vns_sol, casename, filename='best_sol')
+
+    vns_sol = extract_copies(vns_sol)
+    vns_sol = assign_orientation(vns_sol)
+    vns_sol = duplicate_prepend_rotation(vns_sol)
+    vns_sol = duplicate_postpend_direction(vns_sol)
+    print_sol(vns_sol, D, P, casename, filename="best_sol")
+
+    return vns_cost, init_cost, vns_time
 
 # main for run
 def main():
-    usecase = "optimize" # options: optimize, singlepass, doublepass
-    casename = "with_elev_10" # test2_6mart, with_elev
+    usecase = "optimizeALNS" # options: optimizeALNS, optimizeVNS, singlepass, doublepass
+    casename = "with_elev_75" # test2_6mart, with_elev, with_elev_10, with_elev_50
 
     random.seed()
     rows, sample_points, init_points = read_data(casename)
@@ -159,45 +243,33 @@ def main():
     prepare_data(init_point, sample_points, rows)
     graph, D, P = generate_graph(init_point, sample_points)
 
-    if usecase == "optimize":
-        # Greedy
-        start = time.process_time_ns()
-        init_sol = run_greedy(init_point, graph, D)
-        # create_complete_sol(init_sol, D, P)
-        # fixed_sol = fix_all_inverse(init_sol, sample_points)
-        fs, init_cost = create_complete_sol(init_sol, D, P)
-        end = time.process_time_ns()
-        init_time = (end-start)/1000000000.0
-        fix_init_point_connection(fs, rows)
-        check_solution(rows, sample_points, fs, casename, filename='init_sol')
+    if usecase == "optimizeALNS":
+        vcs, ics, vts = [], [], []
+        for init_point in init_points:
+            alns_cost, init_cost, alns_time = run_alns(casename, init_point, sample_points, rows)
+            vcs.append(alns_cost)
+            ics.append(init_cost)
+            vts.append(alns_time)
+        df_out = pd.DataFrame()
+        df_out['VNS cost'] = vcs
+        df_out['Init cost'] = ics
+        df_out['VNS time'] = vts
+        df_out.to_csv(f'./data/out/paths/{casename}/alns_results.csv')
 
-        # ALNS
-        start = time.process_time_ns()
-        alns_sol, alns_cost, weights, trend, init_cost = alns(init_point, sample_points, graph, D, P)
-        end = time.process_time_ns()
-        alns_time = (end - start) / 1000000000.0
+    elif usecase == "optimizeVNS":
+        vcs, ics, vts = [], [], []
+        for init_point in init_points:
+            vns_cost, init_cost, vns_time = run_vns(casename, init_point, sample_points, rows)
+            vcs.append(vns_cost)
+            ics.append(init_cost)
+            vts.append(vns_time)
+        df_out = pd.DataFrame()
+        df_out['VNS cost'] = vcs
+        df_out['Init cost'] = ics
+        df_out['VNS time'] = vts
+        df_out.to_csv(f'./data/out/paths/{casename}/vns_results.csv')
 
-        print('Initial solution found in ' + str(init_time) + ' seconds.')
-        print('Initial solution cost: ' + str(init_cost))
-        print('Final solution found in ' + str(alns_time) + ' seconds.')
-        print('Final solution cost: ' + str(alns_cost))
 
-        fix_init_point_connection(alns_sol, rows)
-
-        alns_sol = insert_sinuosities(alns_sol, rows)
-        check_solution(rows, sample_points, alns_sol, casename, filename='best_sol')
-
-        alns_sol = extract_copies(alns_sol)
-        alns_sol = assign_orientation(alns_sol)
-        alns_sol = duplicate_prepend_rotation(alns_sol)
-        alns_sol = duplicate_postpend_direction(alns_sol)
-        print_sol(alns_sol, D, P, casename, filename="best_sol")
-
-        x = range(len(trend[1]))
-        plt.plot(x, trend[1], 'g-')
-        plt.plot(x, trend[2], 'b-')
-        # plt.show()
-        plt.savefig(f'./data/out/paths/{casename}/trend.svg', format="svg")
 
     elif usecase == "singlepass":
         # pass all rows once in zik-zak manner

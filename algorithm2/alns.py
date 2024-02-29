@@ -4,7 +4,7 @@ import sys
 
 from algorithm2.alns_params import *
 from algorithm2.greedy import run_greedy
-from algorithm2.operators import *
+from algorithm2.alns_operators import *
 
 from postprocessing.complete_solution import create_complete_sol
 from postprocessing.fixing import fix_all_inverse
