@@ -10,7 +10,8 @@ from algorithm2.alns import alns
 from algorithm2.greedy import run_greedy
 from algorithm2.prepare_reduced_graph import prepare_data, generate_graph
 from algorithm2.vns import vns
-
+from algorithm2.aco import aco
+from algorithm2.ga import ga
 from data_reader import read_data, PointType
 
 from postprocessing.complete_solution import create_complete_sol, extract_copies
@@ -228,10 +229,105 @@ def run_vns(casename, init_point, sample_points, rows):
 
     return vns_cost, init_cost, vns_time
 
+# ACO 
+def run_aco(casename,init_point,sample_points,rows):
+    prepare_data(init_point, sample_points, rows)
+    graph, D, P = generate_graph(init_point, sample_points)
+
+    start = time.process_time_ns()
+    init_sol = run_greedy(init_point, graph, D)
+    fs, init_cost = create_complete_sol(init_sol, D, P)
+    end = time.process_time_ns()
+    init_time = (end - start) / 1000000000.0
+    fix_init_point_connection(fs, rows)
+    check_solution(rows, sample_points, fs, casename, filename='init_sol')
+
+
+    start = time.process_time_ns()
+    aco_sol,aco_cost,init_cost,trend = aco(init_point,graph,sample_points,D,P,init_sol)
+    end = time.process_time_ns()
+    aco_time = (end-start)/1000000000.0
+
+    print(f'solution: {aco_sol}')
+
+    aco_sol = sorted(sample_points, key=lambda x: aco_sol.index(x.id))
+    
+    fix_init_point_connection(aco_sol, rows)
+
+    aco_sol = insert_sinuosities(aco_sol, rows)
+    check_solution(rows, sample_points, aco_sol, casename, filename='best_sol')
+
+    aco_sol = extract_copies(aco_sol)
+    aco_sol = assign_orientation(aco_sol)
+    aco_sol = duplicate_prepend_rotation(aco_sol)
+    aco_sol = duplicate_postpend_direction(aco_sol)
+    print_sol(aco_sol, D, P, casename, filename="best_sol")
+
+
+    x = range(len(trend[1]))
+    plt.plot(x, trend[0], 'g-')
+    plt.plot(x, trend[1], 'b-')
+    plt.xlabel('iteracija')
+    plt.ylabel('cost funkcija')
+    plt.legend(['trenutna ','najbolja'])
+    plt.show()
+
+    return aco_cost,init_cost,aco_time,init_time
+# Genetic Algorithm 
+def run_ga(casename,init_point,sample_points,rows):
+    prepare_data(init_point, sample_points, rows)
+    graph, D, P = generate_graph(init_point, sample_points)
+
+    start = time.process_time_ns()
+    init_sol = run_greedy(init_point, graph, D)
+    fs, init_cost = create_complete_sol(init_sol, D, P)
+    print(f"init cost : {init_cost}")
+    init_sol_list = list(point.id for point in init_sol)
+    #init_sol_list = sorted(sample_points,key = lambda x: init_sol.index(x.id))
+
+    print (f"init sol : {init_sol_list}")
+    end = time.process_time_ns()
+    init_time = (end - start) / 1000000000.0
+    fix_init_point_connection(fs, rows)
+    check_solution(rows, sample_points, fs, casename, filename='init_sol')
+
+
+    start = time.process_time_ns()
+    ga_sol,ga_cost,best_list,curr_list = ga(D,init_sol,sample_points,P,num_generations=1000,population_size=100,mutation_rate=0.1)
+    print(ga_cost)
+    end = time.process_time_ns()
+    ga_time = (end-start)/1000000000.0
+    ga_sol = list(point.id for point in ga_sol)
+    print(ga_sol)
+    ga_sol = sorted(sample_points, key=lambda x: ga_sol.index(x.id))
+    
+    fix_init_point_connection(ga_sol, rows)
+
+    ga_sol = insert_sinuosities(ga_sol, rows)
+    check_solution(rows, sample_points, ga_sol, casename, filename='best_sol')
+
+    ga_sol = extract_copies(ga_sol)
+    ga_sol = assign_orientation(ga_sol)
+    ga_sol = duplicate_prepend_rotation(ga_sol)
+    ga_sol = duplicate_postpend_direction(ga_sol)
+    print_sol(ga_sol, D, P, casename, filename="best_sol")
+
+    x = range(len(best_list))
+
+    plt.plot(x, curr_list, 'g-')
+    plt.plot(x, best_list, 'b-')
+    plt.xlabel('iteracija')
+    plt.ylabel('cost funkcija')
+    plt.legend(['trenutna ','najbolja'])
+    plt.show()
+
+    return ga_cost,init_cost,ga_time,init_time
+
+
 # main for run
 def main():
-    usecase = "optimizeALNS" # options: optimizeALNS, optimizeVNS, singlepass, doublepass
-    casename = "with_elev_75" # test2_6mart, with_elev, with_elev_10, with_elev_50
+    usecase = "optimizeACO" # options: optimizeACO, optimizeALNS, optimizeVNS, singlepass, doublepass
+    casename = "with_elev_50" # test2_6mart, with_elev, with_elev_10, with_elev_50
 
     random.seed()
     rows, sample_points, init_points = read_data(casename)
@@ -243,7 +339,34 @@ def main():
     prepare_data(init_point, sample_points, rows)
     graph, D, P = generate_graph(init_point, sample_points)
 
-    if usecase == "optimizeALNS":
+    if usecase == "optimizeGA":
+        acs,ics,ats = [],[],[]
+        for init_point in init_points:
+            ga_cost,init_cost,ga_time,init_time = run_ga(casename,init_point,sample_points,rows)
+            acs.append(ga_cost)
+            ics.append(init_cost)
+            ats.append(ga_time)
+            df_out= pd.DataFrame()
+            df_out['GA cost'] = acs
+            df_out['Init cost'] = ics
+            df_out['GA time'] = ats
+            print(f"ga cost: {ga_cost }\ninit cost :{init_cost}")
+           # df_out.to_csv(f'.data/out/paths/{casename}/ga_results.csv')
+
+    elif usecase== "optimizeACO":
+        acs,ics,ats = [],[],[]
+        for init_point in init_points:
+            aco_cost,init_cost,aco_time,init_time = run_aco(casename,init_point,sample_points,rows)
+            acs.append(aco_cost)
+            ics.append(init_cost)
+            ats.append(aco_time)
+            df_out = pd.DataFrame()
+            df_out['ACO cost'] = acs
+            df_out['Init cost'] = ics
+            df_out['ACO time'] = ats
+            print(f"aco cost : {aco_cost} \ninit cost : {init_cost}")
+            df_out.to_csv(f'./data/out/paths/{casename}/aco_results.csv')
+    elif usecase == "optimizeALNS":
         vcs, ics, vts = [], [], []
         for init_point in init_points:
             alns_cost, init_cost, alns_time = run_alns(casename, init_point, sample_points, rows)
@@ -363,4 +486,4 @@ def tuning_main():
 
 
 if __name__ == '__main__':
-    tuning_main()
+    main()

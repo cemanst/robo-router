@@ -12,4 +12,4 @@ energy_transition = 1 # FIXME - update when info available
 energy_rotation = 5 * energy_transition # FIXME - update when info available if not correct 
 
 sinuosity_scale_width = 0.42
-sinuosity_scale_height = 0.84
+sinuosity_scale_height = 0.84 

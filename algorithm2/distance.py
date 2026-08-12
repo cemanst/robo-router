@@ -27,6 +27,8 @@ def objective_energy_consumption(a, b):
     """
     elev_diff = b.elev - a.elev
     uphill_work = ELEV_K * robot_mass * max(0, elev_diff) # diff in potential energy should be considered only when robot is going uphill
+    
+    # can robot save energy by going downhill ? 
 
     x_diff = a.x - b.x
     y_diff = a.y - b.y
