@@ -6,8 +6,7 @@ from algorithm2.alns_params import *
 from algorithm2.greedy import run_greedy
 from algorithm2.alns_operators import *
 
-from postprocessing.complete_solution import create_complete_sol
-from postprocessing.fixing import fix_all_inverse
+from algorithm2.route_evaluation import evaluate_route
 
 def create_temperatures(M, p0, pf, delta):
     temperatures = []
@@ -22,7 +21,7 @@ def create_temperatures_2(M, Ts, Tf):
     return temperatures
 
 
-def alns(init_point, collection_points, graph, D, P):
+def alns(init_point, collection_points, graph, D, P, *, max_evaluations=None):
 
     init_sol = run_greedy(init_point, graph, D)
     # init_sol = create_best(init_point, collection_points)
@@ -30,13 +29,11 @@ def alns(init_point, collection_points, graph, D, P):
                 # shuffle_2, shuffle_3, shuffle_7, shuffle_9, shuffle_13, shuffle_17, shuffle_23]
     operators = [two_opt, three_opt, opt_7]
     oper_weights = [1 / len(operators)] * len(operators)
-    create_complete_sol(init_sol, D, P)
-    fixed_sol = fix_all_inverse(init_sol, collection_points)
-    fs, init_cost = create_complete_sol(fixed_sol, D, P)
+    _, _, init_cost = evaluate_route(init_sol, collection_points, D, P)
 
     # create temperatures for simulated annealing
     temperatures = create_temperatures(M, p0, pf, delta)
-    # temperatures = create_temperatures_2(M, Ts, Tf)
+    cooling = [temperature for temperature in temperatures if temperature >= Tf]
 
     selected_oper = random.randint(0, len(operators))
 
@@ -52,6 +49,8 @@ def alns(init_point, collection_points, graph, D, P):
 
     a = 1
     for i in range(len(temperatures)):
+        if max_evaluations is not None and len(trend[2]) - 1 >= max_evaluations:
+            break
         if temperatures[i] < Tf:
             print('Temperature ' + str(temperatures[i]) + ' is below threshold.')
             break
@@ -75,12 +74,12 @@ def alns(init_point, collection_points, graph, D, P):
                 # Inapplicable operator for this network state, repeat iteration
                 continue
 
-            # this will determine what are the turning points
-            create_complete_sol(new_sol, D, P)
-            # now, manually manually reverse adjacent turning points... (Basically, a repair operator.)
-            fixed_sol = fix_all_inverse(new_sol, collection_points)
-            # ... and calculate the cost of the new solution
-            fs, new_cost = create_complete_sol(fixed_sol, D, P)
+            temperature = temperatures[i]
+            if max_evaluations is not None:
+                # Spread the original cooling schedule across the scored candidates.
+                fraction = (len(trend[2]) - 1) / max(1, max_evaluations - 1)
+                temperature = cooling[round(fraction * (len(cooling) - 1))]
+            _, _, new_cost = evaluate_route(new_sol, collection_points, D, P)
 
             if new_cost < curr_cost:
                 curr_sol = new_sol
@@ -90,7 +89,7 @@ def alns(init_point, collection_points, graph, D, P):
                 reward = -reward_base
                 # r = random.random()
                 r = random.random() if not DEBUG else 0
-                if r < math.exp((curr_cost - new_cost) / temperatures[i]):
+                if r < math.exp((curr_cost - new_cost) / temperature):
                     curr_sol = new_sol
                     curr_cost = new_cost
 
@@ -107,15 +106,14 @@ def alns(init_point, collection_points, graph, D, P):
 
             # print('Iteration no. done: ' + str(iter_cnt+1))
             sys.stdout.flush()
-            trend[0].append(temperatures[i])
+            trend[0].append(temperature)
             trend[1].append(curr_cost)
             trend[2].append(best_cost)
+            if max_evaluations is not None and len(trend[2]) - 1 >= max_evaluations:
+                break
 
         print('Processed temperature: ' + str(temperatures[i]))
 
-    create_complete_sol(best_sol, D, P)
-    fixed_sol = fix_all_inverse(best_sol, collection_points)
-    full_sol, best_full_cost = create_complete_sol(fixed_sol, D, P)
+    _, full_sol, best_full_cost = evaluate_route(best_sol, collection_points, D, P)
 
     return full_sol, best_full_cost, oper_weights, trend, init_cost
-

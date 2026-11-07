@@ -12,6 +12,7 @@ from algorithm2.prepare_reduced_graph import prepare_data, generate_graph
 from algorithm2.vns import vns
 from algorithm2.aco import aco
 from algorithm2.ga import ga
+from algorithm2.route_evaluation import evaluate_route
 from data_reader import read_data, PointType
 
 from postprocessing.complete_solution import create_complete_sol, extract_copies
@@ -236,7 +237,7 @@ def run_aco(casename,init_point,sample_points,rows):
 
     start = time.process_time_ns()
     init_sol = run_greedy(init_point, graph, D)
-    fs, init_cost = create_complete_sol(init_sol, D, P)
+    _, fs, init_cost = evaluate_route(init_sol, sample_points, D, P)
     end = time.process_time_ns()
     init_time = (end - start) / 1000000000.0
     fix_init_point_connection(fs, rows)
@@ -250,7 +251,7 @@ def run_aco(casename,init_point,sample_points,rows):
 
     print(f'solution: {aco_sol}')
 
-    aco_sol = sorted(sample_points, key=lambda x: aco_sol.index(x.id))
+    aco_sol, _ = create_complete_sol([graph[i] for i in aco_sol], D, P)
     
     fix_init_point_connection(aco_sol, rows)
 
@@ -280,12 +281,7 @@ def run_ga(casename,init_point,sample_points,rows):
 
     start = time.process_time_ns()
     init_sol = run_greedy(init_point, graph, D)
-    fs, init_cost = create_complete_sol(init_sol, D, P)
-    print(f"init cost : {init_cost}")
-    init_sol_list = list(point.id for point in init_sol)
-    #init_sol_list = sorted(sample_points,key = lambda x: init_sol.index(x.id))
-
-    print (f"init sol : {init_sol_list}")
+    _, fs, init_cost = evaluate_route(init_sol, sample_points, D, P)
     end = time.process_time_ns()
     init_time = (end - start) / 1000000000.0
     fix_init_point_connection(fs, rows)
@@ -297,10 +293,8 @@ def run_ga(casename,init_point,sample_points,rows):
     print(ga_cost)
     end = time.process_time_ns()
     ga_time = (end-start)/1000000000.0
-    ga_sol = list(point.id for point in ga_sol)
-    print(ga_sol)
-    ga_sol = sorted(sample_points, key=lambda x: ga_sol.index(x.id))
-    
+    ga_sol, _ = create_complete_sol(ga_sol, D, P)
+
     fix_init_point_connection(ga_sol, rows)
 
     ga_sol = insert_sinuosities(ga_sol, rows)

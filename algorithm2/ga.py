@@ -1,131 +1,72 @@
-# genetski algoritam 
-
 import numpy as np
 
-
-import math
-
-import sys
-
-from algorithm2.alns_params import *
-from algorithm2.greedy import run_greedy
-from algorithm2.alns_operators import *
-
-from postprocessing.complete_solution import create_complete_sol
-from postprocessing.fixing import fix_all_inverse
-from algorithm2.aco_utils import construct_sol
-import numpy as np
+from algorithm2.route_evaluation import evaluate_route
 
 
+def ga(D, init_sol, collection_points, P, num_generations, population_size, mutation_rate, *, on_iteration=None):
+    def evaluate(order):
+        repaired, _, cost = evaluate_route(order, collection_points, D, P)
+        return repaired, cost
 
-class Individual:
-    def __init__(self, chromosome,fitness=0):
-        self.chromosome = chromosome
-        self.fitness = fitness
+    depot = init_sol[0]
+    best = evaluate(init_sol)
+    if len(init_sol) < 3:
+        return best[0], best[1], [best[1]] * num_generations, [best[1]] * num_generations
 
-def create_individual(chromosome,fitness=0):
-    return Individual(chromosome,fitness)
+    population = [best]
 
-def crossover(parent1, parent2,D):
-    crossover_point = np.random.randint(1, len(parent1.chromosome))
-    child1 = np.concatenate((parent1.chromosome[:crossover_point], [city for city in parent2.chromosome if city not in parent1.chromosome[:crossover_point]]))
-    child2 = np.concatenate((parent2.chromosome[:crossover_point], [city for city in parent1.chromosome if city not in parent2.chromosome[:crossover_point]]))
+    def perturb(route):
+        child = route.copy()
+        # Mix short reversals with unrestricted moves between crop rows.
+        left, right = sorted(np.random.choice(np.arange(1, len(child)), 2, replace=False))
+        if np.random.rand() < 0.5:
+            child[left:right + 1] = reversed(child[left:right + 1])
+        else:
+            source, destination = (left, right) if np.random.rand() < 0.5 else (right, left)
+            child.insert(destination, child.pop(source))
+        return child
 
-    # pokusaj resenja problema list/np.ndarray nesuglasice
-    child1 = child1.tolist()
-    child2 = child2.tolist()
+    for _ in range(population_size - 1):
+        population.append(evaluate(perturb(best[0])))
 
+    def record():
+        if on_iteration is not None:
+            on_iteration(best[1], [cost for _, cost in population])
 
-    c1 = Individual(child1)
-    c2 = Individual(child2)
-    f1 = calculate_fitness(c1,D)
-    f2 = calculate_fitness(c2,D)
-    return Individual(child1,f1), Individual(child2,f2)
-    # ovde je greska, np.concat pravi numpy array umesto da nastavi da prosledjuje listu klase point
-
-def mutate(individual, mutation_rate,D):
-    if np.random.rand() < mutation_rate:
-        mutation_point1, mutation_point2 = np.random.choice(len(individual.chromosome), 2, replace=False)
-        
-        individual.chromosome[mutation_point1], individual.chromosome[mutation_point2] = individual.chromosome[mutation_point2], individual.chromosome[mutation_point1]
-        calculate_fitness(individual,D)
-
-def calculate_fitness(individual, D):
-    fitness = 0
-    for i in range(len(individual.chromosome) - 1):
-        fitness += D[individual.chromosome[i].id, individual.chromosome[i+1].id]
-    fitness += D[individual.chromosome[-1].id, individual.chromosome[0].id] 
-    individual.fitness = fitness
-    return fitness
-
-def select_parents(population):
-    total_fitness = sum(individual.fitness for individual in population)
-    
-    selection_probs = [individual.fitness / total_fitness for individual in population]
-    
-    parents = np.random.choice(population, 2, p=selection_probs, replace=False)
-    
-    return parents
-
-def create_new_population(population, population_size, mutation_rate, D,n_best = 40):
-    # Sort the population based on fitness
-    sorted_population = sorted(population, key=lambda x: x.fitness)
-    
-    # Keep the best n_best individuals
-    new_population = sorted_population[:n_best].copy()
-    
-    # Fill the rest of the new population with offspring
-    while len(new_population) < population_size:
-        parent1, parent2 = select_parents(sorted_population[:n_best])
-        child1, child2 = crossover(parent1, parent2,D)
-        mutate(child1, mutation_rate,D)
-        mutate(child2, mutation_rate,D)
-        new_population.extend([child1, child2])
-    
-    # Trim the new population to the desired population size
-    return new_population[:population_size]
-
-
-def ga(D,init_sol,collection_points,P, num_generations, population_size, mutation_rate):
-    fixed_sol = fix_all_inverse(init_sol, collection_points)
-    fs, init_cost = create_complete_sol(fixed_sol, D, P)
-    best_sol = init_sol
-    best_cost = init_cost
-
-    ###
-    # ovde je greska: jako je glupavo da se pravi cela populacija od identicne jedinke. moraju se stvarati na random nazalost
-    population = [create_individual(init_sol,init_cost) for _ in range(population_size)]
-    ###
-    print (f"types of best sol and init sol : {type(best_sol), type(init_sol[1]), type(population[1].chromosome[1])}")
+    if num_generations:
+        best = min(population, key=lambda individual: individual[1])
+        record()
 
     best_list = []
     curr_list = []
-    for generation in range(num_generations):
-       # print(f"GEN {generation}")
-        for individual in population:
-            calculate_fitness(individual, D)
+    for _ in range(num_generations):
+        ranked = sorted(population, key=lambda individual: individual[1])
+        elite_count = min(40, max(1, population_size // 2))
+        population = ranked[:elite_count]
+        # Keep room for fresh routes even when the top individuals converge.
+        immigrants = min(population_size - elite_count, max(1, population_size // 10))
+        weights = np.arange(len(ranked), 0, -1, dtype=float)
+        weights /= weights.sum()
+        while len(population) < population_size - immigrants:
+            first, second = np.random.choice(len(ranked), 2, replace=False, p=weights)
+            parent1, parent2 = ranked[first][0], ranked[second][0]
+            left, right = sorted(np.random.choice(np.arange(1, len(parent1) + 1), 2, replace=False))
+            segment = parent1[left:right]
+            used = {point.id for point in segment}
+            other = [point for point in parent2[1:] if point.id not in used]
+            child = [depot] + other[:left - 1] + segment + other[left - 1:]
+            if np.random.rand() < mutation_rate:
+                child = perturb(child)
+            population.append(evaluate(child))
 
-        new_population = create_new_population(population,population_size,mutation_rate,D)
+        for _ in range(immigrants):
+            population.append(evaluate(perturb(best[0])))
 
-        population = new_population
+        current = min(population, key=lambda individual: individual[1])
+        if current[1] < best[1]:
+            best = current
+        curr_list.append(current[1])
+        best_list.append(best[1])
+        record()
 
-        best_curr_individual = min(population, key=lambda x: x.fitness)
-        curr_list.append(best_curr_individual.fitness)
-
-        if best_curr_individual.fitness<best_cost:
-            best_sol = best_curr_individual.chromosome
-            best_cost = best_curr_individual.fitness
-        best_list.append(best_cost)
-
-    print(f"type of best sol: {type(best_sol)}")
-    create_complete_sol(best_sol, D, P)
-    print(f"type of best sol: {type(best_sol)}")
-    fixed_sol = fix_all_inverse(best_sol, collection_points)
-    full_sol, best_full_cost = create_complete_sol(fixed_sol, D, P)
-
-
-   # return best_sol, best_cost, best_list,curr_list
-    return best_sol, best_cost, best_list,curr_list
-
-
-
+    return best[0], best[1], best_list, curr_list
